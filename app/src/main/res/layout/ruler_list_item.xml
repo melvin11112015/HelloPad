@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:descendantFocusability="beforeDescendants"
+    android:orientation="horizontal">
+
+
+    <CheckBox
+        android:id="@+id/chb_select"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp" />
+
+
+    <TextView
+        android:id="@+id/tvMaterialID"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center" />
+
+
+    <TextView
+        android:id="@+id/tvMaterialName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center" />
+
+
+    <EditText
+        android:id="@+id/etRawMaterialID"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:selectAllOnFocus="true"
+        android:layout_weight="1"
+        android:gravity="center" />
+
+    <EditText
+        android:id="@+id/etQuantity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:selectAllOnFocus="true"
+        android:layout_weight="0.6"
+        android:inputType="number"
+        android:gravity="right" />
+
+    <EditText
+        android:id="@+id/etRemark"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:selectAllOnFocus="true"
+        android:layout_weight="1"
+        android:gravity="left" />
+
+    <Button
+        android:id="@+id/btnTakePhoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="查看" />
+
+</LinearLayout>

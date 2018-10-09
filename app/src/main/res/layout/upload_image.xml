@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:layout_centerInParent="true"
+            android:text="标题"
+            android:textSize="24dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/iv_cover"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center_horizontal"
+            android:scaleType="fitCenter"
+            android:src="@drawable/test"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:layout_gravity="center">
+
+            <Button
+                android:id="@+id/btn_back"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:text="返回" />
+
+            <Button
+                android:id="@+id/btnTake"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:text="拍照"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp" />
+
+            <Button
+                android:id="@+id/btnUpload"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:text="上传" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</RelativeLayout>

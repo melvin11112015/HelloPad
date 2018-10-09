@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">GKI PAD</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_setting">SettingActivity</string>
+    <string name="title_activity_entry">EntryActivity</string>
+    <string name="title_activity_dailywork_input">DailyworkInputActivity</string>
+    <string name="title_activity_staff_input">StaffInputActivity</string>
+    <string name="title_activity_ruler_table">RulerTableActivity</string>
+    <string name="title_activity_status_feed_back">StatusFeedBackActivity</string>
+    <string name="title_activity_overtime_confm">OvertimeConfmActivity</string>
+
+    <string-array name="tag_names">
+        <!-- <item>原材料不良：</item> -->
+        <!-- <item>设备不良：</item> -->
+        <!-- <item>操作不良：</item> -->
+        <!-- <item>设备故障停止时间：</item> -->
+        <!-- <item>计划停止时间：</item> -->
+        <!-- <item>试做停止时间：</item> -->
+        <!-- <item>模具交换停止时间：</item> -->
+        <!-- <item>其它停止时间：</item> -->
+        <!-- <item>电力停止时间：</item> -->
+        <!-- <item>品质确认停止时间：</item> -->
+        <!-- <item>其他停止时间：</item> -->
+        <!-- <item>试做不良：</item> -->
+    </string-array>
+
+    <string name="title_activity_test">TestActivity</string>
+    <string name="title_activity_staff_input_item">StaffInputItemActivity</string>
+    <string name="title_activity_daily_query">DailyQueryActivity</string>
+</resources>

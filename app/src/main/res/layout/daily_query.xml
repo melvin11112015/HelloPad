@@ -1,0 +1,237 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F2F2F2">
+
+    <Button
+        android:id="@+id/btn_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:width="70dp"
+        android:text="返回" />
+
+    <TextView
+        android:id="@+id/tv_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="false"
+        android:layout_marginRight="20dp"
+        android:text="lilyxxxx"
+        android:textSize="20sp"
+        android:layout_alignParentLeft="false"
+        android:layout_toLeftOf="@+id/tv_date" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="日报查询"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <LinearLayout
+        android:id="@+id/ll_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView3"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:text="      生产线：" />
+
+        <Spinner
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:id="@+id/sp_prodLine"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:id="@+id/view_key"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:text="    日报编号：" />
+
+        <EditText
+            android:id="@+id/txt_Key"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:textSize="16dp"
+            android:selectAllOnFocus="true" />
+
+        <TextView
+            android:id="@+id/view_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:text="    生产单号：" />
+
+        <EditText
+            android:id="@+id/txt_OrderNo"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:textSize="16dp"
+            android:selectAllOnFocus="true">
+
+            <requestFocus />
+        </EditText>
+
+        <TextView
+            android:id="@+id/view_date1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:text="    生产日期：" />
+
+        <EditText
+            android:id="@+id/txt_Date"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="date"
+            android:textSize="16dp"
+            android:selectAllOnFocus="true">
+
+            <requestFocus />
+        </EditText>
+
+        <Button
+            android:id="@+id/btn_add_Routing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/ll_3"
+            android:layout_alignParentRight="true"
+            android:text="查询" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_3"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_2"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/title_document_no"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="日报号" />
+
+        <TextView
+            android:id="@+id/title_prod_no"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+
+            android:text="生产单号" />
+
+        <TextView
+            android:id="@+id/title_prod_inputtime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.8"
+            android:gravity="center"
+
+            android:text="录入时间" />
+        <TextView
+            android:id="@+id/title_prod_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.8"
+            android:gravity="center"
+
+            android:text="生产日期" />
+
+        <TextView
+            android:id="@+id/title_prod_line"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.8"
+            android:gravity="center"
+
+            android:text="生产线" />
+
+        <TextView
+            android:id="@+id/title_component_no"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5"
+            android:gravity="center"
+
+            android:text="零件编号 " />
+
+        <TextView
+            android:id="@+id/title_component_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5"
+            android:gravity="center"
+
+            android:text="零件名称 " />
+
+        <TextView
+            android:id="@+id/title_car_type"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.8"
+            android:gravity="center"
+
+            android:text="车型 " />
+
+        <TextView
+            android:id="@+id/title_master"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.8"
+            android:gravity="center"
+
+            android:text="班长 " />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_4"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/ll_3"
+        android:orientation="horizontal">
+
+        <ListView
+            android:id="@+id/lv_staffInput_add2list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true" />
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tv_username"
+        android:layout_alignBottom="@+id/tv_username"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:text="2016-01-20"
+        android:textSize="20sp" />
+
+
+</RelativeLayout>

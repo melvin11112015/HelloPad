@@ -1,0 +1,601 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F2F2F2">
+
+    <TextView
+        android:id="@+id/tv_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentRight="false"
+        android:layout_marginRight="20dp"
+        android:layout_toLeftOf="@+id/tv_date"
+        android:text="lilyxxxx"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/btn_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:width="70dp"
+        android:text="返回" />
+
+    <LinearLayout
+        android:id="@+id/ll_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_8"
+        android:orientation="horizontal"
+        android:gravity="bottom"
+        android:layout_marginBottom="10dp">
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:text="生产线："
+                android:gravity="right" />
+
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:id="@+id/sp_prodLine"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="日期："
+                android:gravity="right" />
+
+
+            <EditText
+                android:id="@+id/et_prodDate"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="160dp"
+            android:layout_height="40dp"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="班次："
+                android:gravity="bottom|right" />
+            <Spinner
+                android:layout_width="100dp"
+                android:layout_height="45dp"
+                android:id="@+id/sp_shift" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="班组："
+                android:gravity="right" />
+
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:id="@+id/sp_group"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_query"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="查询"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="right" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_3"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_2"
+        android:orientation="horizontal"
+        android:paddingBottom="1dp">
+
+        <!-- 工序 -->
+
+        <CheckBox
+            android:id="@+id/chb_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center" />
+
+
+        <!-- 工序 -->
+
+        <TextView
+            android:id="@+id/view_Routing"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="工序" />
+
+        <!-- 班组成员ID -->
+
+        <TextView
+            android:id="@+id/view_Worker_ID"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="班组成员ID"
+            android:visibility="gone" />
+        <!-- 班组成员名称 -->
+
+        <TextView
+            android:id="@+id/view_Worker_Name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="姓名" />
+        <!-- 缺省定时 -->
+
+        <TextView
+            android:id="@+id/view_Working_Time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.8"
+            android:gravity="center"
+            android:text="定时" />
+        <!-- 加班时间 -->
+
+        <TextView
+            android:id="@+id/view_Over_Time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.8"
+            android:gravity="center"
+            android:text="加班时间" />
+        <!-- 支援时间 -->
+
+        <TextView
+            android:id="@+id/view_Support_Time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.8"
+            android:gravity="center"
+            android:text="支援 " />
+        <!-- 是否加班申请 -->
+
+        <TextView
+            android:id="@+id/view_Over_Time_Request"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="是否加班申请 "
+            android:visibility="gone" />
+        <!-- 加班申请批准 -->
+
+        <TextView
+            android:id="@+id/view_Over_Time_Approval"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.8"
+            android:gravity="center"
+            android:text="加班批准 "
+             />
+        <!-- 白班加班时间 -->
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <CheckBox
+                android:id="@+id/chbDayOvertime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/view_Over_Time_Day_Request"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="白班加班  " />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+
+            android:orientation="vertical">
+
+            <CheckBox
+                android:id="@+id/chbDayTempOT"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/view_Over_Time_Day_Temp_Request"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="白班临时加班  " />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/view_Over_Time_Day"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="白班加班时间 "
+            android:visibility="gone" />
+        <!-- 夜班加班时间 -->
+
+        <TextView
+            android:id="@+id/view_Over_Time_Day_Temp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="白班临时加班时间 "
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+
+            android:orientation="vertical">
+
+            <CheckBox
+                android:id="@+id/chbDayMealSub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/view_Meal_Allowance_Day_Req"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="白班餐补申请  " />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+
+            android:orientation="vertical">
+
+            <CheckBox
+                android:id="@+id/chbDaySub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/view_Allowance_Day_Req"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="白班补助申请  " />
+        </LinearLayout>
+
+        <!-- 白班临时加班时间 -->
+
+        <!-- 夜班临时加班时间 -->
+
+
+        <!-- 是否白班加班申请 -->
+
+        <!-- 是否白班临时加班申请 -->
+
+        <!-- 是否夜班加班申请 -->
+
+
+        <!-- 是否夜班临时加班申请 -->
+
+        <!-- 请假代码
+        <TextView
+            android:id="@+id/view_Leave_Category_Code"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="请假代码" />-->
+        <!-- 请假说明 -->
+
+        <TextView
+            android:id="@+id/view_Over_Time_Night"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="夜班加班时间 "
+
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/view_Over_Time_Night_Temp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="夜班临时加班时间 "
+
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <CheckBox
+                android:id="@+id/chbNightOvertime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/view_Over_Time_Night_Request"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="夜班加班  " />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+
+            android:orientation="vertical">
+
+            <CheckBox
+                android:id="@+id/chbNightTempOT"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/view_Over_Time_Night_Temp_Request"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="夜班临时加班  " />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+
+            android:orientation="vertical">
+
+            <CheckBox
+                android:id="@+id/chbNightMealSub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/view_Meal_Allowance_Night_Req"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="夜班餐补申请  " />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+
+            android:orientation="vertical">
+
+            <CheckBox
+                android:id="@+id/chbNightSub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/view_Allowance_Night_Req"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="夜班补助申请  " />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/view_Leave_Category_Description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="请假说明" />
+
+        <TextView
+            android:id="@+id/view_Leave_Hours"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="请假时间" />
+        <!-- 休假时间 -->
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_4"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_3"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+
+        <ListView
+            android:id="@+id/lv_staffInput_add2list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:text="2016-1-20"
+        android:textSize="20sp"
+        android:layout_alignBottom="@+id/tv_username" />
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="23:44:55"
+        android:textSize="20sp"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/tv_date"
+        android:layout_marginTop="2dp"
+        android:layout_marginRight="20dp"
+        android:layout_alignWithParentIfMissing="false"
+        android:layout_alignBaseline="@+id/tv_week"
+        android:gravity="right"
+        android:layout_alignParentTop="false"
+        android:layout_alignParentBottom="false"
+        android:layout_alignParentLeft="false" />
+
+    <TextView
+        android:id="@+id/tv_week"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:text="星期日"
+        android:textSize="20sp"
+        android:layout_toLeftOf="@+id/tv_time"
+        android:layout_below="@+id/tv_username"
+        android:layout_marginTop="2dp" />
+
+    <Button
+        android:id="@+id/btn_inputName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:width="150dp"
+        android:background="#0099FF"
+        android:text="配员录入"
+        android:textColor="#FFFFFF" />
+
+    <Button
+        android:id="@+id/btn_ruler"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/btn_inputName"
+        android:width="150dp"
+        android:text="定尺裁断表" />
+
+    <Button
+        android:id="@+id/btn_daily"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/btn_inputName"
+        android:width="150dp"
+        android:text="日报录入" />
+
+    <LinearLayout
+        android:id="@+id/ll_8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_inputName"
+        android:layout_marginTop="10dp"
+        android:gravity="right"
+        android:orientation="horizontal"
+        android:layout_marginRight="10dp">
+
+        <Button
+            android:id="@+id/btn_add_Routing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="初始配员" />
+
+        <Button
+            android:id="@+id/btn_add_new"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="新增" />
+
+        <Button
+            android:id="@+id/btn_staffInput_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="保存"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btn_stuff_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="删除" />
+
+        <Button
+            android:id="@+id/btn_staffInput_comm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="提交" />
+
+    </LinearLayout>
+
+</RelativeLayout>

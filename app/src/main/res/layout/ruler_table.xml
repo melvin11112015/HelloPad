@@ -1,0 +1,372 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:gki="http://schemas.android.com/apk/res/com.gki.managerment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F2F2F2"
+    android:scrollbars="none">
+
+
+    <Button
+        android:id="@+id/btn_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:width="70dp"
+        android:text="返回" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_date"
+        android:layout_centerHorizontal="true"
+        android:text="定尺裁断表录入界面"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
+
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_title"
+        android:layout_marginTop="20dp"
+
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="常规信息"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+
+        <Button
+            android:id="@+id/btn_rulerTable_commit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:width="90dp"
+            android:text="提交" />
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:id="@+id/ll_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/rl_title">
+
+        <com.gki.managerment.view.SettingView
+            android:id="@+id/et_prodLineName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            gki:is_editable="false"
+            gki:setting_title="生产线："
+            gki:textSize_tv="21"></com.gki.managerment.view.SettingView>
+
+        <com.gki.managerment.view.SettingView
+            android:id="@+id/view_rulerTable_conductDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            gki:is_editable="false"
+            gki:setting_title="生产日期："
+            gki:textSize_tv="21"></com.gki.managerment.view.SettingView>
+
+        <com.gki.managerment.view.SettingView
+            android:id="@+id/view_rulerTable_class"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            gki:is_editable="false"
+            gki:setting_title="        班次："
+            gki:textSize_tv="21"></com.gki.managerment.view.SettingView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/ll_1"
+        android:orientation="horizontal">
+
+        <com.gki.managerment.view.SettingView
+            android:id="@+id/view_rulerTable_classes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            gki:is_editable="false"
+            gki:setting_title="    班组："
+            gki:show_default="1"
+            gki:style="1"
+            gki:textSize_tv="21"></com.gki.managerment.view.SettingView>
+
+        <com.gki.managerment.view.SettingView
+            android:id="@+id/view_staffInput_conductNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            gki:is_editable="false"
+            gki:setting_title="  生产单号："
+            gki:textSize_tv="21"></com.gki.managerment.view.SettingView>
+
+        <com.gki.managerment.view.SettingView
+            android:id="@+id/view_ruleTable_elementNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            gki:is_editable="false"
+            gki:setting_title="零件编号："
+            gki:textSize_tv="21"></com.gki.managerment.view.SettingView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_operatoin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/ll_2"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:text="新增"
+            android:textSize="20sp" />
+
+
+        <Button
+            android:id="@+id/btn_del"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:text="删除"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/ll_data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll_operatoin"
+        android:orientation="horizontal">
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="7"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:id="@+id/ll_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <CheckBox
+                    android:id="@+id/chb_detail_check_all"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp" />
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="材料编号"
+                    android:textSize="18sp" />
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+
+                    android:text="材料名称"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5"
+                    android:gravity="center"
+                    android:text="原料批号/毯号"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.6"
+                    android:gravity="center"
+                    android:text="数量"
+                    android:textSize="18sp"
+                    android:id="@+id/textView8" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="备注"
+                    android:textSize="18sp"
+                    android:layout_weight="1" />
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="图片"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+            <ListView
+                android:id="@+id/lv_rulerTable_matrialList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/ll_title" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:scaleType="centerInside"
+                android:src="@drawable/test" />
+
+
+            <Button
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="预约拍照" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/ll_data"
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textViewBlank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="7" />
+
+        <Button
+            android:id="@+id/btn_rulerTable_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:width="90dp"
+            android:text="保存"
+            android:visibility="gone" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="7" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/btn_back"
+        android:layout_alignBottom="@+id/btn_back"
+        android:layout_marginRight="20dp"
+        android:layout_toLeftOf="@+id/tv_date"
+        android:text="lilyxxxx"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tv_username"
+        android:layout_alignBottom="@+id/tv_username"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:text="2016-1-20"
+        android:textSize="20sp" />
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/linearLayout">
+
+
+        <Button
+            android:id="@+id/btn_daily"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:width="150dp"
+            android:text="日报录入" />
+
+
+        <Button
+            android:id="@+id/btn_inputName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:width="150dp"
+            android:text="配员录入"
+            android:visibility="gone" />
+
+
+        <Button
+            android:id="@+id/btn_inputTable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:width="150dp"
+            android:background="#0099FF"
+            android:text="定尺裁断表"
+            android:textColor="@android:color/white" />
+
+
+    </LinearLayout>
+
+</RelativeLayout>

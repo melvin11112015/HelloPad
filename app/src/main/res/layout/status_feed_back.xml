@@ -1,0 +1,456 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F2F2F2">
+
+    <Button
+        android:id="@+id/btn_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:width="70dp"
+        android:text="返回" />
+
+    <TextView
+        android:id="@+id/tv_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="false"
+        android:layout_marginRight="20dp"
+        android:text="lilyxxxx"
+        android:textSize="20sp"
+        android:layout_toLeftOf="@+id/tv_date" />
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/tv_username"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:text="2016-1-20"
+        android:textSize="20sp" />
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="23:44:55"
+        android:textSize="20sp"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/tv_date"
+        android:layout_marginTop="2dp"
+        android:layout_marginRight="20dp"
+        android:layout_alignWithParentIfMissing="false"
+        android:layout_alignBaseline="@+id/tv_week"
+        android:gravity="right" />
+
+    <TextView
+        android:id="@+id/tv_week"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:text="星期日"
+        android:textSize="20sp"
+        android:layout_toLeftOf="@+id/tv_time"
+        android:layout_below="@+id/tv_username"
+        android:layout_marginTop="2dp" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="生产状态反馈"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true" />
+
+    <LinearLayout
+        android:id="@+id/ll_line"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_title"
+        >
+
+        <TextView
+            android:id="@+id/tv_ProdLine"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignBaseline="@+id/btn_back"
+            android:layout_alignBottom="@+id/btn_back"
+            android:layout_alignParentRight="true"
+            android:text="        生产线："
+            android:textSize="20sp"
+            android:singleLine="false"
+            android:gravity="center" />
+
+        <Spinner
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:id="@+id/sp_prodLine"
+            android:layout_gravity="bottom" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_0"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/ll_line"
+        android:layout_marginTop="21dp"
+        android:orientation="horizontal"
+        android:baselineAligned="false">
+
+        <LinearLayout
+            android:id="@+id/ll_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_feedback_queliaoTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:width="170dp"
+                android:text="缺料" />
+
+            <TextView
+                android:id="@+id/tv_feedback_queliaoStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="开始时间"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_feedback_queliaoStop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="结束时间"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_feedback_queliaoTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="持续时间"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_feedback_eqpmFaltTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:width="170dp"
+                android:text="设备故障" />
+
+            <TextView
+                android:id="@+id/tv_feedback_eqpmFaltStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="开始时间"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_feedback_eqpmFaltStop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="结束时间"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_feedback_eqpmFaltTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="持续时间"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_feedback_changeMo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:width="170dp"
+                android:text="换模" />
+
+            <TextView
+                android:id="@+id/tv_feedback_changeMoStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="开始时间"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_feedback_changeMoStop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="结束时间"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_feedback_changeMoTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="持续时间"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_feedback_tryDo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:width="170dp"
+                android:text="试做" />
+
+            <TextView
+                android:id="@+id/tv_feedback_tryDoStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="开始时间"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_feedback_tryDoStop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="结束时间"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_feedback_tryDoTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="持续时间"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_00"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_0"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:baselineAligned="false">
+
+        <LinearLayout
+            android:id="@+id/ll_01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_feedback_quality"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:width="170dp"
+                android:text="品质" />
+
+            <TextView
+                android:id="@+id/tv_feedback_qualityStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="开始时间"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_feedback_qualityStop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="结束时间"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_feedback_qualityTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="持续时间"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_02"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_feedback_regularStop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:width="170dp"
+                android:text="计划停止" />
+
+            <TextView
+                android:id="@+id/tv_feedback_regularStopStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="开始时间"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_feedback_regularStopStop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="结束时间"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_feedback_regularStopTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="持续时间"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_03"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_feedback_elctStop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:width="170dp"
+                android:text="电力停止" />
+
+            <TextView
+                android:id="@+id/tv_feedback_elctStopStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="开始时间"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/btn_feedback_elctStopStop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="结束时间"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/btn_feedback_elctStopTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="持续时间"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_04"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_feedback_otherStop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:width="170dp"
+                android:text="其他停止" />
+
+            <TextView
+                android:id="@+id/tv_feedback_otherStopStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="开始时间"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/btn_feedback_otherStopStop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="结束时间"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/btn_feedback_otherStopTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="持续时间"
+                android:textSize="20sp" />
+
+            <!--<TextView
+                android:id="@+id/btn_feedback_otherStopTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="00"
+                android:textSize="18sp"
+                android:visibility="gone" />-->
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,196 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F2F2F2">
+
+    <LinearLayout
+        android:id="@+id/ll_8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:layout_marginBottom="60dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp">
+
+        <LinearLayout
+            android:id="@+id/ll_1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/linearlayout"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_marginBottom="10dp">
+
+            <RelativeLayout
+                android:id="@+id/head_layout1"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <TextView
+                    android:id="@+id/name1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
+                    android:text="原材料不良"
+                    android:textColor="#0099FF"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+            <ListView
+                android:id="@+id/LV_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:descendantFocusability="beforeDescendants"
+                android:layout_marginTop="0dp"></ListView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_10"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/linearlayout"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_marginBottom="10dp">
+
+            <RelativeLayout
+                android:id="@+id/head_layout2"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <TextView
+                    android:id="@+id/name2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
+                    android:text="设备不良"
+                    android:textColor="#0099FF"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+            <ListView
+                android:id="@+id/LV_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:descendantFocusability="beforeDescendants"
+                android:layout_marginTop="0dp"></ListView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/linearlayout"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_marginBottom="10dp">
+
+            <RelativeLayout
+                android:id="@+id/head_layout3"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <TextView
+                    android:id="@+id/name3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
+                    android:text="操作不良"
+                    android:textColor="#0099FF"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+            <ListView
+                android:id="@+id/LV_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:descendantFocusability="beforeDescendants"
+                android:layout_marginTop="00dp"></ListView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_6"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/linearlayout"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_marginBottom="10dp">
+
+            <RelativeLayout
+                android:id="@+id/head_layout4"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <TextView
+                    android:id="@+id/name4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
+                    android:text="试做不良"
+                    android:textColor="#0099FF"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+            <ListView
+                android:id="@+id/LV_4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:descendantFocusability="beforeDescendants"
+                android:layout_marginTop="0dp"></ListView>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_9"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal"
+        android:gravity="center|center_vertical|center_horizontal">
+
+
+        <Button
+            android:id="@+id/btn_staffInput_cancle"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="取  消"
+            android:layout_marginRight="20dp" />
+
+        <Button
+            android:id="@+id/btn_staffInput_comm"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="提  交"
+            android:layout_marginLeft="20dp" />
+    </LinearLayout>
+
+</RelativeLayout>
+ 

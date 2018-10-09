@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="com.gki.managerment.view.SettingView">
+        <attr name="setting_title" format="string" />
+        <attr name="textSize_tv" format="integer" />
+        <attr name="minLines_tv" format="integer" />
+        <attr name="textSize_et" format="integer" />
+        <attr name="ems" format="integer" />
+        <attr name="style" format="integer" />
+        <attr name="show_default" format="integer" />
+        <attr name="is_editable" format="boolean" />
+        <attr name="is_ReadOnly" format="boolean" />
+    </declare-styleable>
+
+</resources>

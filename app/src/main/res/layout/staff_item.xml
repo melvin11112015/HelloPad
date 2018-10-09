@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/relativeLayout1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:descendantFocusability="blocksDescendants">
+
+
+    <CheckBox
+        android:id="@+id/chb_select"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center" />
+
+    <!-- 工序 -->
+
+    <TextView
+        android:id="@+id/view_Routing"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:gravity="center"
+        android:text="工序"
+        android:textSize="12sp" />
+
+    <!-- 班组成员ID -->
+
+    <TextView
+        android:id="@+id/view_Worker_ID"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:gravity="center"
+        android:text="班组成员ID"
+        android:visibility="gone" />
+    <!-- 班组成员名称 -->
+
+    <TextView
+        android:id="@+id/view_Worker_Name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:gravity="center"
+        android:text="班组成员名称"
+        android:textSize="12sp" />
+    <!-- 缺省定时 -->
+
+    <EditText
+        android:id="@+id/view_Working_Time"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.8"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:gravity="center"
+        android:text="缺省定时"
+        android:textSize="12sp" />
+    <!-- 加班时间 -->
+
+    <EditText
+        android:id="@+id/view_Over_Time"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.8"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:gravity="center"
+        android:text="加班时间 "
+        android:textSize="12sp" />
+    <!-- 支援时间 -->
+
+
+    <!--
+         <TextView
+        android:id="@+id/view_Support_Time"
+         android:layout_width="0dp"
+ 		android:layout_height="wrap_content" 
+        android:layout_weight="1"
+        android:text="支援时间 " />
+    -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center">
+
+        <CheckBox
+            android:id="@+id/view_Support_Time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="" />
+
+    </LinearLayout>
+    <!-- 是否加班申请 -->
+    <!--
+     <TextView
+        android:id="@+id/view_Over_Time_Request"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="是否加班申请 " />-->
+
+    <CheckBox
+        android:id="@+id/view_Over_Time_Request"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:visibility="gone" />
+
+    <!-- 加班申请批准 -->
+    <!--
+     <TextView
+        android:id="@+id/view_Over_Time_Approval"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="加班申请批准 " />-->
+
+    <CheckBox
+        android:id="@+id/view_Over_Time_Approval"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:focusable="false"
+        android:gravity="center"
+         />
+    <!-- 白班加班时间 -->
+
+    <EditText
+        android:id="@+id/view_Over_Time_Day"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:gravity="center"
+        android:text="白班加班时间 "
+        android:textSize="12sp"
+        android:visibility="gone" />
+    <!-- 夜班加班时间 -->
+    <EditText
+        android:id="@+id/view_Over_Time_Night"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+
+        android:gravity="center"
+        android:text="夜班加班时间 "
+        android:textSize="12sp"
+        android:visibility="gone" />
+    <!-- 白班临时加班时间 -->
+
+    <EditText
+        android:id="@+id/view_Over_Time_Day_Temp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:gravity="center"
+        android:text="白班临时加班时间 "
+        android:textSize="12sp"
+
+        android:visibility="gone" />
+    <!-- 夜班临时加班时间 -->
+
+    <EditText
+        android:id="@+id/view_Over_Time_Night_Temp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+
+        android:gravity="center"
+        android:text="夜班临时加班时间 "
+        android:textSize="12sp"
+        android:visibility="gone" />
+    <!-- 是否白班加班申请 -->
+    <!--
+    <TextView
+        android:id="@+id/view_Over_Time_Day_Request"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="是否白班加班申请  " />-->
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center">
+
+        <CheckBox
+            android:id="@+id/view_Over_Time_Day_Request"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:gravity="center" />
+
+    </LinearLayout>
+    <!-- 是否白班临时加班申请 -->
+    <!--
+        <TextView
+        android:id="@+id/view_Over_Time_Day_Temp_Request"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="是否白班临时加班申请" />-->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center">
+
+        <CheckBox
+            android:id="@+id/view_Over_Time_Day_Temp_Request"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:gravity="center" />
+    </LinearLayout>
+
+    <!-- 白班餐补申请 -->
+    <!--
+     <TextView
+        android:id="@+id/view_Meal_Allowance_Day_Req"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="白班餐补申请" />-->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center">
+
+        <CheckBox
+            android:id="@+id/view_Meal_Allowance_Day_Req"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center" />
+    </LinearLayout>
+
+    <!-- 白班补助申请 -->
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center">
+
+        <CheckBox
+            android:id="@+id/view_Allowance_Day_Req"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center" />
+
+    </LinearLayout>
+    <!-- 是否夜班加班申请 -->
+    <!--
+     <TextView
+        android:id="@+id/view_Over_Time_Night_Request"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="是否夜班加班申请" />-->
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center">
+
+        <CheckBox
+            android:id="@+id/view_Over_Time_Night_Request"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:gravity="center" />
+    </LinearLayout>
+    <!-- 是否夜班临时加班申请 -->
+    <!--
+    <TextView
+        android:id="@+id/view_Over_Time_Night_Temp_Request"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="是否夜班临时加班申请" />-->
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center">
+
+        <CheckBox
+            android:id="@+id/view_Over_Time_Night_Temp_Request"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:gravity="center" />
+
+    </LinearLayout>
+    <!-- 休假时间 -->
+
+    <!-- 夜班餐补申请 -->
+    <!--
+     <TextView
+        android:id="@+id/view_Meal_Allowance_Night_Req"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="夜班餐补申请" />-->
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center">
+
+        <CheckBox
+            android:id="@+id/view_Meal_Allowance_Night_Req"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center" />
+
+    </LinearLayout>
+
+    <!-- 夜班补助申请 -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center">
+
+        <CheckBox
+            android:id="@+id/view_Allowance_Night_Req"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center" />
+
+    </LinearLayout>
+
+    <!-- 请假代码 -->
+
+    <TextView
+        android:id="@+id/view_Leave_Category_Description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:gravity="center"
+        android:text="请假说明"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/view_Leave_Category_Code"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:gravity="center"
+        android:visibility="gone"
+        android:text="请假代码"
+        android:textSize="12sp" />
+
+    <EditText
+        android:id="@+id/view_Leave_Hours"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:gravity="center"
+        android:text="休假时间"
+        android:textSize="12sp" />
+    <!-- 请假说明 -->
+
+</LinearLayout>

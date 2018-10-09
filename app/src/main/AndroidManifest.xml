@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.gki.managerment"
+    android:versionCode="1"
+    android:versionName="1.0">
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="18" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-feature android:name="android.hardware.camera"></uses-feature>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/logo"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".Main"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Setting"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/title_activity_setting"></activity>
+        <activity
+            android:name=".MainMenu"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/title_activity_entry"></activity>
+        <activity
+            android:name=".DailyworkInput"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/title_activity_dailywork_input">
+
+        </activity>
+
+        <activity
+            android:name=".StaffInput"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/title_activity_staff_input"></activity>
+        <activity
+            android:name=".StaffInputItem"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/title_activity_staff_input_item"></activity>
+        <activity
+            android:name=".RulerTable"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/title_activity_ruler_table"></activity>
+        <activity
+            android:name=".StatusFeedBack"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/title_activity_status_feed_back"></activity>
+        <activity
+            android:name="com.gki.managerment.TestActivity"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/title_activity_test">
+
+        </activity>
+
+        <activity
+            android:name="com.gki.managerment.ConditionConfirm"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/title_activity_test"></activity>
+        <activity
+            android:name=".DailyScrap"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/title_activity_test"></activity>
+        <activity
+            android:name=".DailyStopTime"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/title_activity_test"></activity>
+        <activity
+            android:name=".DailyQuery"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/title_activity_daily_query"></activity>
+
+        <activity
+            android:name="com.gki.managerment.ChangePassword"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"
+            android:configChanges="orientation|keyboardHidden"></activity>
+
+        <activity
+            android:name=".UploadImage"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait" >
+
+        </activity>
+        <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        </application>
+
+</manifest>

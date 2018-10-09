@@ -1,0 +1,752 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:gki="http://schemas.android.com/apk/res/com.gki.managerment"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DailyworkInput">
+
+    <Button
+        android:id="@+id/btn_inputName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:width="150dp"
+        android:text="配员录入"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/btn_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:width="70dp"
+        android:text="返回" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true">
+
+        <Button
+            android:id="@+id/btn_daily"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:width="150dp"
+            android:background="#0099FF"
+            android:text="日报录入"
+            android:textColor="#FFFFFF"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/btn_inputTable"
+            android:layout_toStartOf="@+id/btn_inputTable" />
+
+        <Button
+            android:id="@+id/btn_inputTable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:width="150dp"
+            android:text="定尺裁断表"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/tv_username"
+            android:layout_toStartOf="@+id/tv_username" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ll_2"
+        android:layout_below="@+id/btn_back"
+        android:layout_marginTop="5dp"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/btn_inputName"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:text="常规信息"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ll_01"
+            android:gravity="right">
+
+            <Button
+                android:id="@+id/btn_query"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/ll_1"
+                android:layout_toLeftOf="@+id/btn_dailyWork_commit"
+                android:width="70dp"
+                android:text="查询" />
+
+            <Button
+                android:id="@+id/btn_new"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/ll_1"
+                android:layout_toLeftOf="@+id/btn_query"
+                android:width="70dp"
+                android:text="新增" />
+
+            <Button
+                android:id="@+id/btn_dailyWork_commit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/ll_1"
+                android:layout_alignParentRight="true"
+                android:width="70dp"
+                android:text="提交"
+                android:layout_marginRight="5dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/ll_2">
+
+        <com.gki.managerment.view.SettingView
+            android:id="@+id/et_documentNo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            gki:setting_title="作业日报编号："
+            gki:textSize_tv="24"></com.gki.managerment.view.SettingView>
+
+        <com.gki.managerment.view.SettingView
+            android:id="@+id/et_orderNo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            gki:setting_title="生产单号："
+            gki:textSize_tv="21"></com.gki.managerment.view.SettingView>
+
+        <com.gki.managerment.view.SettingView
+            android:id="@+id/view_dailywork_workDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            gki:setting_title="生产日期："
+            gki:textSize_tv="21"></com.gki.managerment.view.SettingView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_0"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/ll_1"
+        android:orientation="horizontal">
+
+        <com.gki.managerment.view.SettingView
+            android:id="@+id/view_dailywork_elementNum"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            gki:is_editable="false"
+            gki:setting_title="零件编号："
+            gki:textSize_tv="21"></com.gki.managerment.view.SettingView>
+
+        <com.gki.managerment.view.SettingView
+            android:id="@+id/view_dailywork_elementName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            gki:is_editable="false"
+            gki:setting_title="零件名称："
+            gki:textSize_tv="21"></com.gki.managerment.view.SettingView>
+
+        <com.gki.managerment.view.SettingView
+            android:id="@+id/view_dailywork_carStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            gki:is_editable="false"
+            gki:setting_title="车型："
+            gki:textSize_tv="21"></com.gki.managerment.view.SettingView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_03"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/ll_0"
+        android:orientation="horizontal">
+
+        <com.gki.managerment.view.SettingView
+            android:id="@+id/view_dailywork_CT"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            gki:is_editable="false"
+            gki:setting_title="CT："
+            gki:textSize_tv="21"></com.gki.managerment.view.SettingView>
+
+        <com.gki.managerment.view.SettingView
+            android:id="@+id/view_dailywork_conductionLine"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:visibility="gone"
+            gki:is_editable="false"
+            gki:setting_title="生产线编号："
+            gki:textSize_tv="21"></com.gki.managerment.view.SettingView>
+        <com.gki.managerment.view.SettingView
+            android:id="@+id/view_LineName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            gki:is_editable="false"
+            gki:setting_title="生产线："
+            gki:textSize_tv="21"></com.gki.managerment.view.SettingView>
+
+        <com.gki.managerment.view.SettingView
+            android:id="@+id/et_groupId"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            gki:setting_title="班长："
+            gki:show_default="1"
+            gki:style="1"
+            gki:textSize_tv="21"></com.gki.managerment.view.SettingView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/ll_03"
+        android:orientation="horizontal">
+
+        <com.gki.managerment.view.SettingView
+            android:id="@+id/view_dailywork_shift"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            gki:is_editable="false"
+            gki:setting_title="班次："
+            gki:textSize_tv="21"></com.gki.managerment.view.SettingView>
+
+        <com.gki.managerment.view.SettingView
+            android:id="@+id/view_dailywork_startTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            gki:is_ReadOnly="true"
+            gki:setting_title="起始时间："
+            gki:textSize_tv="21"></com.gki.managerment.view.SettingView>
+
+        <com.gki.managerment.view.SettingView
+            android:id="@+id/view_dailywork_stopTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            gki:is_ReadOnly="true"
+            gki:setting_title="结束时间："
+            gki:textSize_tv="21"></com.gki.managerment.view.SettingView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_18"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/ll_20"
+        android:orientation="horizontal">
+
+        <com.gki.managerment.view.SettingView
+            android:id="@+id/view_dailywork_quantity"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            gki:setting_title="合格数量："
+            gki:textSize_tv="21"></com.gki.managerment.view.SettingView>
+
+        <com.gki.managerment.view.SettingView
+            android:id="@+id/view_dailywork_runTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            gki:setting_title="运行时间："
+            gki:textSize_tv="21"></com.gki.managerment.view.SettingView>
+
+        <com.gki.managerment.view.SettingView
+            android:id="@+id/view_labstart"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            gki:setting_title="小标签开始："
+            gki:textSize_tv="21"></com.gki.managerment.view.SettingView>
+
+        <com.gki.managerment.view.SettingView
+            android:id="@+id/view_labend"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            gki:setting_title="小标签结束："
+            gki:textSize_tv="21"></com.gki.managerment.view.SettingView>
+
+        <com.gki.managerment.view.SettingView
+            android:id="@+id/view_dailywork_setupTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            gki:setting_title="设置时间："
+            gki:textSize_tv="21"
+            android:visibility="gone"></com.gki.managerment.view.SettingView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_19"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_18">
+
+        <com.gki.managerment.view.SettingView
+            android:id="@+id/sv_order_quantity"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            gki:is_editable="false"
+            gki:setting_title="生产单数量："
+            gki:textSize_tv="21"></com.gki.managerment.view.SettingView>
+        <com.gki.managerment.view.SettingView
+            android:id="@+id/sv_MandayLstQty"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            gki:is_editable="false"
+            gki:setting_title="已录入数量："
+            gki:textSize_tv="21"
+            android:orientation="horizontal"></com.gki.managerment.view.SettingView>
+
+        <com.gki.managerment.view.SettingView
+            android:id="@+id/sv_needQty"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            gki:is_editable="false"
+            gki:setting_title="剩余数量："
+            gki:textSize_tv="21"
+            android:orientation="horizontal"></com.gki.managerment.view.SettingView>
+
+        <!--<com.gki.managerment.view.SettingView
+            android:id="@+id/sv_null"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:visibility="invisible"
+            gki:is_editable="false"
+            gki:setting_title=""
+            gki:textSize_tv="21"></com.gki.managerment.view.SettingView>-->
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_remark"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:layout_below="@+id/ll_19">
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="148dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|center_horizontal|right"
+            android:text="备注："
+            android:textColor="#000000"
+            android:textSize="16dp"
+            android:paddingRight="5dp" />
+
+        <EditText
+            android:id="@+id/et_remark"
+            android:layout_width="70dp"
+            android:layout_height="35dp"
+            android:ems="10"
+            android:background="@drawable/remark"
+            android:gravity="left|top"
+            android:textColor="#000000"
+            android:textSize="16dp"
+            android:selectAllOnFocus="false"
+            android:padding="5dp"
+            android:layout_marginRight="15dp"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/yc_01"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/ll_remark">
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:text="报废情况："
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_discard"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            android:width="70dp"
+            android:text="..." />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/yc_01">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:text="原材料不良："
+                android:id="@+id/textView18"
+                android:gravity="center_vertical|right" />
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/badMaterial"
+                android:layout_weight="1"
+                android:enabled="false"
+                android:textSize="14dp"
+                android:singleLine="true" />
+
+            <EditText
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/et_TotalScrapQty"
+                android:enabled="false"
+                android:textSize="14dp"
+                android:layout_gravity="right"
+                android:singleLine="true" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="设备不良："
+                android:id="@+id/textView19"
+                android:gravity="center_vertical|right" />
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/badEqum"
+                android:layout_weight="1"
+                android:enabled="false"
+                android:textSize="14dp"
+                android:singleLine="true" />
+
+            <EditText
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/et_TotalScrapQty2"
+                android:enabled="false"
+                android:textSize="14dp"
+                android:layout_gravity="right"
+                android:singleLine="true" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="操作不良："
+                android:id="@+id/textView21"
+                android:gravity="center_vertical|right" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/badControl"
+                android:layout_weight="1"
+                android:enabled="false"
+                android:textSize="14dp"
+                android:singleLine="true" />
+
+            <EditText
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/et_TotalScrapQty3"
+                android:enabled="false"
+                android:editable="false"
+                android:textSize="14dp"
+                android:layout_gravity="right"
+                android:singleLine="true" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:text="试做不良："
+                android:id="@+id/textView20"
+                android:gravity="center_vertical|right" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/badTrydo"
+                android:layout_weight="1"
+                android:enabled="false"
+                android:textSize="14dp"
+                android:singleLine="true" />
+
+            <EditText
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/et_TotalScrapQty4"
+                android:enabled="false"
+                android:textSize="14dp"
+                android:layout_gravity="right"
+                android:singleLine="true" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <!--
+    <TextView
+        android:id="@+id/tx_5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/ll_14" >
+    </TextView>
+    -->
+
+    <LinearLayout
+        android:id="@+id/ll_6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/yc_02">
+
+        <com.gki.managerment.view.SettingView
+            android:id="@+id/view_dailywork_elemtStopTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            gki:is_editable="false"
+
+            gki:setting_title="设备故障停止时间："
+            gki:textSize_tv="21"></com.gki.managerment.view.SettingView>
+
+        <com.gki.managerment.view.SettingView
+            android:id="@+id/view_dailywork_jihuaStopTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            gki:is_editable="false"
+
+            gki:setting_title="计划停止时间："
+            gki:textSize_tv="21"></com.gki.managerment.view.SettingView>
+
+        <com.gki.managerment.view.SettingView
+            android:id="@+id/view_dailywork_pinzConfmStopTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+
+            gki:is_editable="false"
+            gki:setting_title="品质确认停止时间："
+            gki:textSize_tv="21"></com.gki.managerment.view.SettingView>
+
+        <com.gki.managerment.view.SettingView
+            android:id="@+id/view_dailywork_mojuChangeStopTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            gki:is_editable="false"
+
+            gki:setting_title="模具交换停止时间："
+            gki:textSize_tv="21"></com.gki.managerment.view.SettingView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/ll_6"
+        android:orientation="horizontal">
+
+
+        <com.gki.managerment.view.SettingView
+            android:id="@+id/view_dailywork_eletroStopTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            gki:is_editable="false"
+            gki:minLines_tv="6"
+
+            gki:setting_title="电力停止时间："
+            gki:textSize_tv="21"></com.gki.managerment.view.SettingView>
+
+        <com.gki.managerment.view.SettingView
+            android:id="@+id/view_dailywork_tryDoStopTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            gki:is_editable="false"
+            gki:minLines_tv="6"
+            gki:setting_title="试做停止时间："
+            gki:textSize_tv="21"></com.gki.managerment.view.SettingView>
+
+        <com.gki.managerment.view.SettingView
+            android:id="@+id/view_dailywork_otherStopTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            gki:is_editable="false"
+            gki:minLines_tv="6"
+            gki:setting_title="其他停止时间："
+            gki:textSize_tv="21"></com.gki.managerment.view.SettingView>
+
+        <com.gki.managerment.view.SettingView
+            android:id="@+id/view_null"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:visibility="invisible"
+            gki:minLines_tv="6"
+            gki:setting_title=""
+            gki:textSize_tv="0"></com.gki.managerment.view.SettingView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/yc_02"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/ll_4">
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:text="停止情况："
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_stoptime_re"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            android:width="70dp"
+            android:text="..." />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@+id/tv_date"
+        android:text="lilyxxxx"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:text="2016-01-20"
+        android:textSize="20sp"
+        android:layout_centerInParent="true"
+        android:gravity="right"
+        android:layout_alignBaseline="@+id/tv_username" />
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="23:44:55"
+        android:textSize="20sp"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/tv_date"
+        android:layout_marginTop="2dp"
+        android:layout_marginRight="20dp"
+        android:layout_alignWithParentIfMissing="false"
+        android:layout_alignBaseline="@+id/tv_week"
+        android:gravity="right" />
+
+    <TextView
+        android:id="@+id/tv_week"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:text="星期日"
+        android:textSize="20sp"
+        android:layout_toLeftOf="@+id/tv_time"
+        android:layout_below="@+id/tv_username"
+        android:layout_marginTop="2dp" />
+
+    <com.gki.managerment.view.SettingView
+        android:id="@+id/txt_key"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        gki:setting_title="主键 "
+        gki:textSize_tv="24"></com.gki.managerment.view.SettingView>
+
+</RelativeLayout>

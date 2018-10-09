@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:text="表头字段"
+        android:textSize="17sp" />
+
+    <EditText
+        android:id="@+id/et_settingView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/tv_title"
+        android:ems="10"
+        android:inputType="textPersonName"></EditText>
+
+    <Spinner
+        android:id="@+id/sp_settingView"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/tv_title"
+        android:entries="@array/stopTime"
+        android:visibility="gone" />
+
+    <EditText
+        android:id="@+id/et_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/et_settingView"
+        android:layout_toRightOf="@+id/sp_settingView"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:visibility="gone" />
+
+</RelativeLayout>

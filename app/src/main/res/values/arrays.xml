@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="badMaterial">
+        <item>少毛</item>
+        <item>杂毛</item>
+        <item>材料破损</item>
+        <item>偏硬</item>
+        <item>材料尺寸偏小</item>
+        <item>缩边</item>
+        <item>烧焦</item>
+        <item>胶渍</item>
+        <item>吸音棉分层</item>
+        <item>其它</item>
+    </string-array>
+    <string-array name="stopTime">
+        <item>A</item>
+        <item>B</item>
+        <item>C</item>
+        <item>D</item>
+        <item>E</item>
+        <item>F</item>
+        <item>G</item>
+    </string-array>
+
+
+</resources>
