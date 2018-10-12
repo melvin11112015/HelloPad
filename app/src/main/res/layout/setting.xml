@@ -20,6 +20,26 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="2"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="OData接口地址："
+                android:textSize="24dp" />
+
+            <EditText
+                android:id="@+id/et2_odataPath"
+                android:layout_width="500dp"
+                android:layout_height="wrap_content"
+                android:textSize="20dp" />
+        </LinearLayout>
+
+        <LinearLayout
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

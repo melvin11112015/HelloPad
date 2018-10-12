@@ -9,4 +9,6 @@ public class SharedPreferenceConstant {
     public static final String IS_KEEP_PASSWORD = "is_keep_password";
     public static final String SERVICE_PATH = "http://120.25.75.151:8888/Services/";
     public static final String IMAGE_PATH = "";
+    //melvin
+    public static final String ODATA_PATH = "odataPath";
 }

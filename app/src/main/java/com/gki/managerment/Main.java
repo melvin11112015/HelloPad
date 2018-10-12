@@ -26,6 +26,7 @@ import com.gki.managerment.http.Service.getService;
 import com.gki.managerment.util.DateUtils;
 import com.gki.managerment.util.SharedPreferencesUtils;
 import com.gki.managerment.util.StringUtils;
+import com.gki.v107.net.ApiTool;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -140,6 +141,7 @@ public class Main extends BaseActivity {
         super.onCreate(savedInstanceState);
         AppContants.ServicePath = SharedPreferencesUtils.getParam(this, SharedPreferenceConstant.SERVICE_PATH, AppContants.ServicePath).toString();
         AppContants.ImagePath = SharedPreferencesUtils.getParam(this, SharedPreferenceConstant.IMAGE_PATH, AppContants.ImagePath).toString();
+        ApiTool.currentApiUrl = SharedPreferencesUtils.getParam(this, SharedPreferenceConstant.ODATA_PATH,ApiTool.currentApiUrl).toString();
         //获取最新版本情况
         new UpgradeManager(Main.this);
 

@@ -30,4 +30,7 @@
     <string name="title_activity_test">TestActivity</string>
     <string name="title_activity_staff_input_item">StaffInputItemActivity</string>
     <string name="title_activity_daily_query">DailyQueryActivity</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

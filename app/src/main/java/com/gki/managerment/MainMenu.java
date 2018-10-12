@@ -8,6 +8,7 @@ import android.view.View.OnClickListener;
 import android.widget.TextView;
 
 import com.gki.managerment.util.DateUtils;
+import com.gki.v107.activity.InspectionActivity;
 
 import java.util.Timer;
 
@@ -30,6 +31,9 @@ public class MainMenu extends BaseActivity {
         findViewById(R.id.btn_staff).setOnClickListener(new MyListener());
         findViewById(R.id.btn_reworkingConfirmed).setOnClickListener(new MyListener());
         findViewById(R.id.btn_conduction).setOnClickListener(new MyListener());
+
+        //melvin
+        findViewById(R.id.btn_inspection).setOnClickListener(new MyListener());
 
         timer = new Timer(true);
         timer.schedule(
@@ -76,6 +80,10 @@ public class MainMenu extends BaseActivity {
                     break;
                 case (R.id.btn_conduction):
                     OpenForm(StatusFeedBack.class);
+                    break;
+                    //melvin
+                case (R.id.btn_inspection):
+                    OpenForm(InspectionActivity.class);
                     break;
                 default:
                     break;

@@ -9,8 +9,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="4">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/tv_username"
@@ -18,12 +17,12 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="false"
             android:layout_marginRight="20dp"
-            android:text="lilyxxxx"
-            android:textSize="20sp"
             android:layout_toLeftOf="@+id/tv_date"
-            android:textIsSelectable="false"
             android:singleLine="true"
-            android:textColor="#0099CC" />
+            android:text="lilyxxxx"
+            android:textColor="#0099CC"
+            android:textIsSelectable="false"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/textView1"
@@ -46,119 +45,115 @@
             android:id="@+id/tv_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/tv_username"
             android:layout_alignParentRight="true"
             android:layout_marginRight="20dp"
             android:text="2016-1-20"
-            android:textSize="20sp"
-            android:layout_alignBottom="@+id/tv_username" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/tv_time"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:text="23:44:55"
-            android:textSize="20sp"
-            android:layout_alignWithParentIfMissing="false"
-            android:gravity="right"
-            android:layout_below="@+id/tv_date"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="20dp" />
+            android:layout_alignWithParentIfMissing="false"
+            android:layout_below="@+id/tv_date"
+            android:layout_marginRight="20dp"
+            android:gravity="right"
+            android:text="23:44:55"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/tv_week"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="星期日"
-            android:textSize="20sp"
             android:layout_below="@+id/tv_username"
+            android:layout_marginRight="20dp"
             android:layout_toLeftOf="@+id/tv_time"
-            android:layout_marginRight="20dp" />
+            android:text="星期日"
+            android:textSize="20sp" />
 
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1">
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginRight="0dp"
-            android:layout_marginLeft="0dp"
-            android:paddingTop="100dp"
-            android:paddingBottom="100dp">
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:divider="@drawable/melvin_shape_rectangle_white"
+            android:orientation="horizontal"
+            android:showDividers="beginning|middle|end">
 
             <Button
                 android:id="@+id/btn_workDaily"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_weight="1"
-                android:text="作业日报"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:paddingTop="70dp"
-                android:paddingBottom="70dp"
-                android:textColor="#FFFFFF"
-                android:textSize="34dp"
-                android:singleLine="true"
+                android:layout_weight="1"
                 android:background="@drawable/round"
-                android:layout_marginRight="25dp"
-                android:layout_marginLeft="25dp" />
+                android:padding="10dp"
+                android:text="作业日报"
+                android:textColor="#FFFFFF"
+                android:textSize="34dp" />
 
             <Button
                 android:id="@+id/btn_staff"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_alignLeft="@+id/btn_reworkingConfirmed"
                 android:layout_below="@+id/btn_reworkingConfirmed"
-                android:layout_weight="1"
-                android:text="配员录入"
                 android:layout_gravity="center"
-                android:paddingTop="70dp"
-                android:paddingBottom="70dp"
-                android:textColor="#FFFFFF"
+                android:layout_weight="1"
                 android:background="@drawable/round"
-                android:textSize="34dp"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp" />
+                android:padding="10dp"
+                android:text="配员录入"
+                android:textColor="#FFFFFF"
+                android:textSize="34dp" />
 
             <Button
                 android:id="@+id/btn_conduction"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_alignLeft="@+id/btn_workDaily"
                 android:layout_below="@+id/btn_workDaily"
                 android:layout_gravity="center"
-                android:singleLine="false"
-                android:paddingTop="70dp"
-                android:paddingBottom="70dp"
-                android:textColor="#FFFFFF"
-                android:textSize="34dp"
                 android:layout_weight="1"
                 android:background="@drawable/round"
-                android:layout_marginRight="25dp"
+                android:padding="10dp"
                 android:text="生产状态"
-                android:layout_marginLeft="25dp" />
+                android:textColor="#FFFFFF"
+                android:textSize="34dp" />
 
             <Button
                 android:id="@+id/btn_reworkingConfirmed"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_alignLeft="@+id/btn_conduction"
                 android:layout_below="@+id/btn_conduction"
-                android:layout_weight="1"
-                android:text="加工条件    确认"
                 android:layout_gravity="center"
-                android:textColor="#FFFFFF"
+                android:layout_weight="1"
                 android:background="@drawable/round"
-                android:textSize="34dp"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
-                android:paddingTop="50dp"
-                android:paddingBottom="50dp" />
+                android:padding="10dp"
+                android:text="加工条件    确认"
+                android:textColor="#FFFFFF"
+                android:textSize="34dp" />
+
+            <Button
+                android:id="@+id/btn_inspection"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignLeft="@+id/btn_reworkingConfirmed"
+                android:layout_below="@+id/btn_reworkingConfirmed"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@drawable/round"
+                android:padding="10dp"
+                android:text="检查确认"
+                android:textColor="#FFFFFF"
+                android:textSize="34dp" />
 
         </LinearLayout>
 

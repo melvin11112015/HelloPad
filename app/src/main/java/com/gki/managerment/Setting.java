@@ -11,10 +11,11 @@ import android.widget.EditText;
 import com.gki.managerment.constant.SharedPreferenceConstant;
 import com.gki.managerment.http.AppContants;
 import com.gki.managerment.util.SharedPreferencesUtils;
+import com.gki.v107.net.ApiTool;
 
 public class Setting extends BaseActivity implements OnClickListener {
     private Button btnBack, btnSave;
-    private EditText et_servicePath,et_imagePath;
+    private EditText et_servicePath,et_imagePath,et_odataPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +27,7 @@ public class Setting extends BaseActivity implements OnClickListener {
         btnSave.setOnClickListener(this);
         et_servicePath = (EditText) findViewById(R.id.et_servicePath);
         et_imagePath = (EditText) findViewById(R.id.et_imagePath);
+        et_odataPath = (EditText) findViewById(R.id.et2_odataPath);
         showSetting();
     }
 
@@ -51,12 +53,14 @@ public class Setting extends BaseActivity implements OnClickListener {
 
     private void saveSetting() {
         boolean needShowToast = false;
-        if (!TextUtils.isEmpty(et_servicePath.getText().toString())) {
+        if (!TextUtils.isEmpty(et_servicePath.getText().toString()) && !TextUtils.isEmpty(et_odataPath.getText().toString())) {
             needShowToast = true;
             SharedPreferencesUtils.setParam(this, SharedPreferenceConstant.SERVICE_PATH, et_servicePath.getText().toString());
             SharedPreferencesUtils.setParam(this, SharedPreferenceConstant.IMAGE_PATH, et_imagePath.getText().toString());
+            SharedPreferencesUtils.setParam(this,SharedPreferenceConstant.ODATA_PATH,et_odataPath.getText().toString());
             AppContants.ServicePath = et_servicePath.getText().toString();
             AppContants.ImagePath = et_imagePath.getText().toString();
+            ApiTool.currentApiUrl = et_odataPath.getText().toString();
         }
         if (needShowToast) {
             ShowTipMessage("保存成功！");
@@ -66,5 +70,6 @@ public class Setting extends BaseActivity implements OnClickListener {
     private void showSetting() {
         et_servicePath.setText(SharedPreferencesUtils.getParam(this, SharedPreferenceConstant.SERVICE_PATH, AppContants.ServicePath).toString());
         et_imagePath.setText(SharedPreferencesUtils.getParam(this, SharedPreferenceConstant.IMAGE_PATH, AppContants.ImagePath).toString());
+        et_odataPath.setText(SharedPreferencesUtils.getParam(this, SharedPreferenceConstant.ODATA_PATH,ApiTool.currentApiUrl).toString());
     }
 }
