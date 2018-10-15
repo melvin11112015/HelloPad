@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/tv2_item_inspection2_no"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="10"
+        android:gravity="center"
+        android:text="No."
+        android:textColor="@android:color/background_dark" />
+
+    <TextView
+        android:id="@+id/tv2_item_inspection2_project"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="8"
+        android:gravity="center"
+        android:text="重点项目"
+        android:textColor="@android:color/background_dark" />
+
+    <TextView
+        android:id="@+id/tv2_item_inspection2_material"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="8"
+        android:gravity="center"
+        android:text="关联资料"
+        android:textColor="@android:color/background_dark" />
+
+    <TextView
+        android:id="@+id/tv2_item_inspection2_method"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="8"
+        android:gravity="center"
+        android:text="评估方法"
+        android:textColor="@android:color/background_dark" />
+
+    <CheckBox
+        android:id="@+id/checkbox2_item_inspection2_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="10"
+        android:text="未确认"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+</LinearLayout>

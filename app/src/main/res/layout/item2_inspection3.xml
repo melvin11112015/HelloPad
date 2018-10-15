@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/tv2_item_inspection3_no"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="10"
+        android:gravity="center"
+        android:text="No."
+        android:textColor="@android:color/background_dark" />
+
+    <TextView
+        android:id="@+id/tv2_item_inspection3_property"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="9"
+        android:gravity="center"
+        android:text="特别特性"
+        android:textColor="@android:color/background_dark" />
+
+    <TextView
+        android:id="@+id/tv2_item_inspection3_specification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="7"
+        android:gravity="center"
+        android:text="规格"
+        android:textColor="@android:color/background_dark" />
+
+    <CheckBox
+        android:id="@+id/checkbox2_item_inspection3_confirm1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="10"
+        android:text="NotOk"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
+    <CheckBox
+        android:id="@+id/checkbox2_item_inspection3_confirm2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="10"
+        android:text="NotOk"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
+    <CheckBox
+        android:id="@+id/checkbox2_item_inspection3_confirm3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="10"
+        android:text="NotOk"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
+    <EditText
+        android:id="@+id/et2_item_inspection3_value1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="10"
+        android:gravity="center"
+        android:hint="Value1"
+        android:textColor="@android:color/background_dark" />
+
+    <EditText
+        android:id="@+id/et2_item_inspection3_value2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="10"
+        android:gravity="center"
+        android:hint="Value3"
+        android:textColor="@android:color/background_dark" />
+
+    <EditText
+        android:id="@+id/et2_item_inspection3_value3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="10"
+        android:gravity="center"
+        android:hint="Value3"
+        android:textColor="@android:color/background_dark" />
+
+</LinearLayout>

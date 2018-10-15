@@ -7,9 +7,39 @@
     android:orientation="vertical"
     tools:context="com.gki.v107.activity.InspectionActivity">
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="生产单号:" />
+
+        <EditText
+            android:id="@+id/et2_inspection1_pno"
+            style="@android:style/Widget.DeviceDefault.EditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text" />
+
+        <Button
+            android:id="@+id/button2_inspection1_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="查询" />
+
+        <Button
+            android:id="@+id/button2_inspection1_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="提交" />
+    </LinearLayout>
+
+
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tablayout2_inspection"
@@ -19,7 +49,12 @@
             <android.support.design.widget.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="检查确认表" />
+                android:text="构成部品" />
+
+            <android.support.design.widget.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="确认项目" />
 
             <android.support.design.widget.TabItem
                 android:layout_width="wrap_content"
@@ -27,7 +62,6 @@
                 android:text="检查报告书" />
 
         </android.support.design.widget.TabLayout>
-    </FrameLayout>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager2_inspection"

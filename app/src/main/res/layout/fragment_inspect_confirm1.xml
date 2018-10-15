@@ -6,37 +6,6 @@
     tools:context="com.gki.v107.fragment.InspectConfirm1Fragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="right"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="生产单号:" />
-
-        <EditText
-            android:id="@+id/et2_inspection1_pno"
-            style="@android:style/Widget.DeviceDefault.EditText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="text" />
-
-        <Button
-            android:id="@+id/button2_inspection1_check"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="查询" />
-
-        <Button
-            android:id="@+id/button2_inspection1_submit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="提交" />
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

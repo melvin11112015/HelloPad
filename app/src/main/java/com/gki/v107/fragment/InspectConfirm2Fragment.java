@@ -4,7 +4,6 @@ package com.gki.v107.fragment;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
-
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,9 +20,10 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.gki.managerment.R;
 import com.gki.managerment.util.ToastUtil;
-import com.gki.v107.myinterface.FragmentInteractionInterface;
+import com.gki.v107.entity.ProdConfirmDetailsAddon;
 import com.gki.v107.entity.ProdConfirmBomItemsAddon;
-import com.gki.v107.entity.WebPordOrderCompInfo;
+import com.gki.v107.entity.ProdConfirmItemsInfo;
+import com.gki.v107.myinterface.FragmentInteractionInterface;
 import com.gki.v107.net.ApiTool;
 import com.gki.v107.net.BaseOdataCallback;
 import com.gki.v107.net.GenericOdataCallback;
@@ -36,13 +36,13 @@ import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link InspectConfirm1Fragment#newInstance} factory method to
+ * Use the {@link InspectConfirm2Fragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class InspectConfirm1Fragment extends Fragment implements FragmentInteractionInterface {
+public class InspectConfirm2Fragment extends Fragment implements FragmentInteractionInterface {
 
 
-    public InspectConfirm1Fragment() {
+    public InspectConfirm2Fragment() {
         // Required empty public constructor
     }
 
@@ -53,8 +53,8 @@ public class InspectConfirm1Fragment extends Fragment implements FragmentInterac
      * @return A new instance of fragment InspectConfirm1Fragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static InspectConfirm1Fragment newInstance(String param1, String param2) {
-        InspectConfirm1Fragment fragment = new InspectConfirm1Fragment();
+    public static InspectConfirm2Fragment newInstance(String param1, String param2) {
+        InspectConfirm2Fragment fragment = new InspectConfirm2Fragment();
         Bundle args = new Bundle();
         //args.putString(ARG_PARAM1, param1);
         //args.putString(ARG_PARAM2, param2);
@@ -92,10 +92,11 @@ public class InspectConfirm1Fragment extends Fragment implements FragmentInterac
 
         if(orderno.isEmpty() || adapter == null)return;
 
-        String filter = "Prod_Order_No eq '" + orderno +"' and Status eq 'Released'";
-        ApiTool.callWebPordOrderComp(filter, new GenericOdataCallback<WebPordOrderCompInfo>() {
+        currentOrderNo = orderno;
+
+        ApiTool.callProdConfirmItemsList(new GenericOdataCallback<ProdConfirmItemsInfo>() {
             @Override
-            public void onDataAvailable(List<WebPordOrderCompInfo> datas) {
+            public void onDataAvailable(List<ProdConfirmItemsInfo> datas) {
                 datalist.clear();
                 datalist.addAll(datas);
                 adapter.notifyDataSetChanged();
@@ -111,11 +112,12 @@ public class InspectConfirm1Fragment extends Fragment implements FragmentInterac
     }
 
     private int successCount = 0,totalCount = 0;
+    private String currentOrderNo = "";
 
     public void submitDatas(){
         if(adapter == null || tvstarttime == null || tvendtime == null || tvDate == null) return;
-        final List<ProdConfirmBomItemsAddon> addons
-                = adapter.createAddonList(tvstarttime.getText().toString(),tvendtime.getText().toString(),tvDate.getText().toString());
+        final List<ProdConfirmDetailsAddon> addons
+                = adapter.createAddonList(tvstarttime.getText().toString(),tvendtime.getText().toString(),tvDate.getText().toString(),currentOrderNo);
         if(addons == null || addons.isEmpty())return;
         if(tvstarttime.getText().toString().compareTo(tvendtime.getText().toString())>0){
             ToastUtil.show(getContext(),"始业时不能大于终业时");
@@ -124,8 +126,8 @@ public class InspectConfirm1Fragment extends Fragment implements FragmentInterac
         successCount = 0;
         totalCount = 0;
         final StringBuilder stringBuilder = new StringBuilder();
-        for(ProdConfirmBomItemsAddon addon:addons){
-            ApiTool.addProdConfirmBomItems(addon, new BaseOdataCallback<Map<String, Object>>() {
+        for(ProdConfirmDetailsAddon addon:addons){
+            ApiTool.addProdConfirmDetails(addon, new BaseOdataCallback<Map<String, Object>>() {
                 @Override
                 public void onDataAvailable(Map<String, Object> datas) {
                     successCount++;
@@ -151,22 +153,22 @@ public class InspectConfirm1Fragment extends Fragment implements FragmentInterac
         }
     }
 
-    private static class MyInspectionAdapter extends BaseQuickAdapter<WebPordOrderCompInfo,BaseViewHolder>{
+    private static class MyInspectionAdapter extends BaseQuickAdapter<ProdConfirmItemsInfo,BaseViewHolder>{
 
-        public MyInspectionAdapter( @Nullable List<WebPordOrderCompInfo> data) {
-            super(R.layout.item2_inspection1, data);
+        public MyInspectionAdapter( @Nullable List<ProdConfirmItemsInfo> data) {
+            super(R.layout.item2_inspection2, data);
             this.data = data;
         }
 
-        private List<WebPordOrderCompInfo> data;
+        private List<ProdConfirmItemsInfo> data;
 
         @Override
-        protected void convert(BaseViewHolder helper, WebPordOrderCompInfo item) {
-            helper.setText(R.id.tv2_item_inspection1_no,String.valueOf(helper.getAdapterPosition()));
-            helper.setText(R.id.tv2_item_inspection1_code,item.getItem_No());
-            helper.setText(R.id.tv2_item_inspection1_name,item.getDescription());
-            helper.setText(R.id.tv2_item_inspection1_count,item.getQuantity_Base());
-            helper.setOnCheckedChangeListener(R.id.checkbox2_item_inspection1_confirm, new CompoundButton.OnCheckedChangeListener() {
+        protected void convert(BaseViewHolder helper, ProdConfirmItemsInfo item) {
+            helper.setText(R.id.tv2_item_inspection2_no,String.valueOf(helper.getAdapterPosition()));
+            helper.setText(R.id.tv2_item_inspection2_project,item.getItem_Name());
+            helper.setText(R.id.tv2_item_inspection2_material,item.getRef_Description());
+            helper.setText(R.id.tv2_item_inspection2_method,item.getMethod());
+            helper.setOnCheckedChangeListener(R.id.checkbox2_item_inspection2_confirm, new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     buttonView.setText(isChecked?"已确认":"未确认");
@@ -175,26 +177,35 @@ public class InspectConfirm1Fragment extends Fragment implements FragmentInterac
             });
         }
 
-        public List<ProdConfirmBomItemsAddon> createAddonList(String starttime,String endtime,String date){
+        public List<ProdConfirmDetailsAddon> createAddonList(String starttime,String endtime,String date,String orderno){
 
             String startdatetime = date + 'T' + starttime + ":00";
             String enddatetime = date + 'T' + endtime + ":00";
             int lineno = (int)Math.abs(System.currentTimeMillis());
-            List<ProdConfirmBomItemsAddon> addonList = new ArrayList<>();
+            List<ProdConfirmDetailsAddon> addonList = new ArrayList<>();
             for(int index = 0;index<data.size();index++) {
                 int step = lineno + index;
-                WebPordOrderCompInfo info = data.get(index);
+                ProdConfirmItemsInfo info = data.get(index);
                 int viewPosition = index + 1;
-                CheckBox checkBox =((CheckBox)getViewByPosition(getRecyclerView(),viewPosition,R.id.checkbox2_item_inspection1_confirm));
+                CheckBox checkBox =((CheckBox)getViewByPosition(getRecyclerView(),viewPosition,R.id.checkbox2_item_inspection2_confirm));
                 boolean isConfirmed =checkBox.isChecked();
-                addonList.add(new ProdConfirmBomItemsAddon(info.getProd_Order_No(), info.getItem_No(), startdatetime, enddatetime/*, info.getDescription()*/, isConfirmed,step,step));
+                ProdConfirmDetailsAddon addon = new ProdConfirmDetailsAddon();
+                addon.setEnd_Time(enddatetime);
+                addon.setStrat_Time(startdatetime);
+                addon.setItem_Name(info.getItem_Name());
+                addon.setLine_No(step);
+                addon.setMethod(info.getMethod());
+                addon.setProd_Order_No(orderno);
+                addon.setStep(step);
+                addon.setValue(String.valueOf(isConfirmed));
+                addonList.add(addon);
             }
             return addonList;
         }
     }
 
     private MyInspectionAdapter adapter;
-    private List<WebPordOrderCompInfo> datalist = new ArrayList<>();
+    private List<ProdConfirmItemsInfo> datalist = new ArrayList<>();
 
     /**
      * 时间选择
@@ -237,7 +248,7 @@ public class InspectConfirm1Fragment extends Fragment implements FragmentInterac
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler2_inspection1);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new MyInspectionAdapter(datalist);
-        View headerView = inflater.inflate(R.layout.item2_inspection1_header,container,false);
+        View headerView = inflater.inflate(R.layout.item2_inspection2_header,container,false);
         adapter.addHeaderView(headerView);
         adapter.bindToRecyclerView(recyclerView);
         Calendar calendar = Calendar.getInstance();

@@ -1,6 +1,10 @@
 package com.gki.v107.net;
 
+import com.gki.v107.entity.ItemVsSpecItemInfo;
+import com.gki.v107.entity.ProdConfirmDetailsAddon;
 import com.gki.v107.entity.ProdConfirmBomItemsAddon;
+import com.gki.v107.entity.ProdConfirmItemsInfo;
+import com.gki.v107.entity.ProdSpecDetailsAddon;
 import com.gki.v107.entity.WebPordOrderCompInfo;
 import com.netcosports.ntlm.NTLMAuthenticator;
 
@@ -90,6 +94,34 @@ public class ApiTool {
         getRetrofit()
                 .create(ApiService.class)
                 .addProdConfirmBomItems(addon)
+                .enqueue(callback);
+    }
+
+    public static void callProdConfirmItemsList( Callback<GenericResult<ProdConfirmItemsInfo>> callback) {
+        getRetrofit()
+                .create(ApiService.class)
+                .getProdConfirmItemsList()
+                .enqueue(callback);
+    }
+
+    public static void addProdConfirmDetails(ProdConfirmDetailsAddon addon, Callback<Map<String, Object>> callback) {
+        getRetrofit()
+                .create(ApiService.class)
+                .addProdConfirmDetails(addon)
+                .enqueue(callback);
+    }
+
+    public static void callItemVsSpecItemList(String filter, Callback<GenericResult<ItemVsSpecItemInfo>> callback) {
+        getRetrofit()
+                .create(ApiService.class)
+                .getItemVsSpecItemList(filter)
+                .enqueue(callback);
+    }
+
+    public static void addProdSpecDetails(ProdSpecDetailsAddon addon, Callback<Map<String, Object>> callback) {
+        getRetrofit()
+                .create(ApiService.class)
+                .addProdSpecDetails(addon)
                 .enqueue(callback);
     }
 

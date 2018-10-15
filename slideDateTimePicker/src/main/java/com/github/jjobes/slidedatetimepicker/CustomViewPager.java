@@ -48,6 +48,9 @@ public class CustomViewPager extends ViewPager {
      */
     @Override
     public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+
+        //melvin 高版本SDK存在bug
+        /*
         int height = 0;
 
         for (int i = 0; i < getChildCount(); i++) {
@@ -59,6 +62,7 @@ public class CustomViewPager extends ViewPager {
         }
 
         heightMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);
+        */
 
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
