@@ -142,8 +142,10 @@ public class InspectConfirm3Fragment extends Fragment implements FragmentInterac
         if(adapter == null || tvPartno == null) return;
         final List<ProdSpecDetailsAddon> addons
                 = adapter.createAddonList(currentOrderNo);
-        if(addons == null || addons.isEmpty())return;
-
+        if(addons == null || addons.isEmpty()){
+            ToastUtil.show(getContext(),"未获取数据");
+            return;
+        }
         successCount = 0;
         totalCount = 0;
         final StringBuilder stringBuilder = new StringBuilder();
@@ -169,7 +171,7 @@ public class InspectConfirm3Fragment extends Fragment implements FragmentInterac
 
     private void toastResult(StringBuilder stringBuilder,int size){
         if(totalCount>=size) {
-            stringBuilder.append("共").append(totalCount).append("条记录,").append("成功提交").append(successCount).append("条");
+            stringBuilder.append("(检查报告书)共").append(totalCount).append("条记录,").append("成功提交").append(successCount).append("条");
             ToastUtil.show(getContext(), stringBuilder.toString());
         }
     }
@@ -214,10 +216,10 @@ public class InspectConfirm3Fragment extends Fragment implements FragmentInterac
 
         public List<ProdSpecDetailsAddon> createAddonList(String orderno){
 
-            int lineno = (int)Math.abs(System.currentTimeMillis());
+            //int lineno = (int)Math.abs(System.currentTimeMillis());
             List<ProdSpecDetailsAddon> addonList = new ArrayList<>();
             for(int index = 0;index<data.size();index++) {
-                int step = lineno + index;
+                //int step = lineno + index;
                 ItemVsSpecItemInfo info = data.get(index);
                 ProdSpecDetailsAddon addon = new ProdSpecDetailsAddon();
 
@@ -228,6 +230,8 @@ public class InspectConfirm3Fragment extends Fragment implements FragmentInterac
                     EditText editText2 =((EditText)getViewByPosition(getRecyclerView(),viewPosition,R.id.et2_item_inspection3_value2));
                     EditText editText3 =((EditText)getViewByPosition(getRecyclerView(),viewPosition,R.id.et2_item_inspection3_value3));
 
+                    if(editText1 == null || editText2 == null || editText3 == null)return null;
+
                     addon.setValue1(editText1.getText().toString());
                     addon.setValue2(editText2.getText().toString());
                     addon.setValue3(editText3.getText().toString());
@@ -236,12 +240,14 @@ public class InspectConfirm3Fragment extends Fragment implements FragmentInterac
                     CheckBox checkBox2 =((CheckBox)getViewByPosition(getRecyclerView(),viewPosition,R.id.checkbox2_item_inspection3_confirm2));
                     CheckBox checkBox3 =((CheckBox)getViewByPosition(getRecyclerView(),viewPosition,R.id.checkbox2_item_inspection3_confirm3));
 
+                    if(checkBox1 == null || checkBox2 == null || checkBox3 == null)return null;
+
                     addon.setValue1(String.valueOf(checkBox1.isChecked()));
                     addon.setValue2(String.valueOf(checkBox2.isChecked()));
                     addon.setValue3(String.valueOf(checkBox3.isChecked()));
                 }
 
-                addon.setLine_No(step);
+                addon.setLine_No(info.getLine_No());
                 addon.setProd_Order_No(orderno);
 
                 addonList.add(addon);

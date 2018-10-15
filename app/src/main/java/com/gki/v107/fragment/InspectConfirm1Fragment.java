@@ -116,7 +116,10 @@ public class InspectConfirm1Fragment extends Fragment implements FragmentInterac
         if(adapter == null || tvstarttime == null || tvendtime == null || tvDate == null) return;
         final List<ProdConfirmBomItemsAddon> addons
                 = adapter.createAddonList(tvstarttime.getText().toString(),tvendtime.getText().toString(),tvDate.getText().toString());
-        if(addons == null || addons.isEmpty())return;
+        if(addons == null || addons.isEmpty()){
+            ToastUtil.show(getContext(),"未获取数据");
+            return;
+        }
         if(tvstarttime.getText().toString().compareTo(tvendtime.getText().toString())>0){
             ToastUtil.show(getContext(),"始业时不能大于终业时");
             return;
@@ -146,7 +149,7 @@ public class InspectConfirm1Fragment extends Fragment implements FragmentInterac
 
     private void toastResult(StringBuilder stringBuilder,int size){
         if(totalCount>=size) {
-            stringBuilder.append("共").append(totalCount).append("条记录,").append("成功提交").append(successCount).append("条");
+            stringBuilder.append("(构成部件)共").append(totalCount).append("条记录,").append("成功提交").append(successCount).append("条");
             ToastUtil.show(getContext(), stringBuilder.toString());
         }
     }
@@ -179,15 +182,18 @@ public class InspectConfirm1Fragment extends Fragment implements FragmentInterac
 
             String startdatetime = date + 'T' + starttime + ":00";
             String enddatetime = date + 'T' + endtime + ":00";
-            int lineno = (int)Math.abs(System.currentTimeMillis());
+            //int lineno = (int)Math.abs(System.currentTimeMillis());
             List<ProdConfirmBomItemsAddon> addonList = new ArrayList<>();
             for(int index = 0;index<data.size();index++) {
-                int step = lineno + index;
+                //int step = lineno + index;
                 WebPordOrderCompInfo info = data.get(index);
                 int viewPosition = index + 1;
                 CheckBox checkBox =((CheckBox)getViewByPosition(getRecyclerView(),viewPosition,R.id.checkbox2_item_inspection1_confirm));
+
+                if(checkBox == null)return null;
+
                 boolean isConfirmed =checkBox.isChecked();
-                addonList.add(new ProdConfirmBomItemsAddon(info.getProd_Order_No(), info.getItem_No(), startdatetime, enddatetime/*, info.getDescription()*/, isConfirmed,step,step));
+                addonList.add(new ProdConfirmBomItemsAddon(info.getProd_Order_No(), info.getItem_No(), startdatetime, enddatetime/*, info.getDescription()*/, isConfirmed,info.getLine_No(),info.getLine_No()));
             }
             return addonList;
         }
