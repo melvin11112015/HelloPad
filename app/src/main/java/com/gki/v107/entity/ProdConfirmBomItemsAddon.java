@@ -16,6 +16,10 @@ public class ProdConfirmBomItemsAddon {
         Line_No = line_No;
     }
 
+    public ProdConfirmBomItemsAddon(){
+
+    }
+
     public int getStep() {
         return Step;
     }

@@ -13,6 +13,7 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 
 import com.gki.managerment.R;
 import com.gki.v107.fragment.InspectConfirm2Fragment;
@@ -55,6 +56,7 @@ public class InspectionActivity extends AppCompatActivity implements View.OnClic
     }
 
     private EditText etOrderno;
+    private RadioGroup radioGroup;
 
     @Override
     public void onClick(View v) {
@@ -63,9 +65,8 @@ public class InspectionActivity extends AppCompatActivity implements View.OnClic
                 doCheck();
                 break;
             case R.id.button2_inspection1_submit:
-                for(Fragment f:fragmentList)
-                    if(f instanceof FragmentInteractionInterface)
-                        ((FragmentInteractionInterface)f).submitDatas();
+                etOrderno.requestFocus();
+                doSubmit();
                 break;
         }
     }
@@ -75,7 +76,30 @@ public class InspectionActivity extends AppCompatActivity implements View.OnClic
     private void doCheck(){
         for(Fragment f:fragmentList)
             if(f instanceof FragmentInteractionInterface)
-                ((FragmentInteractionInterface)f).acquireDatas(etOrderno.getText().toString());
+                ((FragmentInteractionInterface)f).acquireDatas(etOrderno.getText().toString(),getStepCode());
+    }
+
+    private void doSubmit(){
+
+        for(Fragment f:fragmentList)
+            if(f instanceof FragmentInteractionInterface)
+                ((FragmentInteractionInterface)f).submitDatas();
+    }
+
+    private int getStepCode(){
+        int stepCode = 1;
+        switch (radioGroup.getCheckedRadioButtonId()){
+            case R.id.radioButton2_inspection1_step1:
+                stepCode = 1;
+                break;
+            case R.id.radioButton2_inspection1_step2:
+                stepCode = 2;
+                break;
+            case R.id.radioButton2_inspection1_step3:
+                stepCode = 3;
+                break;
+        }
+        return stepCode;
     }
 
     @Override
@@ -84,7 +108,9 @@ public class InspectionActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity2_inspection);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
         etOrderno = (EditText) findViewById(R.id.et2_inspection1_pno);
+        radioGroup = (RadioGroup) findViewById(R.id.radionGroup2_inspection1_step);
 
         findViewById(R.id.button2_inspection1_check).setOnClickListener(this);
         findViewById(R.id.button2_inspection1_submit).setOnClickListener(this);

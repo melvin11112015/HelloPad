@@ -1,6 +1,7 @@
 package com.gki.v107.fragment;
 
 
+import android.annotation.SuppressLint;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -11,28 +12,33 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
+
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
+
 import com.gki.managerment.R;
 import com.gki.managerment.util.ToastUtil;
+import com.gki.v107.adapter.MyInspection2Adapter;
+import com.gki.v107.entity.Polymorph;
 import com.gki.v107.entity.ProdConfirmDetailsAddon;
-import com.gki.v107.entity.ProdConfirmBomItemsAddon;
+
 import com.gki.v107.entity.ProdConfirmItemsInfo;
 import com.gki.v107.myinterface.FragmentInteractionInterface;
 import com.gki.v107.net.ApiTool;
 import com.gki.v107.net.BaseOdataCallback;
 import com.gki.v107.net.GenericOdataCallback;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -88,23 +94,21 @@ public class InspectConfirm2Fragment extends Fragment implements FragmentInterac
 
     private TextView tvstarttime,tvendtime,tvDate;
 
-    public void acquireDatas(String orderno){
+    public void acquireDatas(final String orderno,final int stepCode){
 
         if(orderno.isEmpty() || adapter == null)return;
-
-        currentOrderNo = orderno;
 
         ApiTool.callProdConfirmItemsList(new GenericOdataCallback<ProdConfirmItemsInfo>() {
             @Override
             public void onDataAvailable(List<ProdConfirmItemsInfo> datas) {
-                datalist.clear();
-                datalist.addAll(datas);
+                polyList.clear();
+                polyList.addAll(adapter.createPolyList(datas, stepCode, orderno, tvDate, tvstarttime, tvendtime));
                 adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onDataUnAvailable(String msg, int errorCode) {
-                datalist.clear();
+                polyList.clear();
                 adapter.notifyDataSetChanged();
                 ToastUtil.show(getContext(),msg);
             }
@@ -112,16 +116,10 @@ public class InspectConfirm2Fragment extends Fragment implements FragmentInterac
     }
 
     private int successCount = 0,totalCount = 0;
-    private String currentOrderNo = "";
 
     public void submitDatas(){
         if(adapter == null || tvstarttime == null || tvendtime == null || tvDate == null) return;
-        final List<ProdConfirmDetailsAddon> addons
-                = adapter.createAddonList(tvstarttime.getText().toString(),tvendtime.getText().toString(),tvDate.getText().toString(),currentOrderNo);
-        if(addons == null || addons.isEmpty()){
-            ToastUtil.show(getContext(),"未获取数据");
-            return;
-        }
+
         if(tvstarttime.getText().toString().compareTo(tvendtime.getText().toString())>0){
             ToastUtil.show(getContext(),"始业时不能大于终业时");
             return;
@@ -129,22 +127,90 @@ public class InspectConfirm2Fragment extends Fragment implements FragmentInterac
         successCount = 0;
         totalCount = 0;
         final StringBuilder stringBuilder = new StringBuilder();
-        for(ProdConfirmDetailsAddon addon:addons){
-            ApiTool.addProdConfirmDetails(addon, new BaseOdataCallback<Map<String, Object>>() {
-                @Override
-                public void onDataAvailable(Map<String, Object> datas) {
-                    successCount++;
-                    totalCount++;
-                    toastResult(stringBuilder,addons.size());
-                }
 
-                @Override
-                public void onDataUnAvailable(String msg, int errorCode) {
-                    stringBuilder.append(msg).append('\n');
+        String startDatetime = tvDate.getText().toString() + 'T' + tvstarttime.getText().toString();
+        String endDatetime = tvDate.getText().toString() + 'T' + tvendtime.getText().toString();
+
+
+        for (final Polymorph<ProdConfirmDetailsAddon, ProdConfirmItemsInfo> polymorph : polyList) {
+            ProdConfirmDetailsAddon addon = polymorph.getAddonEntity();
+
+            addon.setStrat_Time(startDatetime);
+            addon.setEnd_Time(endDatetime);
+
+            switch (polymorph.getState()) {
+                case FAILURE_EDIT:
+                case UNCOMMITTED_EDIT:
+                    @SuppressLint("DefaultLocale")
+                    String itemDesc = String.format("Prod_Order_No='%s',Step=%d,Line_No=%d",
+                            addon.getProd_Order_No(),
+                            addon.getStep(),
+                            addon.getLine_No());
+
+                    ApiTool.updateProdConfirmDetailsList(itemDesc,
+                            addon,
+                            new Callback<String>() {
+                                @Override
+                                public void onResponse(Call<String> call, Response<String> response) {
+                                    totalCount++;
+                                    if (response.isSuccessful()) {
+                                        successCount++;
+                                        toastResult(stringBuilder, polyList.size());
+                                        polymorph.setState(Polymorph.State.COMMITTED);
+                                    } else {
+                                        String err = "";
+                                        try {
+                                            err = response.errorBody().string();
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
+                                        stringBuilder.append(err).append('\n');
+                                        toastResult(stringBuilder, polyList.size());
+                                        polymorph.setState(Polymorph.State.FAILURE_EDIT);
+                                    }
+                                    adapter.notifyDataSetChanged();
+                                }
+
+                                @Override
+                                public void onFailure(Call<String> call, Throwable t) {
+                                    t.printStackTrace();
+                                    stringBuilder.append(t.getMessage()).append('\n');
+                                    totalCount++;
+                                    toastResult(stringBuilder, polyList.size());
+                                    polymorph.setState(Polymorph.State.FAILURE_EDIT);
+                                    adapter.notifyDataSetChanged();
+                                }
+                            });
+
+                    break;
+                case UNCOMMITTED_NEW:
+                case FAILURE_NEW:
+
+                    ApiTool.addProdConfirmDetails(addon, new BaseOdataCallback<Map<String, Object>>() {
+                        @Override
+                        public void onDataAvailable(Map<String, Object> datas) {
+                            successCount++;
+                            totalCount++;
+                            toastResult(stringBuilder, polyList.size());
+                            polymorph.setState(Polymorph.State.COMMITTED);
+                            adapter.notifyDataSetChanged();
+                        }
+
+                        @Override
+                        public void onDataUnAvailable(String msg, int errorCode) {
+                            stringBuilder.append(msg).append('\n');
+                            totalCount++;
+                            toastResult(stringBuilder, polyList.size());
+                            polymorph.setState(Polymorph.State.FAILURE_NEW);
+                            adapter.notifyDataSetChanged();
+                        }
+                    });
+                    break;
+                default:
                     totalCount++;
-                    toastResult(stringBuilder,addons.size());
-                }
-            });
+                    successCount++;
+                    break;
+            }
         }
 
     }
@@ -156,60 +222,9 @@ public class InspectConfirm2Fragment extends Fragment implements FragmentInterac
         }
     }
 
-    private static class MyInspectionAdapter extends BaseQuickAdapter<ProdConfirmItemsInfo,BaseViewHolder>{
 
-        public MyInspectionAdapter( @Nullable List<ProdConfirmItemsInfo> data) {
-            super(R.layout.item2_inspection2, data);
-            this.data = data;
-        }
-
-        private List<ProdConfirmItemsInfo> data;
-
-        @Override
-        protected void convert(BaseViewHolder helper, ProdConfirmItemsInfo item) {
-            helper.setText(R.id.tv2_item_inspection2_no,String.valueOf(helper.getAdapterPosition()));
-            helper.setText(R.id.tv2_item_inspection2_project,item.getItem_Name());
-            helper.setText(R.id.tv2_item_inspection2_material,item.getRef_Description());
-            helper.setText(R.id.tv2_item_inspection2_method,item.getMethod());
-            helper.setOnCheckedChangeListener(R.id.checkbox2_item_inspection2_confirm, new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    buttonView.setText(isChecked?"已确认":"未确认");
-                    buttonView.setTextColor(isChecked?0xFF00FF00:0xFFFF0000);
-                }
-            });
-        }
-
-        public List<ProdConfirmDetailsAddon> createAddonList(String starttime,String endtime,String date,String orderno){
-
-            String startdatetime = date + 'T' + starttime + ":00";
-            String enddatetime = date + 'T' + endtime + ":00";
-            //int lineno = (int)Math.abs(System.currentTimeMillis());
-            List<ProdConfirmDetailsAddon> addonList = new ArrayList<>();
-            for(int index = 0;index<data.size();index++) {
-                //int step = lineno + index;
-                ProdConfirmItemsInfo info = data.get(index);
-                int viewPosition = index + 1;
-                CheckBox checkBox =((CheckBox)getViewByPosition(getRecyclerView(),viewPosition,R.id.checkbox2_item_inspection2_confirm));
-                if(checkBox == null)return null;
-                boolean isConfirmed =checkBox.isChecked();
-                ProdConfirmDetailsAddon addon = new ProdConfirmDetailsAddon();
-                addon.setEnd_Time(enddatetime);
-                addon.setStrat_Time(startdatetime);
-                addon.setItem_Name(info.getItem_Name());
-                addon.setLine_No(info.getLine_No());
-                addon.setMethod(info.getMethod());
-                addon.setProd_Order_No(orderno);
-                addon.setStep(info.getLine_No());
-                addon.setValue(String.valueOf(isConfirmed));
-                addonList.add(addon);
-            }
-            return addonList;
-        }
-    }
-
-    private MyInspectionAdapter adapter;
-    private List<ProdConfirmItemsInfo> datalist = new ArrayList<>();
+    private MyInspection2Adapter adapter;
+    private List<Polymorph<ProdConfirmDetailsAddon, ProdConfirmItemsInfo>> polyList = new ArrayList<>();
 
     /**
      * 时间选择
@@ -251,7 +266,7 @@ public class InspectConfirm2Fragment extends Fragment implements FragmentInterac
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler2_inspection1);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new MyInspectionAdapter(datalist);
+        adapter = new MyInspection2Adapter(polyList);
         View headerView = inflater.inflate(R.layout.item2_inspection2_header,container,false);
         adapter.addHeaderView(headerView);
         adapter.bindToRecyclerView(recyclerView);
@@ -263,6 +278,7 @@ public class InspectConfirm2Fragment extends Fragment implements FragmentInterac
         SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm");
         tvstarttime.setText(sdf2.format(calendar.getTime()));
         tvendtime.setText(sdf2.format(calendar.getTime()));
+
         return view;
     }
 

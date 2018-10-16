@@ -23,7 +23,9 @@ import com.gki.managerment.R;
 import com.gki.managerment.bean.ProdMandayList;
 import com.gki.managerment.http.Service.getService;
 import com.gki.managerment.util.ToastUtil;
+import com.gki.v107.adapter.MyInspection3Adapter;
 import com.gki.v107.entity.ItemVsSpecItemInfo;
+import com.gki.v107.entity.Polymorph;
 import com.gki.v107.entity.ProdConfirmDetailsAddon;
 import com.gki.v107.entity.ProdConfirmItemsInfo;
 import com.gki.v107.entity.ProdSpecDetailsAddon;
@@ -33,10 +35,15 @@ import com.gki.v107.net.BaseOdataCallback;
 import com.gki.v107.net.GenericOdataCallback;
 import com.google.gson.Gson;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -77,7 +84,7 @@ public class InspectConfirm3Fragment extends Fragment implements FragmentInterac
 
     private TextView tvPartno;
 
-    public void acquireDatas(String orderno){
+    public void acquireDatas(String orderno,int stepCode){
 
         if(orderno.isEmpty() || adapter == null)return;
 
@@ -113,14 +120,14 @@ public class InspectConfirm3Fragment extends Fragment implements FragmentInterac
                 ApiTool.callItemVsSpecItemList(filter,new GenericOdataCallback<ItemVsSpecItemInfo>() {
                     @Override
                     public void onDataAvailable(List<ItemVsSpecItemInfo> datas) {
-                        datalist.clear();
-                        datalist.addAll(datas);
+                        polyList.clear();
+                        polyList.addAll(adapter.createPolyList(datas, currentOrderNo));
                         adapter.notifyDataSetChanged();
                     }
 
                     @Override
                     public void onDataUnAvailable(String msg, int errorCode) {
-                        datalist.clear();
+                        polyList.clear();
                         adapter.notifyDataSetChanged();
                         ToastUtil.show(getContext(),msg);
                     }
@@ -140,31 +147,87 @@ public class InspectConfirm3Fragment extends Fragment implements FragmentInterac
 
     public void submitDatas(){
         if(adapter == null || tvPartno == null) return;
-        final List<ProdSpecDetailsAddon> addons
-                = adapter.createAddonList(currentOrderNo);
-        if(addons == null || addons.isEmpty()){
-            ToastUtil.show(getContext(),"未获取数据");
-            return;
-        }
+
         successCount = 0;
         totalCount = 0;
         final StringBuilder stringBuilder = new StringBuilder();
-        for(ProdSpecDetailsAddon addon:addons){
-            ApiTool.addProdSpecDetails(addon, new BaseOdataCallback<Map<String, Object>>() {
-                @Override
-                public void onDataAvailable(Map<String, Object> datas) {
-                    successCount++;
-                    totalCount++;
-                    toastResult(stringBuilder,addons.size());
-                }
 
-                @Override
-                public void onDataUnAvailable(String msg, int errorCode) {
-                    stringBuilder.append(msg).append('\n');
+        for (final Polymorph<ProdSpecDetailsAddon, ItemVsSpecItemInfo> polymorph : polyList) {
+            ProdSpecDetailsAddon addon = polymorph.getAddonEntity();
+
+
+            switch (polymorph.getState()) {
+                case FAILURE_EDIT:
+                case UNCOMMITTED_EDIT:
+                    @SuppressLint("DefaultLocale")
+                    String itemDesc = String.format("Prod_Order_No='%s',Line_No=%d",
+                            addon.getProd_Order_No(),
+                            addon.getLine_No());
+
+                    ApiTool.updateProdSpecDetailsList(itemDesc,
+                            addon,
+                            new Callback<String>() {
+                                @Override
+                                public void onResponse(Call<String> call, Response<String> response) {
+                                    totalCount++;
+                                    if (response.isSuccessful()) {
+                                        successCount++;
+                                        toastResult(stringBuilder, polyList.size());
+                                        polymorph.setState(Polymorph.State.COMMITTED);
+                                    } else {
+                                        String err = "";
+                                        try {
+                                            err = response.errorBody().string();
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
+                                        stringBuilder.append(err).append('\n');
+                                        toastResult(stringBuilder, polyList.size());
+                                        polymorph.setState(Polymorph.State.FAILURE_EDIT);
+                                    }
+                                    adapter.notifyDataSetChanged();
+                                }
+
+                                @Override
+                                public void onFailure(Call<String> call, Throwable t) {
+                                    t.printStackTrace();
+                                    stringBuilder.append(t.getMessage()).append('\n');
+                                    totalCount++;
+                                    toastResult(stringBuilder, polyList.size());
+                                    polymorph.setState(Polymorph.State.FAILURE_EDIT);
+                                    adapter.notifyDataSetChanged();
+                                }
+                            });
+
+                    break;
+                case UNCOMMITTED_NEW:
+                case FAILURE_NEW:
+
+                    ApiTool.addProdSpecDetails(addon, new BaseOdataCallback<Map<String, Object>>() {
+                        @Override
+                        public void onDataAvailable(Map<String, Object> datas) {
+                            successCount++;
+                            totalCount++;
+                            toastResult(stringBuilder, polyList.size());
+                            polymorph.setState(Polymorph.State.COMMITTED);
+                            adapter.notifyDataSetChanged();
+                        }
+
+                        @Override
+                        public void onDataUnAvailable(String msg, int errorCode) {
+                            stringBuilder.append(msg).append('\n');
+                            totalCount++;
+                            toastResult(stringBuilder, polyList.size());
+                            polymorph.setState(Polymorph.State.FAILURE_NEW);
+                            adapter.notifyDataSetChanged();
+                        }
+                    });
+                    break;
+                default:
                     totalCount++;
-                    toastResult(stringBuilder,addons.size());
-                }
-            });
+                    successCount++;
+                    break;
+            }
         }
 
     }
@@ -176,88 +239,9 @@ public class InspectConfirm3Fragment extends Fragment implements FragmentInterac
         }
     }
 
-    private static class MyInspectionAdapter extends BaseQuickAdapter<ItemVsSpecItemInfo,BaseViewHolder>{
 
-        public MyInspectionAdapter( @Nullable List<ItemVsSpecItemInfo> data) {
-            super(R.layout.item2_inspection3, data);
-            this.data = data;
-        }
-
-        private List<ItemVsSpecItemInfo> data;
-
-        @Override
-        protected void convert(BaseViewHolder helper, ItemVsSpecItemInfo item) {
-            helper.setText(R.id.tv2_item_inspection3_no,String.valueOf(helper.getAdapterPosition()));
-            helper.setText(R.id.tv2_item_inspection3_property,item.getSpec_Name());
-            helper.setText(R.id.tv2_item_inspection3_specification,item.getSpec_Description());
-
-            boolean isBoolType = item.getValue_Type().equals("Boolean");
-
-            helper.setOnCheckedChangeListener(R.id.checkbox2_item_inspection3_confirm1, listener);
-            helper.setOnCheckedChangeListener(R.id.checkbox2_item_inspection3_confirm2, listener);
-            helper.setOnCheckedChangeListener(R.id.checkbox2_item_inspection3_confirm3, listener);
-            helper.setGone(R.id.checkbox2_item_inspection3_confirm1,isBoolType);
-            helper.setGone(R.id.checkbox2_item_inspection3_confirm2,isBoolType);
-            helper.setGone(R.id.checkbox2_item_inspection3_confirm3,isBoolType);
-
-            helper.setGone(R.id.et2_item_inspection3_value1,!isBoolType);
-            helper.setGone(R.id.et2_item_inspection3_value2,!isBoolType);
-            helper.setGone(R.id.et2_item_inspection3_value3,!isBoolType);
-
-        }
-
-        private CompoundButton.OnCheckedChangeListener listener = new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                buttonView.setText(isChecked?"OK":"NotOK");
-                buttonView.setTextColor(isChecked?0xFF00FF00:0xFFFF0000);
-            }
-        };
-
-        public List<ProdSpecDetailsAddon> createAddonList(String orderno){
-
-            //int lineno = (int)Math.abs(System.currentTimeMillis());
-            List<ProdSpecDetailsAddon> addonList = new ArrayList<>();
-            for(int index = 0;index<data.size();index++) {
-                //int step = lineno + index;
-                ItemVsSpecItemInfo info = data.get(index);
-                ProdSpecDetailsAddon addon = new ProdSpecDetailsAddon();
-
-                int viewPosition = index + 1;
-
-                if(!info.getValue_Type().equals("Boolean")){
-                    EditText editText1 =((EditText)getViewByPosition(getRecyclerView(),viewPosition,R.id.et2_item_inspection3_value1));
-                    EditText editText2 =((EditText)getViewByPosition(getRecyclerView(),viewPosition,R.id.et2_item_inspection3_value2));
-                    EditText editText3 =((EditText)getViewByPosition(getRecyclerView(),viewPosition,R.id.et2_item_inspection3_value3));
-
-                    if(editText1 == null || editText2 == null || editText3 == null)return null;
-
-                    addon.setValue1(editText1.getText().toString());
-                    addon.setValue2(editText2.getText().toString());
-                    addon.setValue3(editText3.getText().toString());
-                }else{
-                    CheckBox checkBox1 =((CheckBox)getViewByPosition(getRecyclerView(),viewPosition,R.id.checkbox2_item_inspection3_confirm1));
-                    CheckBox checkBox2 =((CheckBox)getViewByPosition(getRecyclerView(),viewPosition,R.id.checkbox2_item_inspection3_confirm2));
-                    CheckBox checkBox3 =((CheckBox)getViewByPosition(getRecyclerView(),viewPosition,R.id.checkbox2_item_inspection3_confirm3));
-
-                    if(checkBox1 == null || checkBox2 == null || checkBox3 == null)return null;
-
-                    addon.setValue1(String.valueOf(checkBox1.isChecked()));
-                    addon.setValue2(String.valueOf(checkBox2.isChecked()));
-                    addon.setValue3(String.valueOf(checkBox3.isChecked()));
-                }
-
-                addon.setLine_No(info.getLine_No());
-                addon.setProd_Order_No(orderno);
-
-                addonList.add(addon);
-            }
-            return addonList;
-        }
-    }
-
-    private MyInspectionAdapter adapter;
-    private List<ItemVsSpecItemInfo> datalist = new ArrayList<>();
+    private MyInspection3Adapter adapter;
+    private List<Polymorph<ProdSpecDetailsAddon, ItemVsSpecItemInfo>> polyList = new ArrayList<>();
     RecyclerView recyclerView;
 
     @Override
@@ -269,7 +253,7 @@ public class InspectConfirm3Fragment extends Fragment implements FragmentInterac
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler2_inspection3);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new MyInspectionAdapter(datalist);
+        adapter = new MyInspection3Adapter(polyList);
         View headerView = inflater.inflate(R.layout.item2_inspection3_header,container,false);
         adapter.addHeaderView(headerView);
         adapter.bindToRecyclerView(recyclerView);

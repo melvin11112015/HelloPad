@@ -142,6 +142,8 @@ public class Main extends BaseActivity {
         AppContants.ServicePath = SharedPreferencesUtils.getParam(this, SharedPreferenceConstant.SERVICE_PATH, AppContants.ServicePath).toString();
         AppContants.ImagePath = SharedPreferencesUtils.getParam(this, SharedPreferenceConstant.IMAGE_PATH, AppContants.ImagePath).toString();
         ApiTool.currentApiUrl = SharedPreferencesUtils.getParam(this, SharedPreferenceConstant.ODATA_PATH,ApiTool.currentApiUrl).toString();
+        ApiTool.currentAuthName = SharedPreferencesUtils.getParam(this, SharedPreferenceConstant.ODATA_USERNAME,ApiTool.currentAuthName).toString();
+        ApiTool.currentAuthPsw = SharedPreferencesUtils.getParam(this, SharedPreferenceConstant.ODATA_PASSWORD,ApiTool.currentAuthPsw).toString();
         //获取最新版本情况
         new UpgradeManager(Main.this);
 

@@ -10,8 +10,37 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="right"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
         android:orientation="horizontal">
+
+        <RadioGroup
+            android:id="@+id/radionGroup2_inspection1_step"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="@dimen/dp_10"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radioButton2_inspection1_step1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="初回" />
+
+            <RadioButton
+                android:id="@+id/radioButton2_inspection1_step2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="过程" />
+
+            <RadioButton
+                android:id="@+id/radioButton2_inspection1_step3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="终回" />
+        </RadioGroup>
 
         <TextView
             android:layout_width="wrap_content"
@@ -23,6 +52,7 @@
             style="@android:style/Widget.DeviceDefault.EditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:ems="10"
             android:inputType="text" />
 

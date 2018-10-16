@@ -1,10 +1,13 @@
 package com.gki.v107.net;
 
 import com.gki.v107.entity.ItemVsSpecItemInfo;
+import com.gki.v107.entity.ProdConfirmBomItemsInfo;
 import com.gki.v107.entity.ProdConfirmDetailsAddon;
 import com.gki.v107.entity.ProdConfirmBomItemsAddon;
+import com.gki.v107.entity.ProdConfirmDetailsInfo;
 import com.gki.v107.entity.ProdConfirmItemsInfo;
 import com.gki.v107.entity.ProdSpecDetailsAddon;
+import com.gki.v107.entity.ProdSpecDetailsInfo;
 import com.gki.v107.entity.WebPordOrderCompInfo;
 import com.netcosports.ntlm.NTLMAuthenticator;
 
@@ -25,6 +28,9 @@ public class ApiTool {
 
     public static final String DEFAULT_API_URL = "http://192.168.0.122:9048/GKI_2013R2/OData/Company('GKI_2013R2')/";
     public static String currentApiUrl = DEFAULT_API_URL;
+
+    public static String currentAuthName = "tim";
+    public static String currentAuthPsw = "kybmgnc";
 
     private ApiTool() {
     }
@@ -62,7 +68,7 @@ public class ApiTool {
                 .baseUrl(currentApiUrl)
                 .client(new OkHttpClient.Builder()
                         //NTLM认证方式
-                        .authenticator(new NTLMAuthenticator("tim","kybmgnc",null))
+                        .authenticator(new NTLMAuthenticator(currentAuthName,currentAuthPsw,null))
                         .addInterceptor(new HttpLoggingInterceptor()
                                 .setLevel(HttpLoggingInterceptor.Level.BODY))
                         .addInterceptor(new Interceptor() {
@@ -122,6 +128,51 @@ public class ApiTool {
         getRetrofit()
                 .create(ApiService.class)
                 .addProdSpecDetails(addon)
+                .enqueue(callback);
+    }
+
+    public static void callProdConfirmBomItemsList(String filter, Callback<GenericResult<ProdConfirmBomItemsInfo>> callback) {
+        getRetrofit()
+                .create(ApiService.class)
+                .getProdConfirmBomItemsList(filter)
+                .enqueue(callback);
+    }
+
+    public static void callProdConfirmDetailsList(String filter, Callback<GenericResult<ProdConfirmDetailsInfo>> callback) {
+        getRetrofit()
+                .create(ApiService.class)
+                .getProdConfirmDetailsList(filter)
+                .enqueue(callback);
+    }
+
+    public static void callProdSpecDetailsList(String filter, Callback<GenericResult<ProdSpecDetailsInfo>> callback) {
+        getRetrofit()
+                .create(ApiService.class)
+                .getProdSpecDetailsList(filter)
+                .enqueue(callback);
+    }
+
+    public static void updateProdConfirmBomItemsList(String itemDesc,ProdConfirmBomItemsAddon addon, Callback<String> callback) {
+        String realUrl = currentApiUrl + "ProdConfirmBomItems(" + itemDesc + ")";
+        getRetrofit()
+                .create(ApiService.class)
+                .updateProdConfirmBomItems(realUrl,addon)
+                .enqueue(callback);
+    }
+
+    public static void updateProdConfirmDetailsList(String itemDesc,ProdConfirmDetailsAddon addon, Callback<String> callback) {
+        String realUrl = currentApiUrl + "ProdConfirmDetails(" + itemDesc + ")";
+        getRetrofit()
+                .create(ApiService.class)
+                .updateProdConfirmDetails(realUrl,addon)
+                .enqueue(callback);
+    }
+
+    public static void updateProdSpecDetailsList(String itemDesc,ProdSpecDetailsAddon addon, Callback<String> callback) {
+        String realUrl = currentApiUrl + "ProdSpecDetails(" + itemDesc + ")";
+        getRetrofit()
+                .create(ApiService.class)
+                .updateProdSpecDetails(realUrl,addon)
                 .enqueue(callback);
     }
 
