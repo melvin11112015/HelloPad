@@ -5,8 +5,10 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -73,55 +75,115 @@ public class MyInspection3Adapter extends BaseQuickAdapter<Polymorph<ProdSpecDet
         });
 
 
-        if(isBoolType) {
-            helper.setOnCheckedChangeListener(R.id.checkbox2_item_inspection3_confirm1, new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    buttonView.setText(isChecked ? "OK" : "NotOK");
-                    buttonView.setTextColor(isChecked ? 0xFF00FF00 : 0xFFFF0000);
-                    addon.setValue1(String.valueOf(isChecked));
-                }
-            });
-
-            helper.setOnCheckedChangeListener(R.id.checkbox2_item_inspection3_confirm2, new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    buttonView.setText(isChecked ? "OK" : "NotOK");
-                    buttonView.setTextColor(isChecked ? 0xFF00FF00 : 0xFFFF0000);
-                    addon.setValue2(String.valueOf(isChecked));
-                }
-            });
-            helper.setOnCheckedChangeListener(R.id.checkbox2_item_inspection3_confirm3, new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    buttonView.setText(isChecked ? "OK" : "NotOK");
-                    buttonView.setTextColor(isChecked ? 0xFF00FF00 : 0xFFFF0000);
-                    addon.setValue3(String.valueOf(isChecked));
-                }
-            });
-
-
-            helper.setChecked(R.id.checkbox2_item_inspection3_confirm1, addon.getValue1().equals(String.valueOf(true)));
-            helper.setChecked(R.id.checkbox2_item_inspection3_confirm2, addon.getValue2().equals(String.valueOf(true)));
-            helper.setChecked(R.id.checkbox2_item_inspection3_confirm3, addon.getValue3().equals(String.valueOf(true)));
-
-
-        }else {
-
-            helper.setOnCheckedChangeListener(R.id.checkbox2_item_inspection3_confirm1, null);
-            helper.setOnCheckedChangeListener(R.id.checkbox2_item_inspection3_confirm2, null);
-            helper.setOnCheckedChangeListener(R.id.checkbox2_item_inspection3_confirm3, null);
-
-            helper.setChecked(R.id.checkbox2_item_inspection3_confirm1, false);
-            helper.setChecked(R.id.checkbox2_item_inspection3_confirm2, false);
-            helper.setChecked(R.id.checkbox2_item_inspection3_confirm3, false);
-
-
+        Spinner s1 = (Spinner)helper.getView(R.id.spinner2_item_inspection3_confirm1);
+        switch (addon.getValue1()){
+            default:
+                s1.setSelection(0);
+                break;
+            case "true":
+                s1.setSelection(1);
+                break;
+            case "false":
+                s1.setSelection(2);
+                break;
         }
+        s1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position){
+                    default:
+                    case 0:
+                        addon.setValue1("NA");
+                        break;
+                    case 1:
+                        addon.setValue1("true");
+                        break;
+                    case 2:
+                        addon.setValue1("false");
+                        break;
+                }
+            }
 
-        helper.setGone(R.id.checkbox2_item_inspection3_confirm1, isBoolType);
-        helper.setGone(R.id.checkbox2_item_inspection3_confirm2, isBoolType);
-        helper.setGone(R.id.checkbox2_item_inspection3_confirm3, isBoolType);
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        Spinner s2 = (Spinner)helper.getView(R.id.spinner2_item_inspection3_confirm2);
+        switch (addon.getValue2()){
+            default:
+                s2.setSelection(0);
+                break;
+            case "true":
+                s2.setSelection(1);
+                break;
+            case "false":
+                s2.setSelection(2);
+                break;
+        }
+        s2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position){
+                    default:
+                    case 0:
+                        addon.setValue2("NA");
+                        break;
+                    case 1:
+                        addon.setValue2("true");
+                        break;
+                    case 2:
+                        addon.setValue2("false");
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        Spinner s3 = (Spinner)helper.getView(R.id.spinner2_item_inspection3_confirm3);
+        switch (addon.getValue3()){
+            default:
+                s3.setSelection(0);
+                break;
+            case "true":
+                s3.setSelection(1);
+                break;
+            case "false":
+                s3.setSelection(2);
+                break;
+        }
+        s3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position){
+                    default:
+                    case 0:
+                        addon.setValue3("NA");
+                        break;
+                    case 1:
+                        addon.setValue3("true");
+                        break;
+                    case 2:
+                        addon.setValue3("false");
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+        helper.setGone(R.id.spinner2_item_inspection3_confirm1, isBoolType);
+        helper.setGone(R.id.spinner2_item_inspection3_confirm2, isBoolType);
+        helper.setGone(R.id.spinner2_item_inspection3_confirm3, isBoolType);
 
         helper.setGone(R.id.et2_item_inspection3_value1, !isBoolType);
         helper.setGone(R.id.et2_item_inspection3_value2, !isBoolType);

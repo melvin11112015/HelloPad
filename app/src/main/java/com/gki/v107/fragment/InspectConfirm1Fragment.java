@@ -25,6 +25,8 @@ import com.gki.v107.net.ApiTool;
 import com.gki.v107.net.BaseOdataCallback;
 import com.gki.v107.net.GenericOdataCallback;
 
+import org.w3c.dom.Text;
+
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -46,6 +48,8 @@ public class InspectConfirm1Fragment extends Fragment implements FragmentInterac
 
     MyInspection1aAdapter adapter1;
     private TextView tvstarttime, tvendtime, tvDate;
+    private TextView tvStep;
+
     private View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -118,7 +122,7 @@ public class InspectConfirm1Fragment extends Fragment implements FragmentInterac
         }
     }
 
-    public void acquireDatas(final String orderno, final int stepCode) {
+    public void acquireDatas(final String orderno, final int stepCode,String sourceCode) {
 
         if (orderno.isEmpty() || adapter1 == null) return;
 
@@ -129,6 +133,10 @@ public class InspectConfirm1Fragment extends Fragment implements FragmentInterac
                 polyList.clear();
                 polyList.addAll(adapter1.createPolyList(datas, stepCode, orderno, tvDate, tvstarttime, tvendtime));
                 adapter1.notifyDataSetChanged();
+
+                if(stepCode == 1)tvStep.setText("初回");
+                else if(stepCode == 2)tvStep.setText("过程");
+                else if(stepCode == 3)tvStep.setText("终回");
             }
 
             @Override
@@ -136,6 +144,8 @@ public class InspectConfirm1Fragment extends Fragment implements FragmentInterac
                 polyList.clear();
                 adapter1.notifyDataSetChanged();
                 ToastUtil.show(getContext(), msg);
+
+                tvStep.setText("");
             }
         });
     }
@@ -252,6 +262,7 @@ public class InspectConfirm1Fragment extends Fragment implements FragmentInterac
 
         tvstarttime = (TextView) view.findViewById(R.id.tv2_inspection1_time1);
         tvendtime = (TextView) view.findViewById(R.id.tv2_inspection1_time2);
+        tvStep = (TextView) view.findViewById(R.id.tv2_inspection1_step);
 
         tvstarttime.setOnClickListener(onClickListener);
         tvendtime.setOnClickListener(onClickListener);

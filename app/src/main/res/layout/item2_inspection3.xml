@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/la2_item_inspection3"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -32,37 +33,29 @@
         android:text="规格"
         android:textColor="@android:color/background_dark" />
 
-    <CheckBox
-        android:id="@+id/checkbox2_item_inspection3_confirm1"
+    <Spinner
+        android:id="@+id/spinner2_item_inspection3_confirm1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="10"
-        android:text="NotOk"
-        android:textColor="@android:color/holo_red_dark"
-        android:textSize="12sp"
-        android:textStyle="bold"
+        android:entries="@array/okstate"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+    <Spinner
+        android:id="@+id/spinner2_item_inspection3_confirm2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="10"
+        android:entries="@array/okstate"
         android:visibility="gone" />
 
-    <CheckBox
-        android:id="@+id/checkbox2_item_inspection3_confirm2"
+    <Spinner
+        android:id="@+id/spinner2_item_inspection3_confirm3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="10"
-        android:text="NotOk"
-        android:textColor="@android:color/holo_red_dark"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        android:visibility="gone" />
-
-    <CheckBox
-        android:id="@+id/checkbox2_item_inspection3_confirm3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="10"
-        android:text="NotOk"
-        android:textColor="@android:color/holo_red_dark"
-        android:textSize="12sp"
-        android:textStyle="bold"
+        android:entries="@array/okstate"
         android:visibility="gone" />
 
     <EditText

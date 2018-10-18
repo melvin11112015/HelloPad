@@ -2,42 +2,28 @@ package com.gki.v107.fragment;
 
 
 import android.annotation.SuppressLint;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.TextView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
-import com.gki.managerment.LoginUser;
 import com.gki.managerment.R;
-import com.gki.managerment.bean.ProdMandayList;
-import com.gki.managerment.http.Service.getService;
 import com.gki.managerment.util.ToastUtil;
 import com.gki.v107.adapter.MyInspection3Adapter;
 import com.gki.v107.entity.ItemVsSpecItemInfo;
 import com.gki.v107.entity.Polymorph;
-import com.gki.v107.entity.ProdConfirmDetailsAddon;
-import com.gki.v107.entity.ProdConfirmItemsInfo;
 import com.gki.v107.entity.ProdSpecDetailsAddon;
 import com.gki.v107.myinterface.FragmentInteractionInterface;
 import com.gki.v107.net.ApiTool;
 import com.gki.v107.net.BaseOdataCallback;
 import com.gki.v107.net.GenericOdataCallback;
-import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -84,69 +70,42 @@ public class InspectConfirm3Fragment extends Fragment implements FragmentInterac
 
     private TextView tvPartno;
 
-    public void acquireDatas(String orderno,int stepCode){
+    public void acquireDatas(String orderno, int stepCode,String source_No) {
 
-        if(orderno.isEmpty() || adapter == null)return;
+        if (orderno.isEmpty() || adapter == null) return;
 
         currentOrderNo = orderno;
-        new GetByDocumentNoTask().execute(currentOrderNo);
+
+        tvPartno.setText(source_No);
+
+        String filter = "Item_No eq '" + source_No + "'";
+
+        ApiTool.callItemVsSpecItemList(filter, new GenericOdataCallback<ItemVsSpecItemInfo>() {
+            @Override
+            public void onDataAvailable(List<ItemVsSpecItemInfo> datas) {
+                polyList.clear();
+                polyList.addAll(adapter.createPolyList(datas, currentOrderNo));
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onDataUnAvailable(String msg, int errorCode) {
+                polyList.clear();
+                adapter.notifyDataSetChanged();
+                ToastUtil.show(getContext(), msg);
+            }
+        });
 
     }
 
-    private class GetByDocumentNoTask extends AsyncTask<String, Integer, String> {
-        @Override
-        protected String doInBackground(String... params) {
-            return getService.GetProdOrderService(params[0]);
-        }
 
-        @SuppressLint("NewApi")
-        @Override
-        protected void onPostExecute(String result) {
-            if (!result.trim().equals("null")) {
-                Gson gson = new Gson();
-                ProdMandayList bean = gson.fromJson(result, ProdMandayList.class);
 
-                if (!LoginUser.getUser().All_Prod_Line.contains(bean.Production_line + ","))
-                {
-                    ToastUtil.show(getContext(),"【生产单】不正确：该【生产单】不属于您所在【生产线】！");
-                    tvPartno.setText("");
-                    return;
-                }
 
-                tvPartno.setText(bean.Source_No);
-
-                String filter ="Item_No eq '" + bean.Source_No + "'";
-
-                ApiTool.callItemVsSpecItemList(filter,new GenericOdataCallback<ItemVsSpecItemInfo>() {
-                    @Override
-                    public void onDataAvailable(List<ItemVsSpecItemInfo> datas) {
-                        polyList.clear();
-                        polyList.addAll(adapter.createPolyList(datas, currentOrderNo));
-                        adapter.notifyDataSetChanged();
-                    }
-
-                    @Override
-                    public void onDataUnAvailable(String msg, int errorCode) {
-                        polyList.clear();
-                        adapter.notifyDataSetChanged();
-                        ToastUtil.show(getContext(),msg);
-                    }
-                });
-
-            }
-            else
-            {
-                ToastUtil.show(getContext(),"找不到该订单，请确认订单是否正确！");
-                tvPartno.setText("");
-            }
-        }
-    }
-
-    private int successCount = 0,totalCount = 0;
+    private int successCount = 0, totalCount = 0;
     private String currentOrderNo = "";
 
-    public void submitDatas(){
-        if(adapter == null || tvPartno == null) return;
+    public void submitDatas() {
+        if (adapter == null || tvPartno == null) return;
 
         successCount = 0;
         totalCount = 0;
@@ -232,13 +191,12 @@ public class InspectConfirm3Fragment extends Fragment implements FragmentInterac
 
     }
 
-    private void toastResult(StringBuilder stringBuilder,int size){
-        if(totalCount>=size) {
+    private void toastResult(StringBuilder stringBuilder, int size) {
+        if (totalCount >= size) {
             stringBuilder.append("(检查报告书)共").append(totalCount).append("条记录,").append("成功提交").append(successCount).append("条");
             ToastUtil.show(getContext(), stringBuilder.toString());
         }
     }
-
 
     private MyInspection3Adapter adapter;
     private List<Polymorph<ProdSpecDetailsAddon, ItemVsSpecItemInfo>> polyList = new ArrayList<>();
@@ -254,7 +212,7 @@ public class InspectConfirm3Fragment extends Fragment implements FragmentInterac
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler2_inspection3);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new MyInspection3Adapter(polyList);
-        View headerView = inflater.inflate(R.layout.item2_inspection3_header,container,false);
+        View headerView = inflater.inflate(R.layout.item2_inspection3_header, container, false);
         adapter.addHeaderView(headerView);
         adapter.bindToRecyclerView(recyclerView);
 

@@ -1,6 +1,8 @@
 package com.gki.v107.activity;
 
 
+import android.annotation.SuppressLint;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -15,11 +17,20 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 
+import com.gki.managerment.LoginUser;
 import com.gki.managerment.R;
+import com.gki.managerment.bean.ProdMandayList;
+import com.gki.managerment.http.Service.getService;
+import com.gki.managerment.util.ToastUtil;
+import com.gki.v107.entity.ItemVsSpecItemInfo;
 import com.gki.v107.fragment.InspectConfirm2Fragment;
 import com.gki.v107.fragment.InspectConfirm3Fragment;
 import com.gki.v107.myinterface.FragmentInteractionInterface;
 import com.gki.v107.fragment.InspectConfirm1Fragment;
+import com.gki.v107.net.ApiTool;
+import com.gki.v107.net.GenericOdataCallback;
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,10 +84,49 @@ public class InspectionActivity extends AppCompatActivity implements View.OnClic
 
     List<Fragment> fragmentList = new ArrayList<>();
 
+    private class GetByDocumentNoTask extends AsyncTask<String, Integer, String> {
+        @Override
+        protected String doInBackground(String... params) {
+            return getService.GetProdOrderService(params[0]);
+        }
+
+        @SuppressLint("NewApi")
+        @Override
+        protected void onPostExecute(String result) {
+
+            if (result.trim().equals("null") || result.isEmpty()) {
+                ToastUtil.show(InspectionActivity.this,"找不到该订单，请确认订单是否正确！");
+                return;
+            }
+            ProdMandayList bean = null;
+
+            try {
+                Gson gson = new Gson();
+                bean = gson.fromJson(result, ProdMandayList.class);
+            } catch (JsonSyntaxException e) {
+                e.printStackTrace();
+                ToastUtil.show(InspectionActivity.this,"数据解析失败");
+                return;
+            }
+
+            if(bean == null || LoginUser.getUser().All_Prod_Line == null){
+                ToastUtil.show(InspectionActivity.this,"数据解析失败");
+                return;
+            }
+
+            if (bean.Production_line == null || !LoginUser.getUser().All_Prod_Line.contains(bean.Production_line)) {
+                ToastUtil.show(InspectionActivity.this,"【生产单】不正确：该【生产单】不属于您所在【生产线】！");
+                return;
+            }
+
+            for(Fragment f:fragmentList)
+                if(f instanceof FragmentInteractionInterface)
+                    ((FragmentInteractionInterface)f).acquireDatas(etOrderno.getText().toString(),getStepCode(),bean.Source_No);
+        }
+    }
+
     private void doCheck(){
-        for(Fragment f:fragmentList)
-            if(f instanceof FragmentInteractionInterface)
-                ((FragmentInteractionInterface)f).acquireDatas(etOrderno.getText().toString(),getStepCode());
+        new GetByDocumentNoTask().execute(etOrderno.getText().toString());
     }
 
     private void doSubmit(){

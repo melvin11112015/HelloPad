@@ -94,7 +94,7 @@ public class InspectConfirm2Fragment extends Fragment implements FragmentInterac
 
     private TextView tvstarttime,tvendtime,tvDate;
 
-    public void acquireDatas(final String orderno,final int stepCode){
+    public void acquireDatas(final String orderno,final int stepCode,String sourceCode){
 
         if(orderno.isEmpty() || adapter == null)return;
 
@@ -104,6 +104,10 @@ public class InspectConfirm2Fragment extends Fragment implements FragmentInterac
                 polyList.clear();
                 polyList.addAll(adapter.createPolyList(datas, stepCode, orderno, tvDate, tvstarttime, tvendtime));
                 adapter.notifyDataSetChanged();
+
+                if(stepCode == 1)tvStep.setText("初回");
+                else if(stepCode == 2)tvStep.setText("过程");
+                else if(stepCode == 3)tvStep.setText("终回");
             }
 
             @Override
@@ -111,11 +115,14 @@ public class InspectConfirm2Fragment extends Fragment implements FragmentInterac
                 polyList.clear();
                 adapter.notifyDataSetChanged();
                 ToastUtil.show(getContext(),msg);
+
+                tvStep.setText("");
             }
         });
     }
 
     private int successCount = 0,totalCount = 0;
+    private TextView tvStep;
 
     public void submitDatas(){
         if(adapter == null || tvstarttime == null || tvendtime == null || tvDate == null) return;
@@ -260,6 +267,7 @@ public class InspectConfirm2Fragment extends Fragment implements FragmentInterac
 
         tvstarttime  = (TextView) view.findViewById(R.id.tv2_inspection1_time1);
         tvendtime  = (TextView) view.findViewById(R.id.tv2_inspection1_time2);
+        tvStep = (TextView) view.findViewById(R.id.tv2_inspection1_step);
 
         tvstarttime.setOnClickListener(onClickListener);
         tvendtime.setOnClickListener(onClickListener);
