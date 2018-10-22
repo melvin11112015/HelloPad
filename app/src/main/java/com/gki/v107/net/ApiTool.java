@@ -26,11 +26,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiTool {
 
-    public static final String DEFAULT_API_URL = "http://192.168.0.122:9048/GKI_2013R2/OData/Company('GKI_2013R2')/";
+    public static final String DEFAULT_API_URL = "http://10.1.1.65:7048/DynamicsNAV71/OData/Company('GKI-Live')/";
     public static String currentApiUrl = DEFAULT_API_URL;
 
-    public static String currentAuthName = "tim";
-    public static String currentAuthPsw = "kybmgnc";
+    public static String currentAuthName = "nav";
+    public static String currentAuthPsw = "Nav-123";
 
     private ApiTool() {
     }
