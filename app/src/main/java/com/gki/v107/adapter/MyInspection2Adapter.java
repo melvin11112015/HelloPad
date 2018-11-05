@@ -17,6 +17,7 @@ import com.gki.v107.entity.ProdConfirmItemsInfo;
 import com.gki.v107.entity.WebPordOrderCompInfo;
 import com.gki.v107.net.ApiTool;
 import com.gki.v107.net.GenericOdataCallback;
+import com.gki.v107.tool.DatetimeTool;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,15 +52,18 @@ public class MyInspection2Adapter extends BaseQuickAdapter<Polymorph<ProdConfirm
             case FAILURE_NEW:
             case FAILURE_EDIT:
                 helper.setBackgroundColor(R.id.la2_item_inspection2, 0xFFFFCCCC);
+                helper.getView(R.id.checkbox2_item_inspection2_confirm).setEnabled(true);
                 break;
             case COMMITTED:
                 helper.setBackgroundColor(R.id.la2_item_inspection2, 0xFFCCFFCC);
+                helper.getView(R.id.checkbox2_item_inspection2_confirm).setEnabled(false);
                 break;
             //case UNCOMMITTED_EDIT:
                 //helper.setBackgroundColor(R.id.la2_item_inspection2, 0xFFCCCCFF);
                 //break;
             default:
                 helper.setBackgroundColor(R.id.la2_item_inspection2, 0x00FFFFFF);
+                helper.getView(R.id.checkbox2_item_inspection2_confirm).setEnabled(true);
                 break;
         }
     }
@@ -69,7 +73,8 @@ public class MyInspection2Adapter extends BaseQuickAdapter<Polymorph<ProdConfirm
                                                                                           String orderno,
                                                                                           final TextView tvDate,
                                                                                           final TextView tvstarttime,
-                                                                                          final TextView tvendtime) {
+                                                                                         final TextView tvendtime
+                                                                                          ) {
 
         final List<Polymorph<ProdConfirmDetailsAddon, ProdConfirmItemsInfo>> polymorphList = new ArrayList<>();
         for (int index = 0; index<infoList.size() ; index++) {
@@ -83,6 +88,7 @@ public class MyInspection2Adapter extends BaseQuickAdapter<Polymorph<ProdConfirm
             addon.setProd_Order_No(orderno);
             addon.setStep(stepCode);
             addon.setItem_Name(info.getItem_Name());
+            addon.setRef_Description(info.getRef_Description());
 
             String filter2 = "Prod_Order_No eq '" + orderno + "' and Step eq " + stepCode + "and Line_No eq " + addon.getLine_No();
 
@@ -102,14 +108,11 @@ public class MyInspection2Adapter extends BaseQuickAdapter<Polymorph<ProdConfirm
 
                         notifyDataSetChanged();
 
-                        String startdatetime = info2.getStrat_Time().replace(":00Z", "");
-                        String enddatetime = info2.getEnd_Time().replace(":00Z", "");
-                        if (startdatetime.contains("T") && enddatetime.contains("T")) {
-                            String[] datetime = startdatetime.split("T");
-                            tvDate.setText(datetime[0]);
-                            tvstarttime.setText(datetime[1]);
-                            tvendtime.setText(enddatetime.split("T")[1]);
-                        }
+
+                            tvDate.setText(DatetimeTool.convertOdataTimezone(info2.getStrat_Time(),DatetimeTool.TYPE_DATE,DatetimeTool.DEFAULT_ADJUST_TIMEZONE));
+                            tvstarttime.setText(DatetimeTool.convertOdataTimezone(info2.getStrat_Time(),DatetimeTool.TYPE_TIME,DatetimeTool.DEFAULT_ADJUST_TIMEZONE));
+                            tvendtime.setText(DatetimeTool.convertOdataTimezone(info2.getEnd_Time(),DatetimeTool.TYPE_TIME,DatetimeTool.DEFAULT_ADJUST_TIMEZONE));
+
                     }
                 }
 

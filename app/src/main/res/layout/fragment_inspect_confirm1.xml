@@ -7,68 +7,23 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dp_10"
-        android:divider="@drawable/melvin_shape_rectangle_white"
-        android:orientation="horizontal"
-        android:showDividers="middle">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tv2_inspection1_step"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler2_inspection1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ProgressBar
+            android:id="@+id/progressBar2_inspection1"
+            style="@style/Widget.AppCompat.ProgressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="初回"
-            android:textColor="@color/common_signin_btn_default_background"
-            android:textStyle="bold" />
+            android:layout_gravity="center" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="生产日期:" />
-
-        <TextView
-            android:id="@+id/tv2_inspection1_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="始业时:" />
-
-        <TextView
-            android:id="@+id/tv2_inspection1_time1"
-            style="@android:style/Widget.DeviceDefault.EditText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="time" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="终业时:" />
-
-        <TextView
-            android:id="@+id/tv2_inspection1_time2"
-            style="@android:style/Widget.DeviceDefault.EditText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="time" />
-
-    </LinearLayout>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler2_inspection1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    </FrameLayout>
 
 
 </LinearLayout>

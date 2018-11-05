@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="9"
         android:gravity="center"
+        android:singleLine="true"
         android:text="No."
         android:textColor="@android:color/background_dark" />
 
@@ -20,8 +21,9 @@
         android:id="@+id/tv2_item_inspection1_code"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="7"
+        android:layout_weight="8"
         android:gravity="center"
+        android:singleLine="true"
         android:text="品番"
         android:textColor="@android:color/background_dark" />
 
@@ -29,8 +31,9 @@
         android:id="@+id/tv2_item_inspection1_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="7"
+        android:layout_weight="8"
         android:gravity="center"
+        android:singleLine="true"
         android:text="名称"
         android:textColor="@android:color/background_dark" />
 
@@ -40,6 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="9"
         android:gravity="center"
+        android:singleLine="true"
         android:text="数量"
         android:textColor="@android:color/background_dark" />
 
@@ -49,9 +53,10 @@
         android:layout_height="wrap_content"
         android:layout_weight="8"
         android:gravity="center"
+        android:singleLine="true"
         android:text="备考"
         android:textColor="@android:color/background_dark"
-        android:visibility="gone" />
+        android:visibility="visible" />
 
     <CheckBox
         android:id="@+id/checkbox2_item_inspection1_confirm"

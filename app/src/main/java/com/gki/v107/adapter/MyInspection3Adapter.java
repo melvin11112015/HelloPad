@@ -26,15 +26,20 @@ import java.util.List;
 
 public class MyInspection3Adapter extends BaseQuickAdapter<Polymorph<ProdSpecDetailsAddon, ItemVsSpecItemInfo>, BaseViewHolder> {
 
+    public static final String TRUE_STR = "true";
+    public static final String FALSE_STR = "false";
+    public static final String NA_STR = "NA";
+
     public MyInspection3Adapter(@Nullable List<Polymorph<ProdSpecDetailsAddon, ItemVsSpecItemInfo>> data) {
         super(R.layout.item2_inspection3, data);
     }
 
     @Override
     protected void convert(BaseViewHolder helper, Polymorph<ProdSpecDetailsAddon, ItemVsSpecItemInfo> item) {
-        helper.setText(R.id.tv2_item_inspection3_no, String.valueOf(helper.getAdapterPosition()));
+        helper.setText(R.id.tv2_item_inspection3_no, item.getInfoEntity().getNo());
         helper.setText(R.id.tv2_item_inspection3_property, item.getInfoEntity().getSpec_Name());
         helper.setText(R.id.tv2_item_inspection3_specification, item.getInfoEntity().getSpec_Description());
+        helper.setText(R.id.tv2_item_inspection3_remark, item.getInfoEntity().getRemark());
 
         boolean isBoolType = item.getInfoEntity().getValue_Type().equals("Boolean");
         boolean isDecimalType = item.getInfoEntity().getValue_Type().equals("Decimal");
@@ -44,14 +49,42 @@ public class MyInspection3Adapter extends BaseQuickAdapter<Polymorph<ProdSpecDet
         EditText editText1 = ((EditText) helper.getView(R.id.et2_item_inspection3_value1));
         EditText editText2 = ((EditText) helper.getView(R.id.et2_item_inspection3_value2));
         EditText editText3 = ((EditText) helper.getView(R.id.et2_item_inspection3_value3));
+        EditText editText4 = ((EditText) helper.getView(R.id.et2_item_inspection3_value4));
+        EditText editText5 = ((EditText) helper.getView(R.id.et2_item_inspection3_value5));
+
+        Spinner s1 = (Spinner)helper.getView(R.id.spinner2_item_inspection3_confirm1);
+        Spinner s2 = (Spinner)helper.getView(R.id.spinner2_item_inspection3_confirm2);
+        Spinner s3 = (Spinner)helper.getView(R.id.spinner2_item_inspection3_confirm3);
+        Spinner s4 = (Spinner)helper.getView(R.id.spinner2_item_inspection3_confirm4);
+        Spinner s5 = (Spinner)helper.getView(R.id.spinner2_item_inspection3_confirm5);
 
         helper.setText(R.id.et2_item_inspection3_value1, addon.getValue1());
         helper.setText(R.id.et2_item_inspection3_value2, addon.getValue2());
         helper.setText(R.id.et2_item_inspection3_value3, addon.getValue3());
+        helper.setText(R.id.et2_item_inspection3_value4, addon.getValue4());
+        helper.setText(R.id.et2_item_inspection3_value5, addon.getValue5());
 
-        editText1.setInputType(isDecimalType?8194:InputType.TYPE_CLASS_TEXT);
-        editText2.setInputType(isDecimalType?8194:InputType.TYPE_CLASS_TEXT);
-        editText3.setInputType(isDecimalType?8194:InputType.TYPE_CLASS_TEXT);
+        s1.setSelection(addon.getValue1().equals(TRUE_STR)?1:(addon.getValue1().equals(FALSE_STR)?2:0),true);
+        s2.setSelection(addon.getValue2().equals(TRUE_STR)?1:(addon.getValue2().equals(FALSE_STR)?2:0),true);
+        s3.setSelection(addon.getValue3().equals(TRUE_STR)?1:(addon.getValue3().equals(FALSE_STR)?2:0),true);
+        s4.setSelection(addon.getValue4().equals(TRUE_STR)?1:(addon.getValue4().equals(FALSE_STR)?2:0),true);
+        s5.setSelection(addon.getValue5().equals(TRUE_STR)?1:(addon.getValue5().equals(FALSE_STR)?2:0),true);
+
+        editText1.setInputType(isDecimalType?
+                InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_SIGNED|InputType.TYPE_NUMBER_FLAG_DECIMAL:
+                InputType.TYPE_CLASS_TEXT);
+        editText2.setInputType(isDecimalType?
+                InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_SIGNED|InputType.TYPE_NUMBER_FLAG_DECIMAL:
+                InputType.TYPE_CLASS_TEXT);
+        editText3.setInputType(isDecimalType?
+                InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_SIGNED|InputType.TYPE_NUMBER_FLAG_DECIMAL:
+                InputType.TYPE_CLASS_TEXT);
+        editText4.setInputType(isDecimalType?
+                InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_SIGNED|InputType.TYPE_NUMBER_FLAG_DECIMAL:
+                InputType.TYPE_CLASS_TEXT);
+        editText5.setInputType(isDecimalType?
+                InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_SIGNED|InputType.TYPE_NUMBER_FLAG_DECIMAL:
+                InputType.TYPE_CLASS_TEXT);
 
         editText1.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -74,67 +107,56 @@ public class MyInspection3Adapter extends BaseQuickAdapter<Polymorph<ProdSpecDet
             }
         });
 
-
-        Spinner s1 = (Spinner)helper.getView(R.id.spinner2_item_inspection3_confirm1);
-        switch (addon.getValue1()){
-            default:
-                s1.setSelection(0);
-                break;
-            case "true":
-                s1.setSelection(1);
-                break;
-            case "false":
-                s1.setSelection(2);
-                break;
-        }
-        s1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        editText4.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                switch (position){
-                    default:
-                    case 0:
-                        addon.setValue1("NA");
-                        break;
-                    case 1:
-                        addon.setValue1("true");
-                        break;
-                    case 2:
-                        addon.setValue1("false");
-                        break;
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus)addon.setValue4(((EditText)v).getText().toString());
             }
         });
 
-        Spinner s2 = (Spinner)helper.getView(R.id.spinner2_item_inspection3_confirm2);
-        switch (addon.getValue2()){
+        editText5.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus)addon.setValue5(((EditText)v).getText().toString());
+            }
+        });
+
+s1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        switch (position){
             default:
-                s2.setSelection(0);
+            case 0:
+                addon.setValue1(NA_STR);
                 break;
-            case "true":
-                s2.setSelection(1);
+            case 1:
+                addon.setValue1(TRUE_STR);
                 break;
-            case "false":
-                s2.setSelection(2);
+            case 2:
+                addon.setValue1(FALSE_STR);
                 break;
         }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+    }
+});
+
+
         s2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 switch (position){
                     default:
                     case 0:
-                        addon.setValue2("NA");
+                        addon.setValue2(NA_STR);
                         break;
                     case 1:
-                        addon.setValue2("true");
+                        addon.setValue2(TRUE_STR);
                         break;
                     case 2:
-                        addon.setValue2("false");
+                        addon.setValue2(FALSE_STR);
                         break;
                 }
             }
@@ -145,31 +167,19 @@ public class MyInspection3Adapter extends BaseQuickAdapter<Polymorph<ProdSpecDet
             }
         });
 
-        Spinner s3 = (Spinner)helper.getView(R.id.spinner2_item_inspection3_confirm3);
-        switch (addon.getValue3()){
-            default:
-                s3.setSelection(0);
-                break;
-            case "true":
-                s3.setSelection(1);
-                break;
-            case "false":
-                s3.setSelection(2);
-                break;
-        }
         s3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 switch (position){
                     default:
                     case 0:
-                        addon.setValue3("NA");
+                        addon.setValue3(NA_STR);
                         break;
                     case 1:
-                        addon.setValue3("true");
+                        addon.setValue3(TRUE_STR);
                         break;
                     case 2:
-                        addon.setValue3("false");
+                        addon.setValue3(FALSE_STR);
                         break;
                 }
             }
@@ -180,35 +190,121 @@ public class MyInspection3Adapter extends BaseQuickAdapter<Polymorph<ProdSpecDet
             }
         });
 
+        s4.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position){
+                    default:
+                    case 0:
+                        addon.setValue4(NA_STR);
+                        break;
+                    case 1:
+                        addon.setValue4(TRUE_STR);
+                        break;
+                    case 2:
+                        addon.setValue4(FALSE_STR);
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        s5.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position){
+                    default:
+                    case 0:
+                        addon.setValue5(NA_STR);
+                        break;
+                    case 1:
+                        addon.setValue5(TRUE_STR);
+                        break;
+                    case 2:
+                        addon.setValue5(FALSE_STR);
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         helper.setGone(R.id.spinner2_item_inspection3_confirm1, isBoolType);
         helper.setGone(R.id.spinner2_item_inspection3_confirm2, isBoolType);
         helper.setGone(R.id.spinner2_item_inspection3_confirm3, isBoolType);
+        helper.setGone(R.id.spinner2_item_inspection3_confirm4, isBoolType);
+        helper.setGone(R.id.spinner2_item_inspection3_confirm5, isBoolType);
 
         helper.setGone(R.id.et2_item_inspection3_value1, !isBoolType);
         helper.setGone(R.id.et2_item_inspection3_value2, !isBoolType);
         helper.setGone(R.id.et2_item_inspection3_value3, !isBoolType);
+        helper.setGone(R.id.et2_item_inspection3_value4, !isBoolType);
+        helper.setGone(R.id.et2_item_inspection3_value5, !isBoolType);
 
 
         switch (item.getState()) {
             case FAILURE_NEW:
             case FAILURE_EDIT:
                 helper.setBackgroundColor(R.id.la2_item_inspection3, 0xFFFFCCCC);
+
+                helper.getView(R.id.spinner2_item_inspection3_confirm1).setEnabled(true);
+                helper.getView(R.id.spinner2_item_inspection3_confirm2).setEnabled(true);
+                helper.getView(R.id.spinner2_item_inspection3_confirm3).setEnabled(true);
+                helper.getView(R.id.spinner2_item_inspection3_confirm4).setEnabled(true);
+                helper.getView(R.id.spinner2_item_inspection3_confirm5).setEnabled(true);
+
+                helper.getView(R.id.et2_item_inspection3_value1).setEnabled(true);
+                helper.getView(R.id.et2_item_inspection3_value2).setEnabled(true);
+                helper.getView(R.id.et2_item_inspection3_value3).setEnabled(true);
+                helper.getView(R.id.et2_item_inspection3_value4).setEnabled(true);
+                helper.getView(R.id.et2_item_inspection3_value5).setEnabled(true);
+
                 break;
             case COMMITTED:
                 helper.setBackgroundColor(R.id.la2_item_inspection3, 0xFFCCFFCC);
+
+                helper.getView(R.id.spinner2_item_inspection3_confirm1).setEnabled(false);
+                helper.getView(R.id.spinner2_item_inspection3_confirm2).setEnabled(false);
+                helper.getView(R.id.spinner2_item_inspection3_confirm3).setEnabled(false);
+                helper.getView(R.id.spinner2_item_inspection3_confirm4).setEnabled(false);
+                helper.getView(R.id.spinner2_item_inspection3_confirm5).setEnabled(false);
+
+                helper.getView(R.id.et2_item_inspection3_value1).setEnabled(false);
+                helper.getView(R.id.et2_item_inspection3_value2).setEnabled(false);
+                helper.getView(R.id.et2_item_inspection3_value3).setEnabled(false);
+                helper.getView(R.id.et2_item_inspection3_value4).setEnabled(false);
+                helper.getView(R.id.et2_item_inspection3_value5).setEnabled(false);
                 break;
             //case UNCOMMITTED_EDIT:
             //helper.setBackgroundColor(R.id.la2_item_inspection3, 0xFFCCCCFF);
             //break;
             default:
                 helper.setBackgroundColor(R.id.la2_item_inspection3, 0x00FFFFFF);
+
+                helper.getView(R.id.spinner2_item_inspection3_confirm1).setEnabled(true);
+                helper.getView(R.id.spinner2_item_inspection3_confirm2).setEnabled(true);
+                helper.getView(R.id.spinner2_item_inspection3_confirm3).setEnabled(true);
+                helper.getView(R.id.spinner2_item_inspection3_confirm4).setEnabled(true);
+                helper.getView(R.id.spinner2_item_inspection3_confirm5).setEnabled(true);
+
+                helper.getView(R.id.et2_item_inspection3_value1).setEnabled(true);
+                helper.getView(R.id.et2_item_inspection3_value2).setEnabled(true);
+                helper.getView(R.id.et2_item_inspection3_value3).setEnabled(true);
+                helper.getView(R.id.et2_item_inspection3_value4).setEnabled(true);
+                helper.getView(R.id.et2_item_inspection3_value5).setEnabled(true);
                 break;
         }
     }
 
     public List<Polymorph<ProdSpecDetailsAddon, ItemVsSpecItemInfo>> createPolyList(List<ItemVsSpecItemInfo> infoList,
-                                                                                    String orderno) {
+                                                                                    String orderno, final EditText etNo1, final EditText etNo2, final EditText etNo3,final EditText etNo4,final EditText etNo5) {
 
         final List<Polymorph<ProdSpecDetailsAddon, ItemVsSpecItemInfo>> polymorphList = new ArrayList<>();
         for (int index = 0; index < infoList.size(); index++) {
@@ -216,15 +312,26 @@ public class MyInspection3Adapter extends BaseQuickAdapter<Polymorph<ProdSpecDet
             ItemVsSpecItemInfo info = infoList.get(index);
             ProdSpecDetailsAddon addon = new ProdSpecDetailsAddon();
 
+            addon.setNo(info.getNo());
             addon.setLine_No(info.getLine_No());
             addon.setValue1("");
             addon.setValue2("");
             addon.setValue3("");
+            addon.setValue4("");
+            addon.setValue5("");
             addon.setSpec_Name(info.getSpec_Name());
             addon.setProd_Order_No(orderno);
             addon.setSpec_Description(info.getSpec_Description());
+            addon.setRemark(info.getRemark());
+            addon.setValue_Type(info.getValue_Type());
+            addon.setDiff_Value(info.getDiff_Value());
+            addon.setQty1("0");
+            addon.setQty2("0");
+            addon.setQty3("0");
+            addon.setQty4("0");
+            addon.setQty5("0");
 
-            String filter2 = "Prod_Order_No eq '" + orderno + "' and Line_No eq " + addon.getLine_No();
+            String filter2 = "Prod_Order_No eq '" + orderno + "' and Line_No eq " + addon.getLine_No() + " and No eq '" + addon.getNo() + "'";
 
             Polymorph<ProdSpecDetailsAddon, ItemVsSpecItemInfo> poly = new Polymorph<>(addon, info, Polymorph.State.UNCOMMITTED_NEW);
             polymorphList.add(poly);
@@ -240,6 +347,18 @@ public class MyInspection3Adapter extends BaseQuickAdapter<Polymorph<ProdSpecDet
                         polymorphList.get(specIndex).getAddonEntity().setValue1(info2.getValue1());
                         polymorphList.get(specIndex).getAddonEntity().setValue2(info2.getValue2());
                         polymorphList.get(specIndex).getAddonEntity().setValue3(info2.getValue3());
+                        polymorphList.get(specIndex).getAddonEntity().setValue4(info2.getValue4());
+                        polymorphList.get(specIndex).getAddonEntity().setValue5(info2.getValue5());
+                        polymorphList.get(specIndex).getAddonEntity().setQty1(info2.getQty1());
+                        polymorphList.get(specIndex).getAddonEntity().setQty2(info2.getQty2());
+                        polymorphList.get(specIndex).getAddonEntity().setQty3(info2.getQty3());
+                        polymorphList.get(specIndex).getAddonEntity().setQty4(info2.getQty4());
+                        polymorphList.get(specIndex).getAddonEntity().setQty5(info2.getQty5());
+                        etNo1.setText(info2.getQty1());
+                        etNo2.setText(info2.getQty2());
+                        etNo3.setText(info2.getQty3());
+                        etNo4.setText(info2.getQty4());
+                        etNo5.setText(info2.getQty5());
                         polymorphList.get(specIndex).setState(Polymorph.State.UNCOMMITTED_EDIT);
 
                         notifyDataSetChanged();

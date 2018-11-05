@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="10"
         android:gravity="center"
+        android:singleLine="true"
         android:text="No."
         android:textColor="@android:color/background_dark" />
 
@@ -20,6 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="8"
         android:gravity="center"
+        android:singleLine="true"
         android:text="重点项目"
         android:textColor="@android:color/background_dark" />
 
@@ -29,6 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="8"
         android:gravity="center"
+        android:singleLine="true"
         android:text="关联资料"
         android:textColor="@android:color/background_dark" />
 

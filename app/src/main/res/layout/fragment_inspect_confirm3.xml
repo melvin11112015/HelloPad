@@ -10,28 +10,96 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dp_10"
-        android:divider="@drawable/melvin_shape_rectangle_white"
-        android:orientation="horizontal"
-        android:showDividers="middle">
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="零件编号:" />
+            android:text="数量1：" />
 
-        <TextView
-            android:id="@+id/tv2_inspection3_partno"
+        <EditText
+            android:id="@+id/et2_inspection3_no1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="number|numberSigned|numberDecimal"
+            android:text="0" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="数量2：" />
+
+        <EditText
+            android:id="@+id/et2_inspection3_no2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="number|numberSigned|numberDecimal"
+            android:text="0" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="数量3：" />
+
+        <EditText
+            android:id="@+id/et2_inspection3_no3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="number|numberSigned|numberDecimal"
+            android:text="0" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="数量4：" />
+
+        <EditText
+            android:id="@+id/et2_inspection3_no4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="number|numberSigned|numberDecimal"
+            android:text="0" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="数量5：" />
+
+        <EditText
+            android:id="@+id/et2_inspection3_no5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="number|numberSigned|numberDecimal"
+            android:text="0" />
     </LinearLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler2_inspection3"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:id="@+id/progressBar2_inspection3"
+            style="@style/Widget.AppCompat.ProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler2_inspection3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:descendantFocusability="beforeDescendants" />
+    </FrameLayout>
 
 
 </LinearLayout>

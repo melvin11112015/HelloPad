@@ -9,6 +9,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.gki.managerment.R;
@@ -68,24 +70,28 @@ public class InspectConfirm3Fragment extends Fragment implements FragmentInterac
         }
     }
 
-    private TextView tvPartno;
+    private ProgressBar progressBar;
+    private EditText etNo1,etNo2,etNo3,etNo4,etNo5;
 
-    public void acquireDatas(String orderno, int stepCode,String source_No) {
+    @Override
+    public void acquireDatas(final String orderno, final int stepCode,String sourceCode,final TextView tvDate,final TextView tvstarttime,final TextView tvendtime) {
 
-        if (orderno.isEmpty() || adapter == null) return;
+        if (sourceCode.isEmpty() || adapter == null) return;
+
+        progressBar.setVisibility(View.VISIBLE);
 
         currentOrderNo = orderno;
 
-        tvPartno.setText(source_No);
-
-        String filter = "Item_No eq '" + source_No + "'";
+        String filter = "Item_No eq '" + sourceCode + "'";
 
         ApiTool.callItemVsSpecItemList(filter, new GenericOdataCallback<ItemVsSpecItemInfo>() {
             @Override
             public void onDataAvailable(List<ItemVsSpecItemInfo> datas) {
                 polyList.clear();
-                polyList.addAll(adapter.createPolyList(datas, currentOrderNo));
+                polyList.addAll(adapter.createPolyList(datas, currentOrderNo,etNo1,etNo2,etNo3,etNo4,etNo5));
                 adapter.notifyDataSetChanged();
+
+                progressBar.setVisibility(View.GONE);
             }
 
             @Override
@@ -93,19 +99,24 @@ public class InspectConfirm3Fragment extends Fragment implements FragmentInterac
                 polyList.clear();
                 adapter.notifyDataSetChanged();
                 ToastUtil.show(getContext(), msg);
+
+                progressBar.setVisibility(View.GONE);
             }
         });
 
     }
 
 
-
-
     private int successCount = 0, totalCount = 0;
     private String currentOrderNo = "";
 
-    public void submitDatas() {
-        if (adapter == null || tvPartno == null) return;
+    public void submitDatas(final TextView tvDate,final TextView tvstarttime,final TextView tvendtime) {
+        if (adapter == null) return;
+        if(polyList.isEmpty()){
+            ToastUtil.show(getContext(),"没有提交数据");
+            return;
+        }
+        progressBar.setVisibility(View.VISIBLE);
 
         successCount = 0;
         totalCount = 0;
@@ -113,7 +124,11 @@ public class InspectConfirm3Fragment extends Fragment implements FragmentInterac
 
         for (final Polymorph<ProdSpecDetailsAddon, ItemVsSpecItemInfo> polymorph : polyList) {
             ProdSpecDetailsAddon addon = polymorph.getAddonEntity();
-
+            addon.setQty1(etNo1.getText().toString().trim());
+            addon.setQty2(etNo2.getText().toString().trim());
+            addon.setQty3(etNo3.getText().toString().trim());
+            addon.setQty4(etNo4.getText().toString().trim());
+            addon.setQty5(etNo5.getText().toString().trim());
 
             switch (polymorph.getState()) {
                 case FAILURE_EDIT:
@@ -184,7 +199,7 @@ public class InspectConfirm3Fragment extends Fragment implements FragmentInterac
                     break;
                 default:
                     totalCount++;
-                    successCount++;
+                    toastResult(stringBuilder, polyList.size());
                     break;
             }
         }
@@ -195,6 +210,7 @@ public class InspectConfirm3Fragment extends Fragment implements FragmentInterac
         if (totalCount >= size) {
             stringBuilder.append("(检查报告书)共").append(totalCount).append("条记录,").append("成功提交").append(successCount).append("条");
             ToastUtil.show(getContext(), stringBuilder.toString());
+            progressBar.setVisibility(View.GONE);
         }
     }
 
@@ -207,7 +223,15 @@ public class InspectConfirm3Fragment extends Fragment implements FragmentInterac
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_inspect_confirm3, container, false);
+        progressBar = (ProgressBar) view.findViewById(R.id.progressBar2_inspection3);
 
+        etNo1 = (EditText) view.findViewById(R.id.et2_inspection3_no1);
+        etNo2 = (EditText) view.findViewById(R.id.et2_inspection3_no2);
+        etNo3 = (EditText) view.findViewById(R.id.et2_inspection3_no3);
+        etNo4 = (EditText) view.findViewById(R.id.et2_inspection3_no4);
+        etNo5 = (EditText) view.findViewById(R.id.et2_inspection3_no5);
+
+        progressBar.setVisibility(View.GONE);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler2_inspection3);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -216,7 +240,6 @@ public class InspectConfirm3Fragment extends Fragment implements FragmentInterac
         adapter.addHeaderView(headerView);
         adapter.bindToRecyclerView(recyclerView);
 
-        tvPartno = (TextView) view.findViewById(R.id.tv2_inspection3_partno);
 
         return view;
     }

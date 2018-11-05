@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -77,37 +78,24 @@ public class InspectConfirm2Fragment extends Fragment implements FragmentInterac
         }
     }
 
-    private View.OnClickListener onClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()){
-                case R.id.tv2_inspection1_time1:
-                    showTimePickerDialog(getContext(),android.R.style.Theme_Holo_Light_Dialog,tvstarttime,Calendar.getInstance());
-                    break;
-                case R.id.tv2_inspection1_time2:
-                    showTimePickerDialog(getContext(),android.R.style.Theme_Holo_Light_Dialog,tvendtime,Calendar.getInstance());
-                    break;
-            }
-        }
-    };
 
 
-    private TextView tvstarttime,tvendtime,tvDate;
+    private ProgressBar progressBar;
 
-    public void acquireDatas(final String orderno,final int stepCode,String sourceCode){
+    public void acquireDatas(final String orderno, final int stepCode,String sourceCode,final TextView tvDate,final TextView tvstarttime,final TextView tvendtime) {
 
         if(orderno.isEmpty() || adapter == null)return;
+
+        progressBar.setVisibility(View.VISIBLE);
 
         ApiTool.callProdConfirmItemsList(new GenericOdataCallback<ProdConfirmItemsInfo>() {
             @Override
             public void onDataAvailable(List<ProdConfirmItemsInfo> datas) {
                 polyList.clear();
-                polyList.addAll(adapter.createPolyList(datas, stepCode, orderno, tvDate, tvstarttime, tvendtime));
+                polyList.addAll(adapter.createPolyList(datas, stepCode, orderno, tvDate, tvstarttime,tvendtime));
                 adapter.notifyDataSetChanged();
 
-                if(stepCode == 1)tvStep.setText("初回");
-                else if(stepCode == 2)tvStep.setText("过程");
-                else if(stepCode == 3)tvStep.setText("终回");
+                progressBar.setVisibility(View.GONE);
             }
 
             @Override
@@ -116,21 +104,27 @@ public class InspectConfirm2Fragment extends Fragment implements FragmentInterac
                 adapter.notifyDataSetChanged();
                 ToastUtil.show(getContext(),msg);
 
-                tvStep.setText("");
+                progressBar.setVisibility(View.GONE);
             }
         });
     }
 
     private int successCount = 0,totalCount = 0;
-    private TextView tvStep;
 
-    public void submitDatas(){
-        if(adapter == null || tvstarttime == null || tvendtime == null || tvDate == null) return;
-
+    public void submitDatas(final TextView tvDate,final TextView tvstarttime,final TextView tvendtime) {
+        if (adapter == null || tvendtime == null ||tvstarttime == null || tvDate == null) return;
+        if(polyList.isEmpty()){
+            ToastUtil.show(getContext(),"没有提交数据");
+            return;
+        }
         if(tvstarttime.getText().toString().compareTo(tvendtime.getText().toString())>0){
             ToastUtil.show(getContext(),"始业时不能大于终业时");
             return;
         }
+
+
+        progressBar.setVisibility(View.VISIBLE);
+
         successCount = 0;
         totalCount = 0;
         final StringBuilder stringBuilder = new StringBuilder();
@@ -215,7 +209,7 @@ public class InspectConfirm2Fragment extends Fragment implements FragmentInterac
                     break;
                 default:
                     totalCount++;
-                    successCount++;
+                    toastResult(stringBuilder, polyList.size());
                     break;
             }
         }
@@ -226,6 +220,7 @@ public class InspectConfirm2Fragment extends Fragment implements FragmentInterac
         if(totalCount>=size) {
             stringBuilder.append("(确认项目)共").append(totalCount).append("条记录,").append("成功提交").append(successCount).append("条");
             ToastUtil.show(getContext(), stringBuilder.toString());
+            progressBar.setVisibility(View.GONE);
         }
     }
 
@@ -233,30 +228,6 @@ public class InspectConfirm2Fragment extends Fragment implements FragmentInterac
     private MyInspection2Adapter adapter;
     private List<Polymorph<ProdConfirmDetailsAddon, ProdConfirmItemsInfo>> polyList = new ArrayList<>();
 
-    /**
-     * 时间选择
-     * @param context
-     * @param themeResId
-     * @param tv
-     * @param calendar
-     */
-    public static void showTimePickerDialog(Context context, int themeResId, final TextView tv, Calendar calendar) {
-        // Calendar c = Calendar.getInstance();
-        // 创建一个TimePickerDialog实例，并把它显示出来
-        new TimePickerDialog(context, themeResId,
-                // 绑定监听器
-                new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        tv.setText(String.format("%02d:%02d",hourOfDay,minute));
-                    }
-                }
-                // 设置初始时间
-                , calendar.get(Calendar.HOUR_OF_DAY)
-                , calendar.get(Calendar.MINUTE)
-                // true表示采用24小时制
-                , true).show();
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -264,13 +235,9 @@ public class InspectConfirm2Fragment extends Fragment implements FragmentInterac
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_inspect_confirm1, container, false);
 
+        progressBar = (ProgressBar) view.findViewById(R.id.progressBar2_inspection1);
 
-        tvstarttime  = (TextView) view.findViewById(R.id.tv2_inspection1_time1);
-        tvendtime  = (TextView) view.findViewById(R.id.tv2_inspection1_time2);
-        tvStep = (TextView) view.findViewById(R.id.tv2_inspection1_step);
-
-        tvstarttime.setOnClickListener(onClickListener);
-        tvendtime.setOnClickListener(onClickListener);
+        progressBar.setVisibility(View.GONE);
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler2_inspection1);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -278,14 +245,6 @@ public class InspectConfirm2Fragment extends Fragment implements FragmentInterac
         View headerView = inflater.inflate(R.layout.item2_inspection2_header,container,false);
         adapter.addHeaderView(headerView);
         adapter.bindToRecyclerView(recyclerView);
-        Calendar calendar = Calendar.getInstance();
-        tvDate = (TextView) view.findViewById(R.id.tv2_inspection1_date);
-
-        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
-        tvDate.setText(sdf1.format(calendar.getTime()));
-        SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm");
-        tvstarttime.setText(sdf2.format(calendar.getTime()));
-        tvendtime.setText(sdf2.format(calendar.getTime()));
 
         return view;
     }

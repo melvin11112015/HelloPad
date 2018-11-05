@@ -28,6 +28,7 @@ import com.gki.managerment.util.SharedPreferencesUtils;
 import com.gki.managerment.util.StringUtils;
 import com.gki.v107.net.ApiTool;
 import com.google.gson.Gson;
+import com.tencent.bugly.crashreport.CrashReport;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -139,6 +140,9 @@ public class Main extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        CrashReport.initCrashReport(getApplicationContext(), "5b41b0d57e", true);
+
         AppContants.ServicePath = SharedPreferencesUtils.getParam(this, SharedPreferenceConstant.SERVICE_PATH, AppContants.ServicePath).toString();
         AppContants.ImagePath = SharedPreferencesUtils.getParam(this, SharedPreferenceConstant.IMAGE_PATH, AppContants.ImagePath).toString();
         ApiTool.currentApiUrl = SharedPreferencesUtils.getParam(this, SharedPreferenceConstant.ODATA_PATH,ApiTool.currentApiUrl).toString();

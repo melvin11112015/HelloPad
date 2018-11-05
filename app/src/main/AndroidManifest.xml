@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
 
     <uses-feature android:name="android.hardware.camera" />
 
@@ -42,7 +43,7 @@
             android:name=".DailyworkInput"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_activity_dailywork_input"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity
             android:name=".StaffInput"
             android:configChanges="orientation|keyboardHidden"
@@ -67,7 +68,7 @@
             android:name=".TestActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_activity_test"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"></activity>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity
             android:name=".ConditionConfirm"
             android:configChanges="orientation|keyboardHidden"
@@ -95,7 +96,7 @@
         <activity
             android:name=".UploadImage"
             android:configChanges="orientation|screenSize"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <!--
      ATTENTION: This was auto-generated to add Google Play services to your project for
      App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -104,11 +105,29 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name="com.gki.v107.activity.InspectionActivity"
-            android:theme="@style/Theme.AppCompat.Light"
+        <activity
+            android:name="com.gki.v107.activity.InspectionActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="检查确认"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.Light"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name="com.gki.v107.activity.PadMessageListActivity"
+            android:label="@string/title_padmessage_list"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.Light" />
+        <activity
+            android:name="com.gki.v107.activity.PadMessageDetailActivity"
+            android:label="@string/title_padmessage_detail"
+            android:parentActivityName="com.gki.v107.activity.PadMessageListActivity"
+            android:theme="@style/Theme.AppCompat.Light">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.gki.v107.activity.PadMessageListActivity" />
+        </activity>
+        <activity android:name="com.gki.v107.activity.BuildMessageActivity"
+            android:theme="@style/Theme.AppCompat.Light"></activity>
     </application>
 
 </manifest>

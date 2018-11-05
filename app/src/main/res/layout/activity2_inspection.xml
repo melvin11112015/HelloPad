@@ -20,7 +20,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginRight="@dimen/dp_10"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <RadioButton
                 android:id="@+id/radioButton2_inspection1_step1"
@@ -69,9 +70,77 @@
             android:text="提交" />
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:orientation="horizontal">
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="零件编号:" />
+
+        <TextView
+            android:id="@+id/tv2_inspection1_partno"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="生产日期:" />
+
+        <TextView
+            android:id="@+id/tv2_inspection1_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="始业时:" />
+
+        <TextView
+            android:id="@+id/tv2_inspection1_time1"
+            style="@android:style/Widget.DeviceDefault.EditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="time"
+            android:maxLength="5" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="终业时:"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/tv2_inspection1_time2"
+            style="@android:style/Widget.DeviceDefault.EditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="time"
+            android:maxLength="5"
+            android:visibility="visible" />
+    </LinearLayout>
 
 
-        <android.support.design.widget.TabLayout
+    <android.support.design.widget.TabLayout
             android:id="@+id/tablayout2_inspection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">

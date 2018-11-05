@@ -1,6 +1,9 @@
 package com.gki.v107.net;
 
+import com.gki.v107.entity.ItemVsBomInfo;
 import com.gki.v107.entity.ItemVsSpecItemInfo;
+import com.gki.v107.entity.PadMessageAddon;
+import com.gki.v107.entity.PadMessageInfo;
 import com.gki.v107.entity.ProdConfirmBomItemsInfo;
 import com.gki.v107.entity.ProdConfirmDetailsAddon;
 import com.gki.v107.entity.ProdConfirmBomItemsAddon;
@@ -9,12 +12,14 @@ import com.gki.v107.entity.ProdConfirmItemsInfo;
 import com.gki.v107.entity.ProdSpecDetailsAddon;
 import com.gki.v107.entity.ProdSpecDetailsInfo;
 import com.gki.v107.entity.WebPordOrderCompInfo;
+import com.gki.v107.entity.WebProdOrderInfo;
 import com.netcosports.ntlm.NTLMAuthenticator;
 
 import java.io.IOException;
 import java.util.Map;
 
 import okhttp3.Call;
+import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -64,8 +69,10 @@ public class ApiTool {
     }
 
     private static Retrofit getRetrofit() {
+        HttpUrl url = HttpUrl.parse(currentApiUrl);
+        System.out.println(url);
         return new Retrofit.Builder()
-                .baseUrl(currentApiUrl)
+                .baseUrl(url)
                 .client(new OkHttpClient.Builder()
                         //NTLM认证方式
                         .authenticator(new NTLMAuthenticator(currentAuthName,currentAuthPsw,null))
@@ -149,6 +156,34 @@ public class ApiTool {
         getRetrofit()
                 .create(ApiService.class)
                 .getProdSpecDetailsList(filter)
+                .enqueue(callback);
+    }
+
+    public static void callWebProdOrderList(String filter, Callback<GenericResult<WebProdOrderInfo>> callback) {
+        getRetrofit()
+                .create(ApiService.class)
+                .getWebProdOrderList(filter)
+                .enqueue(callback);
+    }
+
+    public static void callItemVsBomList(String filter, Callback<GenericResult<ItemVsBomInfo>> callback) {
+        getRetrofit()
+                .create(ApiService.class)
+                .getItemVsBomList(filter)
+                .enqueue(callback);
+    }
+
+    public static void callPadMessageList(Callback<GenericResult<PadMessageInfo>> callback) {
+        getRetrofit()
+                .create(ApiService.class)
+                .getPadMessageList()
+                .enqueue(callback);
+    }
+
+    public static void addPadMessage(PadMessageAddon addon, Callback<Map<String, Object>> callback) {
+        getRetrofit()
+                .create(ApiService.class)
+                .addPadMessage(addon)
                 .enqueue(callback);
     }
 

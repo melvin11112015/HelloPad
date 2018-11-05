@@ -1,6 +1,9 @@
 package com.gki.v107.net;
 
+import com.gki.v107.entity.ItemVsBomInfo;
 import com.gki.v107.entity.ItemVsSpecItemInfo;
+import com.gki.v107.entity.PadMessageAddon;
+import com.gki.v107.entity.PadMessageInfo;
 import com.gki.v107.entity.ProdConfirmBomItemsInfo;
 import com.gki.v107.entity.ProdConfirmDetailsAddon;
 import com.gki.v107.entity.ProdConfirmBomItemsAddon;
@@ -9,6 +12,7 @@ import com.gki.v107.entity.ProdConfirmItemsInfo;
 import com.gki.v107.entity.ProdSpecDetailsAddon;
 import com.gki.v107.entity.ProdSpecDetailsInfo;
 import com.gki.v107.entity.WebPordOrderCompInfo;
+import com.gki.v107.entity.WebProdOrderInfo;
 
 import java.util.Map;
 
@@ -52,6 +56,18 @@ public interface ApiService {
 
     @GET("ProdSpecDetails" + PARAM_JSON)
     Call<GenericResult<ProdSpecDetailsInfo>> getProdSpecDetailsList(@Query(value = "$filter", encoded = true) String filter);
+
+    @GET("ItemVsBom" + PARAM_JSON)
+    Call<GenericResult<ItemVsBomInfo>> getItemVsBomList(@Query(value = "$filter", encoded = true) String filter);
+
+    @GET("WebProdOrder" + PARAM_JSON)
+    Call<GenericResult<WebProdOrderInfo>> getWebProdOrderList(@Query(value = "$filter", encoded = true) String filter);
+
+    @GET("PadMessage" + PARAM_JSON + "&$orderby=Create_DateTime desc")
+    Call<GenericResult<PadMessageInfo>> getPadMessageList();
+
+    @POST("PadMessage" + PARAM_JSON)
+    Call<Map<String, Object>> addPadMessage(@Body PadMessageAddon addon);
 
     @Headers("If-Match: *")
     @PATCH

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/la2_item_inspection3"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -9,80 +8,137 @@
     <TextView
         android:id="@+id/tv2_item_inspection3_no"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="10"
+        android:layout_height="match_parent"
+        android:layout_weight="11"
         android:gravity="center"
+        android:singleLine="true"
         android:text="No."
         android:textColor="@android:color/background_dark" />
 
     <TextView
         android:id="@+id/tv2_item_inspection3_property"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="9"
+        android:layout_height="match_parent"
+        android:layout_weight="10"
         android:gravity="center"
+        android:singleLine="true"
         android:text="特别特性"
         android:textColor="@android:color/background_dark" />
 
     <TextView
         android:id="@+id/tv2_item_inspection3_specification"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="7"
+        android:layout_height="match_parent"
+        android:layout_weight="10"
         android:gravity="center"
+        android:singleLine="true"
         android:text="规格"
         android:textColor="@android:color/background_dark" />
+
+    <TextView
+        android:id="@+id/tv2_item_inspection3_remark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="10"
+        android:gravity="center"
+        android:singleLine="true"
+        android:text="备考"
+        android:textColor="@android:color/background_dark"
+        android:visibility="gone" />
 
     <Spinner
         android:id="@+id/spinner2_item_inspection3_confirm1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="10"
+        android:layout_weight="11"
         android:entries="@array/okstate"
-        android:visibility="gone"
-        tools:visibility="visible" />
-
-    <Spinner
-        android:id="@+id/spinner2_item_inspection3_confirm2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="10"
-        android:entries="@array/okstate"
-        android:visibility="gone" />
-
-    <Spinner
-        android:id="@+id/spinner2_item_inspection3_confirm3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="10"
-        android:entries="@array/okstate"
+        android:gravity="center"
         android:visibility="gone" />
 
     <EditText
         android:id="@+id/et2_item_inspection3_value1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="10"
+        android:layout_weight="11"
         android:gravity="center"
         android:hint="Value1"
+        android:singleLine="true"
         android:textColor="@android:color/background_dark" />
+
+    <Spinner
+        android:id="@+id/spinner2_item_inspection3_confirm2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="11"
+        android:entries="@array/okstate"
+        android:gravity="center"
+        android:visibility="gone" />
 
     <EditText
         android:id="@+id/et2_item_inspection3_value2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="10"
+        android:layout_weight="11"
         android:gravity="center"
-        android:hint="Value3"
+        android:hint="Value2"
+        android:singleLine="true"
         android:textColor="@android:color/background_dark" />
+
+    <Spinner
+        android:id="@+id/spinner2_item_inspection3_confirm3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="11"
+        android:entries="@array/okstate"
+        android:gravity="center"
+        android:visibility="gone" />
 
     <EditText
         android:id="@+id/et2_item_inspection3_value3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="10"
+        android:layout_weight="11"
         android:gravity="center"
         android:hint="Value3"
+        android:singleLine="true"
+        android:textColor="@android:color/background_dark" />
+
+    <Spinner
+        android:id="@+id/spinner2_item_inspection3_confirm4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="11"
+        android:entries="@array/okstate"
+        android:gravity="center"
+        android:visibility="gone" />
+
+    <EditText
+        android:id="@+id/et2_item_inspection3_value4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="11"
+        android:gravity="center"
+        android:hint="Value4"
+        android:singleLine="true"
+        android:textColor="@android:color/background_dark" />
+
+    <Spinner
+        android:id="@+id/spinner2_item_inspection3_confirm5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="11"
+        android:entries="@array/okstate"
+        android:gravity="center"
+        android:visibility="gone" />
+
+    <EditText
+        android:id="@+id/et2_item_inspection3_value5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="11"
+        android:gravity="center"
+        android:hint="Value5"
+        android:singleLine="true"
         android:textColor="@android:color/background_dark" />
 
 </LinearLayout>

@@ -3,35 +3,41 @@ package com.gki.v107.adapter;
 import android.support.annotation.Nullable;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.gki.managerment.R;
 import com.gki.managerment.util.ToastUtil;
+import com.gki.v107.entity.ItemVsBomInfo;
 import com.gki.v107.entity.Polymorph;
 import com.gki.v107.entity.ProdConfirmBomItemsAddon;
 import com.gki.v107.entity.ProdConfirmBomItemsInfo;
 import com.gki.v107.entity.WebPordOrderCompInfo;
 import com.gki.v107.net.ApiTool;
 import com.gki.v107.net.GenericOdataCallback;
+import com.gki.v107.tool.DatetimeTool;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyInspection1aAdapter extends BaseQuickAdapter<Polymorph<ProdConfirmBomItemsAddon, WebPordOrderCompInfo>, BaseViewHolder> {
+public class MyInspection1aAdapter extends BaseQuickAdapter<Polymorph<ProdConfirmBomItemsAddon, ItemVsBomInfo>, BaseViewHolder> {
 
-    public MyInspection1aAdapter(@Nullable List<Polymorph<ProdConfirmBomItemsAddon, WebPordOrderCompInfo>> data) {
+    public MyInspection1aAdapter(@Nullable List<Polymorph<ProdConfirmBomItemsAddon, ItemVsBomInfo>> data) {
         super(R.layout.item2_inspection1, data);
+
     }
 
 
+
     @Override
-    protected void convert(BaseViewHolder helper, Polymorph<ProdConfirmBomItemsAddon, WebPordOrderCompInfo> item) {
-        helper.setText(R.id.tv2_item_inspection1_no, String.valueOf(helper.getAdapterPosition()));
-        helper.setText(R.id.tv2_item_inspection1_code, item.getAddonEntity().getItem_No());
-        helper.setText(R.id.tv2_item_inspection1_name, item.getInfoEntity().getDescription());
-        helper.setText(R.id.tv2_item_inspection1_count, item.getInfoEntity().getQuantity_Base());
+    protected void convert(BaseViewHolder helper, Polymorph<ProdConfirmBomItemsAddon, ItemVsBomInfo> item) {
+        helper.setText(R.id.tv2_item_inspection1_no,item.getAddonEntity().getIndex_No());
+        helper.setText(R.id.tv2_item_inspection1_code, item.getAddonEntity().getCheck_Item_No());
+        helper.setText(R.id.tv2_item_inspection1_name, item.getAddonEntity().getCheck_Item_Name());
+        helper.setText(R.id.tv2_item_inspection1_count, item.getAddonEntity().getQuantity());
+        helper.setText(R.id.tv2_item_inspection1_remark, item.getAddonEntity().getRemark());
 
         final ProdConfirmBomItemsAddon addon = item.getAddonEntity();
 
@@ -44,48 +50,59 @@ public class MyInspection1aAdapter extends BaseQuickAdapter<Polymorph<ProdConfir
             }
         });
 
-        helper.setChecked(R.id.checkbox2_item_inspection1_confirm, item.getAddonEntity().isConfirmed());
+        helper.setChecked(R.id.checkbox2_item_inspection1_confirm, item.getAddonEntity().getConfirmed());
 
         switch (item.getState()) {
             case FAILURE_NEW:
             case FAILURE_EDIT:
                 helper.setBackgroundColor(R.id.la2_item_inspection1, 0xFFFFCCCC);
+                helper.getView(R.id.checkbox2_item_inspection1_confirm).setEnabled(true);
                 break;
             case COMMITTED:
                 helper.setBackgroundColor(R.id.la2_item_inspection1, 0xFFCCFFCC);
+                helper.getView(R.id.checkbox2_item_inspection1_confirm).setEnabled(false);
                 break;
             //case UNCOMMITTED_EDIT:
                 //helper.setBackgroundColor(R.id.la2_item_inspection1, 0xFFCCCCFF);
                 //break;
             default:
                 helper.setBackgroundColor(R.id.la2_item_inspection1, 0x00FFFFFF);
+                helper.getView(R.id.checkbox2_item_inspection1_confirm).setEnabled(true);
                 break;
         }
     }
 
-    public List<Polymorph<ProdConfirmBomItemsAddon, WebPordOrderCompInfo>> createPolyList(List<WebPordOrderCompInfo> infoList,
-                                                                                          int stepCode,
-                                                                                          String orderno,
-                                                                                          final TextView tvDate,
-                                                                                          final TextView tvstarttime,
-                                                                                          final TextView tvendtime) {
+    public List<Polymorph<ProdConfirmBomItemsAddon, ItemVsBomInfo>> createPolyList(List<ItemVsBomInfo> infoList,
+                                                                                   int stepCode,
+                                                                                   String orderno,
+                                                                                   final TextView tvDate,
+                                                                                   final TextView tvstarttime,
+                                                                                   final TextView tvendtime
+                                                                                         ) {
 
-        final List<Polymorph<ProdConfirmBomItemsAddon, WebPordOrderCompInfo>> polymorphList = new ArrayList<>();
+        final List<Polymorph<ProdConfirmBomItemsAddon, ItemVsBomInfo>> polymorphList = new ArrayList<>();
         for (int index = 0; index<infoList.size() ; index++) {
 
-            WebPordOrderCompInfo info = infoList.get(index);
+            ItemVsBomInfo info = infoList.get(index);
             ProdConfirmBomItemsAddon addon = new ProdConfirmBomItemsAddon();
 
             addon.setLine_No(info.getLine_No());
             addon.setConfirmed(false);
-            addon.setItem_No(info.getItem_No());
-            addon.setProd_Order_No(info.getProd_Order_No());
+            addon.setCheck_Item_No(info.getCheck_Item_No());
+            addon.setCheck_Item_Name(info.getCheck_Item_Name());
+            addon.setProd_Order_No(orderno);
             addon.setStep(stepCode);
+            addon.setRemark(info.getRemark());
+            addon.setIndex_No(info.getIndex_No());
+            addon.setQuantity(info.getQuantity());
 
 
-            String filter2 = "Prod_Order_No eq '" + orderno + "' and Step eq " + stepCode + "and Item_No eq '" + info.getItem_No() + "'";
+            String filter2 = "Prod_Order_No eq '" +
+                    orderno +
+                    "' and Line_No eq " +
+                    info.getLine_No();
 
-            Polymorph<ProdConfirmBomItemsAddon, WebPordOrderCompInfo> poly = new Polymorph<>(addon, info, Polymorph.State.UNCOMMITTED_NEW);
+            Polymorph<ProdConfirmBomItemsAddon, ItemVsBomInfo> poly = new Polymorph<>(addon, info, Polymorph.State.UNCOMMITTED_NEW);
             polymorphList.add(poly);
 
             final int specIndex = index;
@@ -101,14 +118,11 @@ public class MyInspection1aAdapter extends BaseQuickAdapter<Polymorph<ProdConfir
 
                         notifyDataSetChanged();
 
-                        String startdatetime = info2.getStrat_Time().replace(":00Z", "");
-                        String enddatetime = info2.getEnd_Time().replace(":00Z", "");
-                        if (startdatetime.contains("T") && enddatetime.contains("T")) {
-                            String[] datetime = startdatetime.split("T");
-                            tvDate.setText(datetime[0]);
-                            tvstarttime.setText(datetime[1]);
-                            tvendtime.setText(enddatetime.split("T")[1]);
-                        }
+
+                            tvDate.setText(DatetimeTool.convertOdataTimezone(info2.getStrat_Time(),DatetimeTool.TYPE_DATE,DatetimeTool.DEFAULT_ADJUST_TIMEZONE));
+                            tvstarttime.setText(DatetimeTool.convertOdataTimezone(info2.getStrat_Time(),DatetimeTool.TYPE_TIME,DatetimeTool.DEFAULT_ADJUST_TIMEZONE));
+                            tvendtime.setText(DatetimeTool.convertOdataTimezone(info2.getEnd_Time(),DatetimeTool.TYPE_TIME,DatetimeTool.DEFAULT_ADJUST_TIMEZONE));
+
                     }
                 }
 

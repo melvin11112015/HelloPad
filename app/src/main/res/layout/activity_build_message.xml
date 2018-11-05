@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.gki.v107.activity.BuildMessageActivity">
+
+    <EditText
+        android:id="@+id/et2_build_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_10"
+        android:layout_weight="1"
+        android:background="@android:color/background_light"
+        android:ems="10"
+        android:gravity="top"
+        android:hint="请输入留言消息"
+        android:maxLength="255"
+        android:textSize="30sp" />
+
+    <Button
+        android:id="@+id/button2_build_message"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/holo_green_dark"
+        android:text="提交"
+        android:textColor="@android:color/background_light"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+</LinearLayout>

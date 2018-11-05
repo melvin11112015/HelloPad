@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.webkit.URLUtil;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -60,14 +61,22 @@ public class Setting extends BaseActivity implements OnClickListener {
             needShowToast = true;
             SharedPreferencesUtils.setParam(this, SharedPreferenceConstant.SERVICE_PATH, et_servicePath.getText().toString());
             SharedPreferencesUtils.setParam(this, SharedPreferenceConstant.IMAGE_PATH, et_imagePath.getText().toString());
-            SharedPreferencesUtils.setParam(this,SharedPreferenceConstant.ODATA_PATH,et_odataPath.getText().toString());
+
             SharedPreferencesUtils.setParam(this,SharedPreferenceConstant.ODATA_USERNAME,et_odataName.getText().toString());
             SharedPreferencesUtils.setParam(this,SharedPreferenceConstant.ODATA_PASSWORD,et_odataPassword.getText().toString());
             AppContants.ServicePath = et_servicePath.getText().toString();
             AppContants.ImagePath = et_imagePath.getText().toString();
-            ApiTool.currentApiUrl = et_odataPath.getText().toString();
             ApiTool.currentAuthName = et_odataName.getText().toString();
             ApiTool.currentAuthPsw = et_odataPassword.getText().toString();
+
+            String odataUrl = et_odataPath.getText().toString().trim();
+            if(URLUtil.isHttpUrl(odataUrl)) {
+                if(!odataUrl.endsWith("/"))odataUrl = odataUrl + "/";
+                ApiTool.currentApiUrl =odataUrl;
+                SharedPreferencesUtils.setParam(this,SharedPreferenceConstant.ODATA_PATH,ApiTool.currentApiUrl);
+            }else ApiTool.currentApiUrl = ApiTool.DEFAULT_API_URL;
+            et_odataPath.setText(ApiTool.currentApiUrl);
+
         }
         if (needShowToast) {
             ShowTipMessage("保存成功！");

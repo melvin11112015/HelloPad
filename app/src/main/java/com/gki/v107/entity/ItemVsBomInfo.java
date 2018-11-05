@@ -4,37 +4,26 @@
 package com.gki.v107.entity;
 
 /**
- * Auto-generated: 2018-11-01 15:36:13
+ * Auto-generated: 2018-11-01 10:4:44
  *
  * @author bejson.com (i@bejson.com)
  * @website http://www.bejson.com/java2pojo/
  */
-public class ProdConfirmBomItemsAddon {
+public class ItemVsBomInfo {
 
-    private String Prod_Order_No;
-    private int Step;
+    private String Item_No;
     private int Line_No;
     private String Index_No;
     private String Check_Item_No;
     private String Check_Item_Name;
     private String Quantity;
     private String Remark;
-    private boolean Confirmed;
-    private String Strat_Time;
-    private String End_Time;
-
-    public void setProd_Order_No(String Prod_Order_No) {
-        this.Prod_Order_No = Prod_Order_No;
+    private String ETag;
+    public void setItem_No(String Item_No) {
+        this.Item_No = Item_No;
     }
-    public String getProd_Order_No() {
-        return Prod_Order_No;
-    }
-
-    public void setStep(int Step) {
-        this.Step = Step;
-    }
-    public int getStep() {
-        return Step;
+    public String getItem_No() {
+        return Item_No;
     }
 
     public void setLine_No(int Line_No) {
@@ -79,26 +68,11 @@ public class ProdConfirmBomItemsAddon {
         return Remark;
     }
 
-    public void setConfirmed(boolean Confirmed) {
-        this.Confirmed = Confirmed;
+    public void setETag(String ETag) {
+        this.ETag = ETag;
     }
-    public boolean getConfirmed() {
-        return Confirmed;
+    public String getETag() {
+        return ETag;
     }
-
-    public void setStrat_Time(String Strat_Time) {
-        this.Strat_Time = Strat_Time;
-    }
-    public String getStrat_Time() {
-        return Strat_Time;
-    }
-
-    public void setEnd_Time(String End_Time) {
-        this.End_Time = End_Time;
-    }
-    public String getEnd_Time() {
-        return End_Time;
-    }
-
 
 }

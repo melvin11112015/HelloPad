@@ -2,6 +2,8 @@ package com.gki.v107.activity;
 
 
 import android.annotation.SuppressLint;
+import android.app.TimePickerDialog;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -16,6 +18,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.gki.managerment.LoginUser;
 import com.gki.managerment.R;
@@ -23,6 +27,7 @@ import com.gki.managerment.bean.ProdMandayList;
 import com.gki.managerment.http.Service.getService;
 import com.gki.managerment.util.ToastUtil;
 import com.gki.v107.entity.ItemVsSpecItemInfo;
+import com.gki.v107.entity.WebProdOrderInfo;
 import com.gki.v107.fragment.InspectConfirm2Fragment;
 import com.gki.v107.fragment.InspectConfirm3Fragment;
 import com.gki.v107.myinterface.FragmentInteractionInterface;
@@ -32,7 +37,9 @@ import com.gki.v107.net.GenericOdataCallback;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class InspectionActivity extends AppCompatActivity implements View.OnClickListener {
@@ -67,7 +74,8 @@ public class InspectionActivity extends AppCompatActivity implements View.OnClic
     }
 
     private EditText etOrderno;
-    private RadioGroup radioGroup;
+    //private RadioGroup radioGroup;
+    private TextView tvPartNo;
 
     @Override
     public void onClick(View v) {
@@ -83,7 +91,7 @@ public class InspectionActivity extends AppCompatActivity implements View.OnClic
     }
 
     List<Fragment> fragmentList = new ArrayList<>();
-
+/*
     private class GetByDocumentNoTask extends AsyncTask<String, Integer, String> {
         @Override
         protected String doInBackground(String... params) {
@@ -121,23 +129,64 @@ public class InspectionActivity extends AppCompatActivity implements View.OnClic
 
             for(Fragment f:fragmentList)
                 if(f instanceof FragmentInteractionInterface)
-                    ((FragmentInteractionInterface)f).acquireDatas(etOrderno.getText().toString(),getStepCode(),bean.Source_No);
+                    ((FragmentInteractionInterface)f).acquireDatas(etOrderno.getText().toString(),getStepCode(),bean.Source_No,tvDate,tvstarttime,tvendtime);
         }
     }
+    */
 
     private void doCheck(){
-        new GetByDocumentNoTask().execute(etOrderno.getText().toString());
+
+        if(etOrderno.getText().toString().trim().isEmpty()){
+            ToastUtil.show(this,"请输入生产单号");
+            return;
+        }
+
+        String filter ="No eq '"+ etOrderno.getText().toString().trim() +"' and Status eq 'Released'";
+
+        ApiTool.callWebProdOrderList(filter, new GenericOdataCallback<WebProdOrderInfo>() {
+            @Override
+            public void onDataAvailable(List<WebProdOrderInfo> datas) {
+                if(datas == null ||datas.isEmpty()){
+                    ToastUtil.show(InspectionActivity.this,"找不到该订单，请确认订单是否正确！");
+                    return;
+                }
+
+                WebProdOrderInfo bean = datas.get(0);
+
+                if (bean.getProduction_line() == null || !LoginUser.getUser().All_Prod_Line.contains(bean.getProduction_line())) {
+                    ToastUtil.show(InspectionActivity.this,"【生产单】不正确：该【生产单】不属于您所在【生产线】！");
+                    return;
+                }
+
+                tvPartNo.setText(bean.getSource_No());
+
+                for(Fragment f:fragmentList)
+                    if(f instanceof FragmentInteractionInterface)
+                        ((FragmentInteractionInterface)f).acquireDatas(etOrderno.getText().toString().trim(),
+                                getStepCode(),
+                                bean.getSource_No(),
+                                tvDate,tvstarttime,tvendtime);
+            }
+
+            @Override
+            public void onDataUnAvailable(String msg, int errorCode) {
+                ToastUtil.show(InspectionActivity.this,"网络请求失败:"+msg);
+            }
+        });
+
+        //new GetByDocumentNoTask().execute(etOrderno.getText().toString());
     }
 
     private void doSubmit(){
 
         for(Fragment f:fragmentList)
             if(f instanceof FragmentInteractionInterface)
-                ((FragmentInteractionInterface)f).submitDatas();
+                ((FragmentInteractionInterface)f).submitDatas(tvDate,tvstarttime,tvendtime);
     }
 
     private int getStepCode(){
         int stepCode = 1;
+        /*
         switch (radioGroup.getCheckedRadioButtonId()){
             case R.id.radioButton2_inspection1_step1:
                 stepCode = 1;
@@ -149,7 +198,51 @@ public class InspectionActivity extends AppCompatActivity implements View.OnClic
                 stepCode = 3;
                 break;
         }
+        */
         return stepCode;
+    }
+
+    private TextView tvstarttime,tvendtime, tvDate;
+
+    private View.OnClickListener onClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.tv2_inspection1_time1:
+                    showTimePickerDialog(InspectionActivity.this, android.R.style.Theme_Holo_Light_Dialog, tvstarttime, Calendar.getInstance());
+                    break;
+                case R.id.tv2_inspection1_time2:
+                    showTimePickerDialog(InspectionActivity.this, android.R.style.Theme_Holo_Light_Dialog, tvendtime, Calendar.getInstance());
+                    break;
+            }
+        }
+    };
+
+
+    /**
+     * 时间选择
+     *
+     * @param context
+     * @param themeResId
+     * @param tv
+     * @param calendar
+     */
+    public static void showTimePickerDialog(Context context, int themeResId, final TextView tv, Calendar calendar) {
+        // Calendar c = Calendar.getInstance();
+        // 创建一个TimePickerDialog实例，并把它显示出来
+        new TimePickerDialog(context, themeResId,
+                // 绑定监听器
+                new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        tv.setText(String.format("%02d:%02d", hourOfDay, minute));
+                    }
+                }
+                // 设置初始时间
+                , calendar.get(Calendar.HOUR_OF_DAY)
+                , calendar.get(Calendar.MINUTE)
+                // true表示采用24小时制
+                , true).show();
     }
 
     @Override
@@ -158,9 +251,23 @@ public class InspectionActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity2_inspection);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        tvstarttime = (TextView) findViewById(R.id.tv2_inspection1_time1);
+        tvendtime = (TextView) findViewById(R.id.tv2_inspection1_time2);
+        tvDate = (TextView) findViewById(R.id.tv2_inspection1_date);
+
+        tvstarttime.setOnClickListener(onClickListener);
+        tvendtime.setOnClickListener(onClickListener);
+
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+        tvDate.setText(sdf1.format(calendar.getTime()));
+        SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm");
+        tvstarttime.setText(sdf2.format(calendar.getTime()));
+        tvendtime.setText(sdf2.format(calendar.getTime()));
 
         etOrderno = (EditText) findViewById(R.id.et2_inspection1_pno);
-        radioGroup = (RadioGroup) findViewById(R.id.radionGroup2_inspection1_step);
+        tvPartNo = (TextView) findViewById(R.id.tv2_inspection1_partno);
+        //radioGroup = (RadioGroup) findViewById(R.id.radionGroup2_inspection1_step);
 
         findViewById(R.id.button2_inspection1_check).setOnClickListener(this);
         findViewById(R.id.button2_inspection1_submit).setOnClickListener(this);
@@ -189,6 +296,14 @@ public class InspectionActivity extends AppCompatActivity implements View.OnClic
                 else return false;
             }
         });
+/*
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                doCheck();
+            }
+        });
+        */
     }
 
     @Override
