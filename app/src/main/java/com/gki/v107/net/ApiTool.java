@@ -4,9 +4,9 @@ import com.gki.v107.entity.ItemVsBomInfo;
 import com.gki.v107.entity.ItemVsSpecItemInfo;
 import com.gki.v107.entity.PadMessageAddon;
 import com.gki.v107.entity.PadMessageInfo;
+import com.gki.v107.entity.ProdConfirmBomItemsAddon;
 import com.gki.v107.entity.ProdConfirmBomItemsInfo;
 import com.gki.v107.entity.ProdConfirmDetailsAddon;
-import com.gki.v107.entity.ProdConfirmBomItemsAddon;
 import com.gki.v107.entity.ProdConfirmDetailsInfo;
 import com.gki.v107.entity.ProdConfirmItemsInfo;
 import com.gki.v107.entity.ProdSpecDetailsAddon;
@@ -173,10 +173,10 @@ public class ApiTool {
                 .enqueue(callback);
     }
 
-    public static void callPadMessageList(Callback<GenericResult<PadMessageInfo>> callback) {
+    public static void callPadMessageList(String filter, Callback<GenericResult<PadMessageInfo>> callback) {
         getRetrofit()
                 .create(ApiService.class)
-                .getPadMessageList()
+                .getPadMessageList(filter)
                 .enqueue(callback);
     }
 
@@ -184,6 +184,14 @@ public class ApiTool {
         getRetrofit()
                 .create(ApiService.class)
                 .addPadMessage(addon)
+                .enqueue(callback);
+    }
+
+    public static void updatePadMessage(String itemDesc, PadMessageAddon addon, Callback<String> callback) {
+        String realUrl = currentApiUrl + "PadMessage(" + itemDesc + ")";
+        getRetrofit()
+                .create(ApiService.class)
+                .updatePadMessage(realUrl, addon)
                 .enqueue(callback);
     }
 

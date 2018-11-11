@@ -1,41 +1,34 @@
 package com.gki.v107.activity;
 
 
-import android.annotation.SuppressLint;
 import android.app.TimePickerDialog;
 import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.gki.managerment.LoginUser;
 import com.gki.managerment.R;
-import com.gki.managerment.bean.ProdMandayList;
-import com.gki.managerment.http.Service.getService;
 import com.gki.managerment.util.ToastUtil;
-import com.gki.v107.entity.ItemVsSpecItemInfo;
 import com.gki.v107.entity.WebProdOrderInfo;
+import com.gki.v107.fragment.InspectConfirm1Fragment;
 import com.gki.v107.fragment.InspectConfirm2Fragment;
 import com.gki.v107.fragment.InspectConfirm3Fragment;
 import com.gki.v107.myinterface.FragmentInteractionInterface;
-import com.gki.v107.fragment.InspectConfirm1Fragment;
 import com.gki.v107.net.ApiTool;
 import com.gki.v107.net.GenericOdataCallback;
-import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -153,7 +146,7 @@ public class InspectionActivity extends AppCompatActivity implements View.OnClic
 
                 WebProdOrderInfo bean = datas.get(0);
 
-                if (bean.getProduction_line() == null || !LoginUser.getUser().All_Prod_Line.contains(bean.getProduction_line())) {
+                if (bean.getProduction_line() == null || LoginUser.getUser().All_Prod_Line == null || !LoginUser.getUser().All_Prod_Line.contains(bean.getProduction_line())) {
                     ToastUtil.show(InspectionActivity.this,"【生产单】不正确：该【生产单】不属于您所在【生产线】！");
                     return;
                 }
@@ -248,6 +241,13 @@ public class InspectionActivity extends AppCompatActivity implements View.OnClic
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //去除title
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //去掉Activity上面的状态栏
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setContentView(R.layout.activity2_inspection);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

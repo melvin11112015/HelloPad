@@ -6,15 +6,13 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.gki.managerment.LoginUser;
 import com.gki.managerment.R;
 import com.gki.managerment.util.ToastUtil;
 import com.gki.v107.entity.Polymorph;
-import com.gki.v107.entity.ProdConfirmBomItemsAddon;
-import com.gki.v107.entity.ProdConfirmBomItemsInfo;
 import com.gki.v107.entity.ProdConfirmDetailsAddon;
 import com.gki.v107.entity.ProdConfirmDetailsInfo;
 import com.gki.v107.entity.ProdConfirmItemsInfo;
-import com.gki.v107.entity.WebPordOrderCompInfo;
 import com.gki.v107.net.ApiTool;
 import com.gki.v107.net.GenericOdataCallback;
 import com.gki.v107.tool.DatetimeTool;
@@ -89,6 +87,7 @@ public class MyInspection2Adapter extends BaseQuickAdapter<Polymorph<ProdConfirm
             addon.setStep(stepCode);
             addon.setItem_Name(info.getItem_Name());
             addon.setRef_Description(info.getRef_Description());
+            addon.setCreate_User(LoginUser.getUser().User_ID);
 
             String filter2 = "Prod_Order_No eq '" + orderno + "' and Step eq " + stepCode + "and Line_No eq " + addon.getLine_No();
 

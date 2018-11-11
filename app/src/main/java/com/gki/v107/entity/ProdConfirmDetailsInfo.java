@@ -21,6 +21,16 @@ public class ProdConfirmDetailsInfo {
     private String Strat_Time;
     private String End_Time;
     private String ETag;
+    private String Create_User;
+
+    public String getCreate_User() {
+        return Create_User;
+    }
+
+    public void setCreate_User(String create_User) {
+        Create_User = create_User;
+    }
+
     public void setProd_Order_No(String Prod_Order_No) {
          this.Prod_Order_No = Prod_Order_No;
      }

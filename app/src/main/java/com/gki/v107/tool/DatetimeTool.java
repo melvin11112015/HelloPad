@@ -61,4 +61,10 @@ public class DatetimeTool {
         SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm:ss");
         return sdfDat.format(date)+"T"+sdfTime.format(date);
     }
+
+    public static String getCurrentOdataDate() {
+        Date date = new Date();
+        SimpleDateFormat sdfDat = new SimpleDateFormat("yyyy-MM-dd");
+        return sdfDat.format(date);
+    }
 }

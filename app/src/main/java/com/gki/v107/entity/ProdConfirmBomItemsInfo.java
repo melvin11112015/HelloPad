@@ -23,6 +23,19 @@ public class ProdConfirmBomItemsInfo {
     private String Strat_Time;
     private String End_Time;
     private String Etag;
+    private String Create_User;
+
+    public boolean isConfirmed() {
+        return Confirmed;
+    }
+
+    public String getCreate_User() {
+        return Create_User;
+    }
+
+    public void setCreate_User(String create_User) {
+        Create_User = create_User;
+    }
 
     public String getEtag() {
         return Etag;

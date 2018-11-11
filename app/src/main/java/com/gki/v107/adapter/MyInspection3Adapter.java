@@ -1,17 +1,15 @@
 package com.gki.v107.adapter;
 
 import android.support.annotation.Nullable;
-import android.text.Editable;
 import android.text.InputType;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.gki.managerment.LoginUser;
 import com.gki.managerment.R;
 import com.gki.managerment.util.ToastUtil;
 import com.gki.v107.entity.ItemVsSpecItemInfo;
@@ -46,17 +44,17 @@ public class MyInspection3Adapter extends BaseQuickAdapter<Polymorph<ProdSpecDet
 
         final ProdSpecDetailsAddon addon = item.getAddonEntity();
 
-        EditText editText1 = ((EditText) helper.getView(R.id.et2_item_inspection3_value1));
-        EditText editText2 = ((EditText) helper.getView(R.id.et2_item_inspection3_value2));
-        EditText editText3 = ((EditText) helper.getView(R.id.et2_item_inspection3_value3));
-        EditText editText4 = ((EditText) helper.getView(R.id.et2_item_inspection3_value4));
-        EditText editText5 = ((EditText) helper.getView(R.id.et2_item_inspection3_value5));
+        EditText editText1 = helper.getView(R.id.et2_item_inspection3_value1);
+        EditText editText2 = helper.getView(R.id.et2_item_inspection3_value2);
+        EditText editText3 = helper.getView(R.id.et2_item_inspection3_value3);
+        EditText editText4 = helper.getView(R.id.et2_item_inspection3_value4);
+        EditText editText5 = helper.getView(R.id.et2_item_inspection3_value5);
 
-        Spinner s1 = (Spinner)helper.getView(R.id.spinner2_item_inspection3_confirm1);
-        Spinner s2 = (Spinner)helper.getView(R.id.spinner2_item_inspection3_confirm2);
-        Spinner s3 = (Spinner)helper.getView(R.id.spinner2_item_inspection3_confirm3);
-        Spinner s4 = (Spinner)helper.getView(R.id.spinner2_item_inspection3_confirm4);
-        Spinner s5 = (Spinner)helper.getView(R.id.spinner2_item_inspection3_confirm5);
+        Spinner s1 = helper.getView(R.id.spinner2_item_inspection3_confirm1);
+        Spinner s2 = helper.getView(R.id.spinner2_item_inspection3_confirm2);
+        Spinner s3 = helper.getView(R.id.spinner2_item_inspection3_confirm3);
+        Spinner s4 = helper.getView(R.id.spinner2_item_inspection3_confirm4);
+        Spinner s5 = helper.getView(R.id.spinner2_item_inspection3_confirm5);
 
         helper.setText(R.id.et2_item_inspection3_value1, addon.getValue1());
         helper.setText(R.id.et2_item_inspection3_value2, addon.getValue2());
@@ -330,6 +328,7 @@ s1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             addon.setQty3("0");
             addon.setQty4("0");
             addon.setQty5("0");
+            addon.setCreate_User(LoginUser.getUser().getUserId());
 
             String filter2 = "Prod_Order_No eq '" + orderno + "' and Line_No eq " + addon.getLine_No() + " and No eq '" + addon.getNo() + "'";
 

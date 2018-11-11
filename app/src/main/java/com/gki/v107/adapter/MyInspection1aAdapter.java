@@ -1,20 +1,18 @@
 package com.gki.v107.adapter;
 
 import android.support.annotation.Nullable;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.gki.managerment.LoginUser;
 import com.gki.managerment.R;
 import com.gki.managerment.util.ToastUtil;
 import com.gki.v107.entity.ItemVsBomInfo;
 import com.gki.v107.entity.Polymorph;
 import com.gki.v107.entity.ProdConfirmBomItemsAddon;
 import com.gki.v107.entity.ProdConfirmBomItemsInfo;
-import com.gki.v107.entity.WebPordOrderCompInfo;
 import com.gki.v107.net.ApiTool;
 import com.gki.v107.net.GenericOdataCallback;
 import com.gki.v107.tool.DatetimeTool;
@@ -95,6 +93,7 @@ public class MyInspection1aAdapter extends BaseQuickAdapter<Polymorph<ProdConfir
             addon.setRemark(info.getRemark());
             addon.setIndex_No(info.getIndex_No());
             addon.setQuantity(info.getQuantity());
+            addon.setCreate_User(LoginUser.getUser().getUserId());
 
 
             String filter2 = "Prod_Order_No eq '" +

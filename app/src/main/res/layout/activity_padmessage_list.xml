@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:baselineAligned="false"
     android:divider="?android:attr/dividerHorizontal"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:paddingLeft="5dp"
     android:paddingRight="5dp"
     android:showDividers="middle"
@@ -17,20 +17,80 @@
     
     -->
 
-    <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/padmessage_list"
-        android:name="com.gki.v107.activity.PadMessageListFragment"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-        tools:context="com.gki.v107.activity.PadMessageListActivity"
-        tools:listitem="@layout/padmessage_list_content" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-    <FrameLayout
-        android:id="@+id/padmessage_detail_container"
-        android:layout_width="0dp"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="生产日期:" />
+
+        <TextView
+            android:id="@+id/tv2_message_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/textfield_default_holo_light"
+            android:text="2018-01-01"
+            android:textColor="@android:color/background_dark" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radiobutton2_message_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="白班" />
+
+            <RadioButton
+                android:id="@+id/radiobutton2_message_night"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="夜班" />
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/button2_message_new"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="新增" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="3" />
+        android:divider="?android:attr/listDivider"
+        android:orientation="horizontal"
+        android:showDividers="middle">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/padmessage_list"
+            android:name="com.gki.v107.activity.PadMessageListFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            tools:context="com.gki.v107.activity.PadMessageListActivity"
+            tools:listitem="@layout/padmessage_list_content">
+
+        </android.support.v7.widget.RecyclerView>
+
+        <FrameLayout
+            android:id="@+id/padmessage_detail_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/background_light" />
+
+    </LinearLayout>
 
 </LinearLayout>

@@ -6,27 +6,18 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.gki.managerment.util.DateUtils;
-import com.gki.managerment.util.ToastUtil;
-import com.gki.v107.activity.BuildMessageActivity;
 import com.gki.v107.activity.InspectionActivity;
-
 import com.gki.v107.activity.PadMessageListActivity;
-import com.gki.v107.entity.PadMessageInfo;
-import com.gki.v107.net.ApiTool;
-import com.gki.v107.net.GenericOdataCallback;
 
-import java.util.List;
 import java.util.Timer;
 
 
 
 public class MainMenu extends BaseActivity {
-    private TextView tv_date,tv_time,tv_week,tvMessage;
-    private LinearLayout laMessage;
+    private TextView tv_date, tv_time, tv_week;
     private java.util.Timer timer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,18 +39,10 @@ public class MainMenu extends BaseActivity {
 
         //melvin
         findViewById(R.id.btn_inspection).setOnClickListener(new MyListener());
-        tvMessage = (TextView) findViewById(R.id.tv2_main_message);
-        laMessage = (LinearLayout) findViewById(R.id.la2_main_message);
-        laMessage.setOnClickListener(new OnClickListener() {
+        findViewById(R.id.btn_shift).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainMenu.this,PadMessageListActivity.class));
-            }
-        });
-        findViewById(R.id.button2_main_message).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainMenu.this, BuildMessageActivity.class));
+                startActivity(new Intent(MainMenu.this, PadMessageListActivity.class));
             }
         });
 
@@ -69,29 +52,6 @@ public class MainMenu extends BaseActivity {
                 {
                     new RefreshTimeTask().execute();
                 }}, 0, 1000);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        ApiTool.callPadMessageList(new GenericOdataCallback<PadMessageInfo>() {
-            @Override
-            public void onDataAvailable(List<PadMessageInfo> datas) {
-                if(datas!=null && !datas.isEmpty()){
-                    PadMessageInfo info = datas.get(0);
-                    String showStr = info.getCreate_User()+" ("+info.getProdLineName()+"): "+info.getMsg();
-                    tvMessage.setText(showStr);
-                }else{
-                    tvMessage.setText("");
-                    tvMessage.setHint("没有任何消息");
-                }
-            }
-
-            @Override
-            public void onDataUnAvailable(String msg, int errorCode) {
-                ToastUtil.show(MainMenu.this,"获取消息失败");
-            }
-        });
     }
 
     private class RefreshTimeTask extends AsyncTask<String, Integer, String> {

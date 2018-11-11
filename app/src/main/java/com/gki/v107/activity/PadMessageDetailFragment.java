@@ -1,15 +1,16 @@
 package com.gki.v107.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
-
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
+import com.gki.managerment.LoginUser;
 import com.gki.managerment.R;
-import com.gki.v107.activity.dummy.DummyContent;
 import com.gki.v107.entity.PadMessageInfo;
 
 /**
@@ -28,7 +29,7 @@ public class PadMessageDetailFragment extends Fragment {
     /**
      * The dummy content this fragment is presenting.
      */
-    private String mItem;
+    private PadMessageInfo mItem;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -45,7 +46,7 @@ public class PadMessageDetailFragment extends Fragment {
             // Load the dummy content specified by the fragment
             // arguments. In a real-world scenario, use a Loader
             // to load content from a content provider.
-            mItem = getArguments().getString(ARG_ITEM_ID);
+            mItem = (PadMessageInfo) getArguments().getSerializable(ARG_ITEM_ID);
         }
     }
 
@@ -54,9 +55,27 @@ public class PadMessageDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.padmessage_detail, container, false);
 
-        // Show the dummy content as text in a TextView.
         if (mItem != null) {
-            ((TextView) rootView.findViewById(R.id.padmessage_detail)).setText(mItem);
+            ((TextView) rootView.findViewById(R.id.padmessage_detail)).setText(mItem.getMsg());
+            ((TextView) rootView.findViewById(R.id.padmessage_detail2)).setText(mItem.getMsg2());
+            ((TextView) rootView.findViewById(R.id.padmessage_detail3)).setText(mItem.getMsg3());
+            ((TextView) rootView.findViewById(R.id.padmessage_detail4)).setText(mItem.getMsg4());
+            ((TextView) rootView.findViewById(R.id.padmessage_detail5)).setText(mItem.getMsg5());
+            ((TextView) rootView.findViewById(R.id.padmessage_detail6)).setText(mItem.getMsg6());
+            ((TextView) rootView.findViewById(R.id.tv2_message_frag_name)).setText(mItem.getCreate_User());
+
+            Button buttonEdit = (Button) rootView.findViewById(R.id.button2_message_frag_edit);
+
+            buttonEdit.setVisibility(mItem.getCreate_User().equals(LoginUser.getUser().getUserId()) ? View.VISIBLE : View.INVISIBLE);
+
+            buttonEdit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getContext(), BuildMessageActivity.class);
+                    intent.putExtra("padmessage", mItem);
+                    startActivity(intent);
+                }
+            });
         }
 
         return rootView;

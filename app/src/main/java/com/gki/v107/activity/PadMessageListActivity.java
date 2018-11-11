@@ -1,10 +1,10 @@
 package com.gki.v107.activity;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -12,19 +12,25 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.CompoundButton;
+import android.widget.DatePicker;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
-import com.gki.managerment.MainMenu;
 import com.gki.managerment.R;
-
 import com.gki.managerment.util.ToastUtil;
-import com.gki.v107.activity.dummy.DummyContent;
 import com.gki.v107.entity.PadMessageInfo;
 import com.gki.v107.net.ApiTool;
 import com.gki.v107.net.GenericOdataCallback;
 import com.gki.v107.tool.DatetimeTool;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -43,9 +49,20 @@ public class PadMessageListActivity extends AppCompatActivity {
      */
     private boolean mTwoPane;
 
+    private RadioButton radioButtonDay;
+    private TextView tvProdDate;
+    private FrameLayout container;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //去除title
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //去掉Activity上面的状态栏
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setContentView(R.layout.activity_padmessage_list);
 
         if (findViewById(R.id.padmessage_detail_container) != null) {
@@ -56,6 +73,38 @@ public class PadMessageListActivity extends AppCompatActivity {
             mTwoPane = true;
         }
 
+        tvProdDate = (TextView) findViewById(R.id.tv2_message_date);
+        tvProdDate.setText(DatetimeTool.getCurrentOdataDate());
+        tvProdDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar c = Calendar.getInstance();
+                new DatePickerDialog(PadMessageListActivity.this,
+                        android.R.style.Theme_Holo_Light_Dialog,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                                SimpleDateFormat sdfDat = new SimpleDateFormat("yyyy-MM-dd");
+                                Calendar c = Calendar.getInstance();
+                                c.set(year, monthOfYear, dayOfMonth);
+                                tvProdDate.setText(sdfDat.format(c.getTime()));
+                                checkMessageList();
+                            }
+                        },
+                        c.get(Calendar.YEAR),
+                        c.get(Calendar.MONTH),
+                        c.get(Calendar.DAY_OF_MONTH))
+                        .show();
+            }
+        });
+
+        findViewById(R.id.button2_message_new).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(PadMessageListActivity.this, BuildMessageActivity.class));
+            }
+        });
+
         ActionBar actionBar = getSupportActionBar();
         if(actionBar!=null){
             actionBar.show();
@@ -65,26 +114,60 @@ public class PadMessageListActivity extends AppCompatActivity {
         View recyclerView = findViewById(R.id.padmessage_list);
         assert recyclerView != null;
         setupRecyclerView((RecyclerView) recyclerView);
+
+        radioButtonDay = (RadioButton) findViewById(R.id.radiobutton2_message_day);
+        radioButtonDay.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                checkMessageList();
+            }
+        });
+
+        container = (FrameLayout) findViewById(R.id.padmessage_detail_container);
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-       adapter = new SimpleItemRecyclerViewAdapter(this, mdatas, mTwoPane);
-       recyclerView.setAdapter(adapter);
+        adapter = new SimpleItemRecyclerViewAdapter(this, mdatas, mTwoPane);
+        recyclerView.setAdapter(adapter);
+    }
 
-        ApiTool.callPadMessageList(new GenericOdataCallback<PadMessageInfo>() {
+    @Override
+    protected void onStart() {
+        super.onStart();
+        checkMessageList();
+    }
+
+    private void checkMessageList() {
+
+        String filterSb = "shift eq '" +
+                (radioButtonDay.isChecked() ? "Day" : "Night") +
+                "' and ProdDate eq DateTime'" +
+                tvProdDate.getText().toString().trim() +
+                "'";
+        ApiTool.callPadMessageList(filterSb, new GenericOdataCallback<PadMessageInfo>() {
             @Override
             public void onDataAvailable(List<PadMessageInfo> datas) {
                 mdatas.clear();
                 mdatas.addAll(datas);
                 adapter.notifyDataSetChanged();
+                if (datas.isEmpty()) {
+                    container.setVisibility(View.INVISIBLE);
+                } else {
+                    container.setVisibility(View.VISIBLE);
+                    adapter.selectItem(0);
+                }
             }
 
             @Override
             public void onDataUnAvailable(String msg, int errorCode) {
                 ToastUtil.show(PadMessageListActivity.this,"获取消息失败");
+                mdatas.clear();
+                adapter.notifyDataSetChanged();
+                container.setVisibility(View.INVISIBLE);
             }
         });
     }
+
 
     private List<PadMessageInfo> mdatas = new ArrayList<>();
     private SimpleItemRecyclerViewAdapter adapter;
@@ -95,13 +178,26 @@ public class PadMessageListActivity extends AppCompatActivity {
         private final PadMessageListActivity mParentActivity;
         private final List<PadMessageInfo> mValues;
         private final boolean mTwoPane;
+        private int selectedPosition = -1;
+
+        SimpleItemRecyclerViewAdapter(PadMessageListActivity parent,
+                                      List<PadMessageInfo> items,
+                                      boolean twoPane) {
+            mValues = items;
+            mParentActivity = parent;
+            mTwoPane = twoPane;
+        }
         private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 PadMessageInfo item = (PadMessageInfo) view.getTag();
+
+                selectedPosition = mValues.indexOf(item);
+                notifyDataSetChanged();
+
                 if (true) {
                     Bundle arguments = new Bundle();
-                    arguments.putString(PadMessageDetailFragment.ARG_ITEM_ID, item.getMsg());
+                    arguments.putSerializable(PadMessageDetailFragment.ARG_ITEM_ID, item);
                     PadMessageDetailFragment fragment = new PadMessageDetailFragment();
                     fragment.setArguments(arguments);
                     mParentActivity.getSupportFragmentManager().beginTransaction()
@@ -117,19 +213,25 @@ public class PadMessageListActivity extends AppCompatActivity {
             }
         };
 
-        SimpleItemRecyclerViewAdapter(PadMessageListActivity parent,
-                                      List<PadMessageInfo> items,
-                                      boolean twoPane) {
-            mValues = items;
-            mParentActivity = parent;
-            mTwoPane = twoPane;
-        }
-
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.padmessage_list_content, parent, false);
             return new ViewHolder(view);
+        }
+
+        public void selectItem(int selectedPosition) {
+            this.selectedPosition = selectedPosition;
+            this.notifyDataSetChanged();
+            if (selectedPosition >= 0) {
+                Bundle arguments = new Bundle();
+                arguments.putSerializable(PadMessageDetailFragment.ARG_ITEM_ID, mValues.get(selectedPosition));
+                PadMessageDetailFragment fragment = new PadMessageDetailFragment();
+                fragment.setArguments(arguments);
+                mParentActivity.getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.padmessage_detail_container, fragment)
+                        .commit();
+            }
         }
 
         @Override
@@ -144,6 +246,8 @@ public class PadMessageListActivity extends AppCompatActivity {
 
             holder.itemView.setTag(mValues.get(position));
             holder.itemView.setOnClickListener(mOnClickListener);
+            holder.linearLayout.setBackgroundColor(selectedPosition == position ? 0xFFAAFFAA : 0XFFFFFFFF);
+
         }
 
         @Override
@@ -154,12 +258,14 @@ public class PadMessageListActivity extends AppCompatActivity {
         class ViewHolder extends RecyclerView.ViewHolder {
             final TextView mIdView;
             final TextView mContentView;
+            final LinearLayout linearLayout;
 
 
             ViewHolder(View view) {
                 super(view);
                 mIdView = (TextView) view.findViewById(R.id.id_text);
                 mContentView = (TextView) view.findViewById(R.id.content);
+                linearLayout = (LinearLayout) view.findViewById(R.id.la2_item_message_list);
 
             }
         }

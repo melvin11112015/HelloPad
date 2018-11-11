@@ -4,9 +4,9 @@ import com.gki.v107.entity.ItemVsBomInfo;
 import com.gki.v107.entity.ItemVsSpecItemInfo;
 import com.gki.v107.entity.PadMessageAddon;
 import com.gki.v107.entity.PadMessageInfo;
+import com.gki.v107.entity.ProdConfirmBomItemsAddon;
 import com.gki.v107.entity.ProdConfirmBomItemsInfo;
 import com.gki.v107.entity.ProdConfirmDetailsAddon;
-import com.gki.v107.entity.ProdConfirmBomItemsAddon;
 import com.gki.v107.entity.ProdConfirmDetailsInfo;
 import com.gki.v107.entity.ProdConfirmItemsInfo;
 import com.gki.v107.entity.ProdSpecDetailsAddon;
@@ -64,10 +64,14 @@ public interface ApiService {
     Call<GenericResult<WebProdOrderInfo>> getWebProdOrderList(@Query(value = "$filter", encoded = true) String filter);
 
     @GET("PadMessage" + PARAM_JSON + "&$orderby=Create_DateTime desc")
-    Call<GenericResult<PadMessageInfo>> getPadMessageList();
+    Call<GenericResult<PadMessageInfo>> getPadMessageList(@Query(value = "$filter", encoded = true) String filter);
 
     @POST("PadMessage" + PARAM_JSON)
     Call<Map<String, Object>> addPadMessage(@Body PadMessageAddon addon);
+
+    @Headers("If-Match: *")
+    @PATCH
+    Call<String> updatePadMessage(@Url String url, @Body PadMessageAddon addon);
 
     @Headers("If-Match: *")
     @PATCH

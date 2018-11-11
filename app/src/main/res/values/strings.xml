@@ -34,4 +34,11 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="title_padmessage_list">消息列表</string>
     <string name="title_padmessage_detail">消息</string>
+    <string name="text_msg1">接班生产情况</string>
+    <string name="hint_build_msg">请输入留言消息</string>
+    <string name="text_msg2">接班现场5S</string>
+    <string name="text_msg3">接班设备情况</string>
+    <string name="text_msg4">本班生产情况及现场5S</string>
+    <string name="text_msg5">本班设备情况及交班情况</string>
+    <string name="text_remark">备注</string>
 </resources>
