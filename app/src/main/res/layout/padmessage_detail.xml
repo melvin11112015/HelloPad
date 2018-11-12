@@ -19,6 +19,21 @@
 
         <TextView
             android:id="@+id/tv2_message_frag_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="载入中"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:text="创建时间:"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv2_message_frag_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -55,8 +70,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/melvin_button_border"
-            android:hint="载入中"
+            android:imeOptions="actionNext"
             android:padding="16dp"
+            android:text="@string/text_loading"
             android:textIsSelectable="true"
             android:textSize="20sp" />
     </LinearLayout>
@@ -82,8 +98,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/melvin_button_border"
-            android:hint="载入中"
+            android:imeOptions="actionNext"
             android:padding="16dp"
+            android:text="@string/text_loading"
             android:textIsSelectable="true"
             android:textSize="20sp" />
     </LinearLayout>
@@ -109,8 +126,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/melvin_button_border"
-            android:hint="载入中"
+            android:imeOptions="actionNext"
             android:padding="16dp"
+            android:text="@string/text_loading"
             android:textIsSelectable="true"
             android:textSize="20sp" />
     </LinearLayout>
@@ -136,8 +154,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/melvin_button_border"
-            android:hint="载入中"
+            android:imeOptions="actionNext"
             android:padding="16dp"
+            android:text="@string/text_loading"
             android:textIsSelectable="true"
             android:textSize="20sp" />
     </LinearLayout>
@@ -163,8 +182,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/melvin_button_border"
-            android:hint="载入中"
+            android:imeOptions="actionNext"
             android:padding="16dp"
+            android:text="@string/text_loading"
             android:textIsSelectable="true"
             android:textSize="20sp" />
     </LinearLayout>
@@ -190,8 +210,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/melvin_button_border"
-            android:hint="载入中"
+            android:imeOptions="actionNext"
             android:padding="16dp"
+            android:text="@string/text_loading"
             android:textIsSelectable="true"
             android:textSize="20sp" />
     </LinearLayout>

@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.FrameLayout;
@@ -52,6 +53,7 @@ public class PadMessageListActivity extends AppCompatActivity {
     private RadioButton radioButtonDay;
     private TextView tvProdDate;
     private FrameLayout container;
+    private Button buttonNew;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,10 +100,14 @@ public class PadMessageListActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.button2_message_new).setOnClickListener(new View.OnClickListener() {
+        buttonNew = (Button) findViewById(R.id.button2_message_new);
+        buttonNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(PadMessageListActivity.this, BuildMessageActivity.class));
+                Intent intent = new Intent(PadMessageListActivity.this, BuildMessageActivity.class);
+                intent.putExtra("shift", radioButtonDay.isChecked());
+                intent.putExtra("datetime", tvProdDate.getText().toString().trim());
+                startActivity(intent);
             }
         });
 
@@ -152,9 +158,11 @@ public class PadMessageListActivity extends AppCompatActivity {
                 adapter.notifyDataSetChanged();
                 if (datas.isEmpty()) {
                     container.setVisibility(View.INVISIBLE);
+                    buttonNew.setVisibility(View.VISIBLE);
                 } else {
                     container.setVisibility(View.VISIBLE);
                     adapter.selectItem(0);
+                    buttonNew.setVisibility(View.GONE);
                 }
             }
 
@@ -164,6 +172,7 @@ public class PadMessageListActivity extends AppCompatActivity {
                 mdatas.clear();
                 adapter.notifyDataSetChanged();
                 container.setVisibility(View.INVISIBLE);
+                buttonNew.setVisibility(View.INVISIBLE);
             }
         });
     }

@@ -26,7 +26,7 @@ public class MyInspection3Adapter extends BaseQuickAdapter<Polymorph<ProdSpecDet
 
     public static final String TRUE_STR = "true";
     public static final String FALSE_STR = "false";
-    public static final String NA_STR = "NA";
+    public static final String FALSE_STR2 = "false";
 
     public MyInspection3Adapter(@Nullable List<Polymorph<ProdSpecDetailsAddon, ItemVsSpecItemInfo>> data) {
         super(R.layout.item2_inspection3, data);
@@ -36,7 +36,9 @@ public class MyInspection3Adapter extends BaseQuickAdapter<Polymorph<ProdSpecDet
     protected void convert(BaseViewHolder helper, Polymorph<ProdSpecDetailsAddon, ItemVsSpecItemInfo> item) {
         helper.setText(R.id.tv2_item_inspection3_no, item.getInfoEntity().getNo());
         helper.setText(R.id.tv2_item_inspection3_property, item.getInfoEntity().getSpec_Name());
+        helper.getView(R.id.tv2_item_inspection3_property).setSelected(true);
         helper.setText(R.id.tv2_item_inspection3_specification, item.getInfoEntity().getSpec_Description());
+        helper.getView(R.id.tv2_item_inspection3_specification).setSelected(true);
         helper.setText(R.id.tv2_item_inspection3_remark, item.getInfoEntity().getRemark());
 
         boolean isBoolType = item.getInfoEntity().getValue_Type().equals("Boolean");
@@ -62,11 +64,11 @@ public class MyInspection3Adapter extends BaseQuickAdapter<Polymorph<ProdSpecDet
         helper.setText(R.id.et2_item_inspection3_value4, addon.getValue4());
         helper.setText(R.id.et2_item_inspection3_value5, addon.getValue5());
 
-        s1.setSelection(addon.getValue1().equals(TRUE_STR)?1:(addon.getValue1().equals(FALSE_STR)?2:0),true);
-        s2.setSelection(addon.getValue2().equals(TRUE_STR)?1:(addon.getValue2().equals(FALSE_STR)?2:0),true);
-        s3.setSelection(addon.getValue3().equals(TRUE_STR)?1:(addon.getValue3().equals(FALSE_STR)?2:0),true);
-        s4.setSelection(addon.getValue4().equals(TRUE_STR)?1:(addon.getValue4().equals(FALSE_STR)?2:0),true);
-        s5.setSelection(addon.getValue5().equals(TRUE_STR)?1:(addon.getValue5().equals(FALSE_STR)?2:0),true);
+        s1.setSelection(addon.getValue1().equals(TRUE_STR) ? 1 : 0, true);
+        s2.setSelection(addon.getValue2().equals(TRUE_STR) ? 1 : 0, true);
+        s3.setSelection(addon.getValue3().equals(TRUE_STR) ? 1 : 0, true);
+        s4.setSelection(addon.getValue4().equals(TRUE_STR) ? 1 : 0, true);
+        s5.setSelection(addon.getValue5().equals(TRUE_STR) ? 1 : 0, true);
 
         editText1.setInputType(isDecimalType?
                 InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_SIGNED|InputType.TYPE_NUMBER_FLAG_DECIMAL:
@@ -125,7 +127,7 @@ s1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
         switch (position){
             default:
             case 0:
-                addon.setValue1(NA_STR);
+                addon.setValue1(FALSE_STR2);
                 break;
             case 1:
                 addon.setValue1(TRUE_STR);
@@ -148,7 +150,7 @@ s1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 switch (position){
                     default:
                     case 0:
-                        addon.setValue2(NA_STR);
+                        addon.setValue2(FALSE_STR2);
                         break;
                     case 1:
                         addon.setValue2(TRUE_STR);
@@ -171,7 +173,7 @@ s1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 switch (position){
                     default:
                     case 0:
-                        addon.setValue3(NA_STR);
+                        addon.setValue3(FALSE_STR2);
                         break;
                     case 1:
                         addon.setValue3(TRUE_STR);
@@ -194,7 +196,7 @@ s1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 switch (position){
                     default:
                     case 0:
-                        addon.setValue4(NA_STR);
+                        addon.setValue4(FALSE_STR2);
                         break;
                     case 1:
                         addon.setValue4(TRUE_STR);
@@ -217,7 +219,7 @@ s1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 switch (position){
                     default:
                     case 0:
-                        addon.setValue5(NA_STR);
+                        addon.setValue5(FALSE_STR2);
                         break;
                     case 1:
                         addon.setValue5(TRUE_STR);

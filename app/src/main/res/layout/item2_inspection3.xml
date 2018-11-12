@@ -9,10 +9,10 @@
         android:id="@+id/tv2_item_inspection3_no"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="11"
+        android:layout_weight="12"
         android:gravity="center"
         android:singleLine="true"
-        android:text="No."
+        android:text="11"
         android:textColor="@android:color/background_dark" />
 
     <TextView
@@ -23,6 +23,11 @@
         android:gravity="center"
         android:singleLine="true"
         android:text="特别特性"
+        android:ellipsize="marquee"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:scrollHorizontally="true"
+        android:textIsSelectable="true"
         android:textColor="@android:color/background_dark" />
 
     <TextView
@@ -33,6 +38,11 @@
         android:gravity="center"
         android:singleLine="true"
         android:text="规格"
+        android:ellipsize="marquee"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:scrollHorizontally="true"
+        android:textIsSelectable="true"
         android:textColor="@android:color/background_dark" />
 
     <TextView

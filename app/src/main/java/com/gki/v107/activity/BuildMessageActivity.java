@@ -40,6 +40,7 @@ public class BuildMessageActivity extends AppCompatActivity {
     private PadMessageAddon addon = new PadMessageAddon();
     private boolean isEditing = false;
     private int editEntry = -1;
+    private boolean isDay = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,11 +55,13 @@ public class BuildMessageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_build_message);
 
         ActionBar actionBar = getSupportActionBar();
-        if(actionBar!=null){
+        if (actionBar != null) {
             actionBar.show();
             actionBar.setTitle("留言消息");
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+
+        isDay = getIntent().getBooleanExtra("shift", true);
 
         editText1 = (EditText) findViewById(R.id.et2_message_build1);
         editText2 = (EditText) findViewById(R.id.et2_message_build2);
@@ -68,14 +71,21 @@ public class BuildMessageActivity extends AppCompatActivity {
         editText6 = (EditText) findViewById(R.id.et2_message_build6);
 
         tvShift = (TextView) findViewById(R.id.tv2_message_build_shift);
-        tvShift.setText(LoginUser.getUser().Shift.equals("0") ? "白班" : "夜班");
+        tvShift.setText(isDay ? "白班" : "夜班");
 
         tvName = (TextView) findViewById(R.id.tv2_message_build_name);
         String nameStr2 = LoginUser.getUser().getUserId() + " " + LoginUser.getUser().ProdLineName;
         tvName.setText(nameStr2);
 
+
         tvProdDate = (TextView) findViewById(R.id.tv2_message_date2);
-        tvProdDate.setText(DatetimeTool.getCurrentOdataDate());
+        String datetime = getIntent().getStringExtra("datetime");
+        if (datetime == null)
+            tvProdDate.setText(DatetimeTool.getCurrentOdataDate());
+        else
+            tvProdDate.setText(datetime);
+
+
         tvProdDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,7 +122,7 @@ public class BuildMessageActivity extends AppCompatActivity {
                 String prodDatetime = tvProdDate.getText().toString().trim() + "T00:00:00";
 
                 if (msg.isEmpty() && msg2.isEmpty() && msg3.isEmpty() && msg4.isEmpty() && msg5.isEmpty() && msg6.isEmpty()) {
-                    ToastUtil.show(BuildMessageActivity.this,"请输入留言消息");
+                    ToastUtil.show(BuildMessageActivity.this, "请输入留言消息");
                     return;
                 }
 
@@ -152,7 +162,7 @@ public class BuildMessageActivity extends AppCompatActivity {
 
                 } else {
 
-                    addon.setShift(LoginUser.getUser().Shift.equals("0") ? "Day" : "Night");
+                    addon.setShift(isDay ? "Day" : "Night");
                     addon.setCreate_Name(LoginUser.getUser().getUserId());
                     addon.setCreate_User(LoginUser.getUser().getUserId());
                     addon.setCreate_DateTime(DatetimeTool.getCurrentOdataDatetime());
@@ -198,7 +208,7 @@ public class BuildMessageActivity extends AppCompatActivity {
             tvProdDate.setText(info.getProdDate().split("T")[0]);
             String nameStr = info.getCreate_Name() + " " + info.getProdLineName();
             tvName.setText(nameStr);
-            tvShift.setText(info.getShift().equals("Day") ? "白班" : "夜班");
+            tvShift.setText(isDay ? "白班" : "夜班");
 
             isEditing = true;
         }

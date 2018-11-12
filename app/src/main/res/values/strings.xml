@@ -41,4 +41,5 @@
     <string name="text_msg4">本班生产情况及现场5S</string>
     <string name="text_msg5">本班设备情况及交班情况</string>
     <string name="text_remark">备注</string>
+    <string name="text_loading">载入中</string>
 </resources>

@@ -78,6 +78,12 @@ public class InspectConfirm3Fragment extends Fragment implements FragmentInterac
 
         if (sourceCode.isEmpty() || adapter == null) return;
 
+        etNo1.setText("0");
+        etNo2.setText("0");
+        etNo3.setText("0");
+        etNo4.setText("0");
+        etNo5.setText("0");
+
         progressBar.setVisibility(View.VISIBLE);
 
         currentOrderNo = orderno;

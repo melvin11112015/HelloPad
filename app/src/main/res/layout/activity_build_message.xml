@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:showDividers="middle"
     tools:context="com.gki.v107.activity.BuildMessageActivity">
 
     <LinearLayout
@@ -11,6 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_10"
         android:layout_marginRight="@dimen/dp_10"
+        android:divider="?android:attr/listDivider"
         android:orientation="horizontal">
 
         <TextView
@@ -76,8 +78,10 @@
             android:layout_weight="1"
             android:background="@drawable/melvin_button_border"
             android:hint="@string/hint_build_msg"
+            android:imeOptions="actionNext"
+            android:inputType="text"
             android:padding="16dp"
-            android:textIsSelectable="true"
+            android:selectAllOnFocus="true"
             android:textSize="20sp" />
     </LinearLayout>
 
@@ -103,8 +107,10 @@
             android:layout_weight="1"
             android:background="@drawable/melvin_button_border"
             android:hint="@string/hint_build_msg"
+            android:imeOptions="actionNext"
+            android:inputType="text"
             android:padding="16dp"
-            android:textIsSelectable="true"
+            android:selectAllOnFocus="true"
             android:textSize="20sp" />
     </LinearLayout>
 
@@ -130,8 +136,10 @@
             android:layout_weight="1"
             android:background="@drawable/melvin_button_border"
             android:hint="@string/hint_build_msg"
+            android:imeOptions="actionNext"
+            android:inputType="text"
             android:padding="16dp"
-            android:textIsSelectable="true"
+            android:selectAllOnFocus="true"
             android:textSize="20sp" />
     </LinearLayout>
 
@@ -158,8 +166,10 @@
             android:layout_weight="1"
             android:background="@drawable/melvin_button_border"
             android:hint="@string/hint_build_msg"
+            android:imeOptions="actionNext"
+            android:inputType="text"
             android:padding="16dp"
-            android:textIsSelectable="true"
+            android:selectAllOnFocus="true"
             android:textSize="20sp" />
     </LinearLayout>
 
@@ -185,8 +195,10 @@
             android:layout_weight="1"
             android:background="@drawable/melvin_button_border"
             android:hint="@string/hint_build_msg"
+            android:imeOptions="actionNext"
+            android:inputType="text"
             android:padding="16dp"
-            android:textIsSelectable="true"
+            android:selectAllOnFocus="true"
             android:textSize="20sp" />
     </LinearLayout>
 
@@ -212,8 +224,10 @@
             android:layout_weight="1"
             android:background="@drawable/melvin_button_border"
             android:hint="@string/hint_build_msg"
+            android:imeOptions="actionNext"
+            android:inputType="text"
             android:padding="16dp"
-            android:textIsSelectable="true"
+            android:selectAllOnFocus="true"
             android:textSize="20sp" />
 
 

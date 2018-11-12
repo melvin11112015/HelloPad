@@ -23,9 +23,8 @@
         <item>G</item>
     </string-array>
     <string-array name="okstate">
-        <item>NA</item>
-        <item>OK</item>
         <item>NotOK</item>
+        <item>OK</item>
     </string-array>
 
 </resources>
