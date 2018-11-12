@@ -35,12 +35,13 @@ public class BuildMessageActivity extends AppCompatActivity {
     private EditText editText1, editText2, editText3, editText4, editText5, editText6;
     private Button button;
 
-    private TextView tvProdDate, tvShift, tvName;
+    private TextView tvProdDate, tvProdName, tvShift, tvName;
 
     private PadMessageAddon addon = new PadMessageAddon();
     private boolean isEditing = false;
     private int editEntry = -1;
     private boolean isDay = true;
+    private String currentProdline = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +75,7 @@ public class BuildMessageActivity extends AppCompatActivity {
         tvShift.setText(isDay ? "白班" : "夜班");
 
         tvName = (TextView) findViewById(R.id.tv2_message_build_name);
-        String nameStr2 = LoginUser.getUser().getUserId() + " " + LoginUser.getUser().ProdLineName;
+        String nameStr2 = LoginUser.getUser().getUserId();
         tvName.setText(nameStr2);
 
 
@@ -84,6 +85,17 @@ public class BuildMessageActivity extends AppCompatActivity {
             tvProdDate.setText(DatetimeTool.getCurrentOdataDate());
         else
             tvProdDate.setText(datetime);
+
+        tvProdName = (TextView) findViewById(R.id.tv2_message_build_prodline);
+        String prodlinename = getIntent().getStringExtra("prodlinename");
+        if (prodlinename == null)
+            tvProdName.setText(LoginUser.getUser().ProdLineName);
+        else
+            tvProdName.setText(prodlinename);
+
+        currentProdline = getIntent().getStringExtra("prodline");
+        if (currentProdline == null) currentProdline = LoginUser.getUser().Prod_Line;
+
 
 
         tvProdDate.setOnClickListener(new View.OnClickListener() {
@@ -166,8 +178,8 @@ public class BuildMessageActivity extends AppCompatActivity {
                     addon.setCreate_Name(LoginUser.getUser().getUserId());
                     addon.setCreate_User(LoginUser.getUser().getUserId());
                     addon.setCreate_DateTime(DatetimeTool.getCurrentOdataDatetime());
-                    addon.setProdLineName(LoginUser.getUser().ProdLineName);
-                    addon.setProdLine(LoginUser.getUser().Prod_Line);
+                    addon.setProdLineName(tvProdName.getText().toString().trim());
+                    addon.setProdLine(currentProdline);
 
                     ApiTool.addPadMessage(addon, new BaseOdataCallback<Map<String, Object>>() {
                         @Override
@@ -206,8 +218,8 @@ public class BuildMessageActivity extends AppCompatActivity {
             addon.setProdLine(info.getProdLine());
 
             tvProdDate.setText(info.getProdDate().split("T")[0]);
-            String nameStr = info.getCreate_Name() + " " + info.getProdLineName();
-            tvName.setText(nameStr);
+            tvName.setText(info.getCreate_Name());
+            tvProdName.setText(info.getProdLineName());
             tvShift.setText(isDay ? "白班" : "夜班");
 
             isEditing = true;

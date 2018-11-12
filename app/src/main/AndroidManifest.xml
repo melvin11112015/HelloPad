@@ -116,12 +116,12 @@
             android:name="com.gki.v107.activity.PadMessageListActivity"
             android:label="@string/title_padmessage_list"
             android:screenOrientation="landscape"
-            android:theme="@style/Theme.AppCompat.Light" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name="com.gki.v107.activity.PadMessageDetailActivity"
             android:label="@string/title_padmessage_detail"
             android:parentActivityName="com.gki.v107.activity.PadMessageListActivity"
-            android:theme="@style/Theme.AppCompat.Light">
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.gki.v107.activity.PadMessageListActivity" />

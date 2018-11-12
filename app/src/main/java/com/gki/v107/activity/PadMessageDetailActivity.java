@@ -2,12 +2,9 @@ package com.gki.v107.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import com.gki.managerment.R;
@@ -29,6 +26,7 @@ public class PadMessageDetailActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.hide();
         }
 
         // savedInstanceState is non-null when there is fragment state

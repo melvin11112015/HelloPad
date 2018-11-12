@@ -40,7 +40,8 @@
             android:id="@+id/tv2_message_build_shift"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="白班" />
+            android:text="白班"
+            android:textColor="@android:color/background_dark" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -52,7 +53,21 @@
             android:id="@+id/tv2_message_build_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:textColor="@android:color/background_dark" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:text="生产线：" />
+
+        <TextView
+            android:id="@+id/tv2_message_build_prodline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@android:color/background_dark" />
 
     </LinearLayout>
 
@@ -82,6 +97,7 @@
             android:inputType="text"
             android:padding="16dp"
             android:selectAllOnFocus="true"
+            android:textColor="@android:color/background_dark"
             android:textSize="20sp" />
     </LinearLayout>
 
@@ -111,6 +127,7 @@
             android:inputType="text"
             android:padding="16dp"
             android:selectAllOnFocus="true"
+            android:textColor="@android:color/background_dark"
             android:textSize="20sp" />
     </LinearLayout>
 
@@ -140,6 +157,7 @@
             android:inputType="text"
             android:padding="16dp"
             android:selectAllOnFocus="true"
+            android:textColor="@android:color/background_dark"
             android:textSize="20sp" />
     </LinearLayout>
 
@@ -170,6 +188,7 @@
             android:inputType="text"
             android:padding="16dp"
             android:selectAllOnFocus="true"
+            android:textColor="@android:color/background_dark"
             android:textSize="20sp" />
     </LinearLayout>
 
@@ -199,6 +218,7 @@
             android:inputType="text"
             android:padding="16dp"
             android:selectAllOnFocus="true"
+            android:textColor="@android:color/background_dark"
             android:textSize="20sp" />
     </LinearLayout>
 
@@ -228,6 +248,7 @@
             android:inputType="text"
             android:padding="16dp"
             android:selectAllOnFocus="true"
+            android:textColor="@android:color/background_dark"
             android:textSize="20sp" />
 
 

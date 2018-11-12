@@ -73,6 +73,7 @@
             android:imeOptions="actionNext"
             android:padding="16dp"
             android:text="@string/text_loading"
+            android:textColor="@android:color/background_dark"
             android:textIsSelectable="true"
             android:textSize="20sp" />
     </LinearLayout>
@@ -101,6 +102,7 @@
             android:imeOptions="actionNext"
             android:padding="16dp"
             android:text="@string/text_loading"
+            android:textColor="@android:color/background_dark"
             android:textIsSelectable="true"
             android:textSize="20sp" />
     </LinearLayout>
@@ -129,6 +131,7 @@
             android:imeOptions="actionNext"
             android:padding="16dp"
             android:text="@string/text_loading"
+            android:textColor="@android:color/background_dark"
             android:textIsSelectable="true"
             android:textSize="20sp" />
     </LinearLayout>
@@ -157,6 +160,7 @@
             android:imeOptions="actionNext"
             android:padding="16dp"
             android:text="@string/text_loading"
+            android:textColor="@android:color/background_dark"
             android:textIsSelectable="true"
             android:textSize="20sp" />
     </LinearLayout>
@@ -185,6 +189,7 @@
             android:imeOptions="actionNext"
             android:padding="16dp"
             android:text="@string/text_loading"
+            android:textColor="@android:color/background_dark"
             android:textIsSelectable="true"
             android:textSize="20sp" />
     </LinearLayout>
@@ -213,6 +218,7 @@
             android:imeOptions="actionNext"
             android:padding="16dp"
             android:text="@string/text_loading"
+            android:textColor="@android:color/background_dark"
             android:textIsSelectable="true"
             android:textSize="20sp" />
     </LinearLayout>

@@ -70,7 +70,6 @@ public class ApiTool {
 
     private static Retrofit getRetrofit() {
         HttpUrl url = HttpUrl.parse(currentApiUrl);
-        System.out.println(url);
         return new Retrofit.Builder()
                 .baseUrl(url)
                 .client(new OkHttpClient.Builder()

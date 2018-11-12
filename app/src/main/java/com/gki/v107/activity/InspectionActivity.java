@@ -80,6 +80,9 @@ public class InspectionActivity extends AppCompatActivity implements View.OnClic
                 etOrderno.requestFocus();
                 doSubmit();
                 break;
+            case R.id.button2_inspection1_back:
+                finish();
+                break;
         }
     }
 
@@ -251,6 +254,9 @@ public class InspectionActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity2_inspection);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        //隐藏actionbar
+        getSupportActionBar().hide();
+
         tvstarttime = (TextView) findViewById(R.id.tv2_inspection1_time1);
         tvendtime = (TextView) findViewById(R.id.tv2_inspection1_time2);
         tvDate = (TextView) findViewById(R.id.tv2_inspection1_date);
@@ -271,6 +277,7 @@ public class InspectionActivity extends AppCompatActivity implements View.OnClic
 
         findViewById(R.id.button2_inspection1_check).setOnClickListener(this);
         findViewById(R.id.button2_inspection1_submit).setOnClickListener(this);
+        findViewById(R.id.button2_inspection1_back).setOnClickListener(this);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tablayout2_inspection);
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager2_inspection);

@@ -1,8 +1,10 @@
 package com.gki.v107.activity;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
@@ -14,15 +16,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.gki.managerment.LoginUser;
 import com.gki.managerment.R;
+import com.gki.managerment.global.BaseListItem;
+import com.gki.managerment.global.BaseListItemParser;
+import com.gki.managerment.global.ListItemAdapter;
+import com.gki.managerment.http.Service.getService;
 import com.gki.managerment.util.ToastUtil;
 import com.gki.v107.entity.PadMessageInfo;
 import com.gki.v107.net.ApiTool;
@@ -54,6 +63,8 @@ public class PadMessageListActivity extends AppCompatActivity {
     private TextView tvProdDate;
     private FrameLayout container;
     private Button buttonNew;
+    private Spinner spProdLine;
+    private String currentProdline, currentProdlineName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +77,9 @@ public class PadMessageListActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_padmessage_list);
+
+        //隐藏actionbar
+        if (getSupportActionBar() != null) getSupportActionBar().hide();
 
         if (findViewById(R.id.padmessage_detail_container) != null) {
             // The detail container view will be present only in the
@@ -107,7 +121,15 @@ public class PadMessageListActivity extends AppCompatActivity {
                 Intent intent = new Intent(PadMessageListActivity.this, BuildMessageActivity.class);
                 intent.putExtra("shift", radioButtonDay.isChecked());
                 intent.putExtra("datetime", tvProdDate.getText().toString().trim());
+                intent.putExtra("prodline", currentProdline);
+                intent.putExtra("prodlinename", currentProdlineName);
                 startActivity(intent);
+            }
+        });
+        findViewById(R.id.button2_message_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 
@@ -130,6 +152,11 @@ public class PadMessageListActivity extends AppCompatActivity {
         });
 
         container = (FrameLayout) findViewById(R.id.padmessage_detail_container);
+
+        spProdLine = (Spinner) findViewById(R.id.spinner2_message);
+        currentProdline = LoginUser.getUser().Prod_Line;
+        currentProdlineName = LoginUser.getUser().ProdLineName;
+        new GetUserProdLine().execute(LoginUser.getUser().User_ID);
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
@@ -149,6 +176,8 @@ public class PadMessageListActivity extends AppCompatActivity {
                 (radioButtonDay.isChecked() ? "Day" : "Night") +
                 "' and ProdDate eq DateTime'" +
                 tvProdDate.getText().toString().trim() +
+                "' and ProdLine eq '" +
+                currentProdline +
                 "'";
         ApiTool.callPadMessageList(filterSb, new GenericOdataCallback<PadMessageInfo>() {
             @Override
@@ -290,4 +319,43 @@ public class PadMessageListActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    private class GetUserProdLine extends AsyncTask<String, Integer, String> {
+        @Override
+        protected String doInBackground(String... params) {
+            String result = getService.GetUserProdLineService(params[0]);
+            return result;
+        }
+
+        @SuppressLint("NewApi")
+        @Override
+        protected void onPostExecute(String result) {
+            System.out.println("result:" + result);
+            if (!result.trim().equals("null") && !result.trim().equals("[]") && !result.trim().equals("{}") && !result.trim().equals("") && !result.trim().equals("anyType{}")) {
+                List<BaseListItem> lstProdLine = new BaseListItemParser().getListFromJson(result, "Prod_Line", "Prod_Line_Name", false);
+                ListItemAdapter adapter = new ListItemAdapter(getBaseContext(), lstProdLine);
+                spProdLine.setAdapter(adapter);
+                for (int i = 0; i < lstProdLine.size(); i++) {
+                    if (lstProdLine.get(i).getItemId().equals(LoginUser.getUser().Prod_Line)) {
+                        spProdLine.setSelection(i);
+                        break;
+                    }
+                }
+                spProdLine.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        currentProdline = ((BaseListItem) parent.getSelectedItem()).getItemId();
+                        currentProdlineName = ((BaseListItem) parent.getSelectedItem()).getItemName();
+                        checkMessageList();
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
+            }
+        }
+    }
+
 }

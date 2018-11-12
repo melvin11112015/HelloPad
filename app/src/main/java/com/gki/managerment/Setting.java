@@ -12,11 +12,14 @@ import android.widget.EditText;
 import com.gki.managerment.constant.SharedPreferenceConstant;
 import com.gki.managerment.http.AppContants;
 import com.gki.managerment.util.SharedPreferencesUtils;
+import com.gki.managerment.util.ToastUtil;
 import com.gki.v107.net.ApiTool;
+
+import okhttp3.HttpUrl;
 
 public class Setting extends BaseActivity implements OnClickListener {
     private Button btnBack, btnSave;
-    private EditText et_servicePath,et_imagePath,et_odataPath,et_odataName,et_odataPassword;
+    private EditText et_servicePath, et_imagePath, et_odataPath, et_odataName, et_odataPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,24 +60,29 @@ public class Setting extends BaseActivity implements OnClickListener {
 
     private void saveSetting() {
         boolean needShowToast = false;
-        if (!TextUtils.isEmpty(et_servicePath.getText().toString()) && !TextUtils.isEmpty(et_odataPath.getText().toString())) {
+        String odataUrl = et_odataPath.getText().toString().trim();
+        if (!TextUtils.isEmpty(et_servicePath.getText().toString())
+                && !TextUtils.isEmpty(et_odataPath.getText().toString())) {
+            if (URLUtil.isHttpUrl(odataUrl) && HttpUrl.parse(odataUrl) != null) {
+                if (!odataUrl.endsWith("/")) odataUrl = odataUrl + "/";
+                ApiTool.currentApiUrl = odataUrl;
+                SharedPreferencesUtils.setParam(this, SharedPreferenceConstant.ODATA_PATH, ApiTool.currentApiUrl);
+            } else {
+                ToastUtil.show(Setting.this, "Odata地址错误");
+                return;
+            }
             needShowToast = true;
             SharedPreferencesUtils.setParam(this, SharedPreferenceConstant.SERVICE_PATH, et_servicePath.getText().toString());
             SharedPreferencesUtils.setParam(this, SharedPreferenceConstant.IMAGE_PATH, et_imagePath.getText().toString());
 
-            SharedPreferencesUtils.setParam(this,SharedPreferenceConstant.ODATA_USERNAME,et_odataName.getText().toString());
-            SharedPreferencesUtils.setParam(this,SharedPreferenceConstant.ODATA_PASSWORD,et_odataPassword.getText().toString());
+            SharedPreferencesUtils.setParam(this, SharedPreferenceConstant.ODATA_USERNAME, et_odataName.getText().toString());
+            SharedPreferencesUtils.setParam(this, SharedPreferenceConstant.ODATA_PASSWORD, et_odataPassword.getText().toString());
             AppContants.ServicePath = et_servicePath.getText().toString();
             AppContants.ImagePath = et_imagePath.getText().toString();
             ApiTool.currentAuthName = et_odataName.getText().toString();
             ApiTool.currentAuthPsw = et_odataPassword.getText().toString();
 
-            String odataUrl = et_odataPath.getText().toString().trim();
-            if(URLUtil.isHttpUrl(odataUrl)) {
-                if(!odataUrl.endsWith("/"))odataUrl = odataUrl + "/";
-                ApiTool.currentApiUrl =odataUrl;
-                SharedPreferencesUtils.setParam(this,SharedPreferenceConstant.ODATA_PATH,ApiTool.currentApiUrl);
-            }else ApiTool.currentApiUrl = ApiTool.DEFAULT_API_URL;
+
             et_odataPath.setText(ApiTool.currentApiUrl);
 
         }
@@ -86,8 +94,8 @@ public class Setting extends BaseActivity implements OnClickListener {
     private void showSetting() {
         et_servicePath.setText(SharedPreferencesUtils.getParam(this, SharedPreferenceConstant.SERVICE_PATH, AppContants.ServicePath).toString());
         et_imagePath.setText(SharedPreferencesUtils.getParam(this, SharedPreferenceConstant.IMAGE_PATH, AppContants.ImagePath).toString());
-        et_odataPath.setText(SharedPreferencesUtils.getParam(this, SharedPreferenceConstant.ODATA_PATH,ApiTool.currentApiUrl).toString());
-        et_odataName.setText(SharedPreferencesUtils.getParam(this, SharedPreferenceConstant.ODATA_USERNAME,ApiTool.currentAuthName).toString());
-        et_odataPassword.setText(SharedPreferencesUtils.getParam(this, SharedPreferenceConstant.ODATA_PASSWORD,ApiTool.currentAuthPsw).toString());
+        et_odataPath.setText(SharedPreferencesUtils.getParam(this, SharedPreferenceConstant.ODATA_PATH, ApiTool.currentApiUrl).toString());
+        et_odataName.setText(SharedPreferencesUtils.getParam(this, SharedPreferenceConstant.ODATA_USERNAME, ApiTool.currentAuthName).toString());
+        et_odataPassword.setText(SharedPreferencesUtils.getParam(this, SharedPreferenceConstant.ODATA_PASSWORD, ApiTool.currentAuthPsw).toString());
     }
 }
