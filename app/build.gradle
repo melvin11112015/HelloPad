@@ -9,7 +9,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 18
         versionName "v1.07"
-        versionCode 107
+        versionCode 1
     }
     lintOptions {
         checkReleaseBuilds true
