@@ -71,7 +71,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="数量5：" />
+            android:text="数量5："
+            android:visibility="gone" />
 
         <EditText
             android:id="@+id/et2_inspection3_no5"
@@ -80,7 +81,8 @@
             android:layout_weight="1"
             android:ems="10"
             android:inputType="number|numberSigned|numberDecimal"
-            android:text="0" />
+            android:text="0"
+            android:visibility="gone" />
     </LinearLayout>
 
     <FrameLayout

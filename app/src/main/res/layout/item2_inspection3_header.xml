@@ -75,5 +75,6 @@
         android:layout_weight="11"
         android:gravity="center"
         android:text="5"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:visibility="gone" />
 </LinearLayout>

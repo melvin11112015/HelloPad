@@ -50,13 +50,13 @@ public class MyInspection3Adapter extends BaseQuickAdapter<Polymorph<ProdSpecDet
         EditText editText2 = helper.getView(R.id.et2_item_inspection3_value2);
         EditText editText3 = helper.getView(R.id.et2_item_inspection3_value3);
         EditText editText4 = helper.getView(R.id.et2_item_inspection3_value4);
-        EditText editText5 = helper.getView(R.id.et2_item_inspection3_value5);
+        //EditText editText5 = helper.getView(R.id.et2_item_inspection3_value5);
 
         Spinner s1 = helper.getView(R.id.spinner2_item_inspection3_confirm1);
         Spinner s2 = helper.getView(R.id.spinner2_item_inspection3_confirm2);
         Spinner s3 = helper.getView(R.id.spinner2_item_inspection3_confirm3);
         Spinner s4 = helper.getView(R.id.spinner2_item_inspection3_confirm4);
-        Spinner s5 = helper.getView(R.id.spinner2_item_inspection3_confirm5);
+        //Spinner s5 = helper.getView(R.id.spinner2_item_inspection3_confirm5);
 
         helper.setText(R.id.et2_item_inspection3_value1, addon.getValue1());
         helper.setText(R.id.et2_item_inspection3_value2, addon.getValue2());
@@ -68,7 +68,7 @@ public class MyInspection3Adapter extends BaseQuickAdapter<Polymorph<ProdSpecDet
         s2.setSelection(addon.getValue2().equals(TRUE_STR) ? 1 : 0, true);
         s3.setSelection(addon.getValue3().equals(TRUE_STR) ? 1 : 0, true);
         s4.setSelection(addon.getValue4().equals(TRUE_STR) ? 1 : 0, true);
-        s5.setSelection(addon.getValue5().equals(TRUE_STR) ? 1 : 0, true);
+        //s5.setSelection(addon.getValue5().equals(TRUE_STR) ? 1 : 0, true);
 
         editText1.setInputType(isDecimalType?
                 InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_SIGNED|InputType.TYPE_NUMBER_FLAG_DECIMAL:
@@ -82,9 +82,11 @@ public class MyInspection3Adapter extends BaseQuickAdapter<Polymorph<ProdSpecDet
         editText4.setInputType(isDecimalType?
                 InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_SIGNED|InputType.TYPE_NUMBER_FLAG_DECIMAL:
                 InputType.TYPE_CLASS_TEXT);
+        /*
         editText5.setInputType(isDecimalType?
                 InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_SIGNED|InputType.TYPE_NUMBER_FLAG_DECIMAL:
                 InputType.TYPE_CLASS_TEXT);
+                */
 
         editText1.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -113,14 +115,14 @@ public class MyInspection3Adapter extends BaseQuickAdapter<Polymorph<ProdSpecDet
                 if(!hasFocus)addon.setValue4(((EditText)v).getText().toString());
             }
         });
-
+/*
         editText5.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if(!hasFocus)addon.setValue5(((EditText)v).getText().toString());
             }
         });
-
+*/
 s1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -212,7 +214,7 @@ s1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             }
         });
-
+/*
         s5.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -235,18 +237,21 @@ s1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             }
         });
+        */
 
         helper.setGone(R.id.spinner2_item_inspection3_confirm1, isBoolType);
         helper.setGone(R.id.spinner2_item_inspection3_confirm2, isBoolType);
         helper.setGone(R.id.spinner2_item_inspection3_confirm3, isBoolType);
         helper.setGone(R.id.spinner2_item_inspection3_confirm4, isBoolType);
-        helper.setGone(R.id.spinner2_item_inspection3_confirm5, isBoolType);
+        //helper.setGone(R.id.spinner2_item_inspection3_confirm5, isBoolType);
+        helper.setGone(R.id.spinner2_item_inspection3_confirm5, false);
 
         helper.setGone(R.id.et2_item_inspection3_value1, !isBoolType);
         helper.setGone(R.id.et2_item_inspection3_value2, !isBoolType);
         helper.setGone(R.id.et2_item_inspection3_value3, !isBoolType);
         helper.setGone(R.id.et2_item_inspection3_value4, !isBoolType);
-        helper.setGone(R.id.et2_item_inspection3_value5, !isBoolType);
+        //helper.setGone(R.id.et2_item_inspection3_value5, !isBoolType);
+        helper.setGone(R.id.et2_item_inspection3_value5, false);
 
 
         switch (item.getState()) {
@@ -314,11 +319,11 @@ s1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             addon.setNo(info.getNo());
             addon.setLine_No(info.getLine_No());
-            addon.setValue1("");
-            addon.setValue2("");
-            addon.setValue3("");
-            addon.setValue4("");
-            addon.setValue5("");
+            addon.setValue1(info.getValue_Type().equals("Boolean") ? "true" : "");
+            addon.setValue2(info.getValue_Type().equals("Boolean") ? "true" : "");
+            addon.setValue3(info.getValue_Type().equals("Boolean") ? "true" : "");
+            addon.setValue4(info.getValue_Type().equals("Boolean") ? "true" : "");
+            addon.setValue5(info.getValue_Type().equals("Boolean") ? "true" : "");
             addon.setSpec_Name(info.getSpec_Name());
             addon.setProd_Order_No(orderno);
             addon.setSpec_Description(info.getSpec_Description());

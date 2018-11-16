@@ -28,13 +28,14 @@ import com.gki.managerment.util.SharedPreferencesUtils;
 import com.gki.managerment.util.StringUtils;
 import com.gki.v107.net.ApiTool;
 import com.google.gson.Gson;
-import com.tencent.bugly.crashreport.CrashReport;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+
+//import com.tencent.bugly.crashreport.CrashReport;
 
 public class Main extends BaseActivity {
     UserDB userDB;
@@ -137,37 +138,8 @@ public class Main extends BaseActivity {
         }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        CrashReport.initCrashReport(getApplicationContext(), "5b41b0d57e", true);
-
-        AppContants.ServicePath = SharedPreferencesUtils.getParam(this, SharedPreferenceConstant.SERVICE_PATH, AppContants.ServicePath).toString();
-        AppContants.ImagePath = SharedPreferencesUtils.getParam(this, SharedPreferenceConstant.IMAGE_PATH, AppContants.ImagePath).toString();
-        ApiTool.currentApiUrl = SharedPreferencesUtils.getParam(this, SharedPreferenceConstant.ODATA_PATH,ApiTool.currentApiUrl).toString();
-        ApiTool.currentAuthName = SharedPreferencesUtils.getParam(this, SharedPreferenceConstant.ODATA_USERNAME,ApiTool.currentAuthName).toString();
-        ApiTool.currentAuthPsw = SharedPreferencesUtils.getParam(this, SharedPreferenceConstant.ODATA_PASSWORD,ApiTool.currentAuthPsw).toString();
-        //获取最新版本情况
-        new UpgradeManager(Main.this);
-
-        userDB = new UserDB(Main.this);
-        setContentView(R.layout.main);
-        btnLogin = (Button) findViewById(R.id.btn_login_commit);
-        btnCancel = (Button) findViewById(R.id.btn_Cancel);
-        btnSetup = (Button) findViewById(R.id.btn_setup);
-        txtUsername = (EditText) findViewById(R.id.et_username);
-        txtPassword = (EditText) findViewById(R.id.et_password);
-        chk_savePswd = (CheckBox) findViewById(R.id.chk_savePswd);
-        ((TextView)findViewById(R.id.tv_version)).setText("V"+AppContants.Version);
-        btnCancel.setOnClickListener(new MyListener());
-        btnLogin.setOnClickListener(new MyListener());
-        btnSetup.setOnClickListener(new MyListener());
-
-        txtUsername.setText((String) SharedPreferencesUtils.getParam(this, SharedPreferenceConstant.USER_NAME, ""));
-        txtPassword.setText((String) SharedPreferencesUtils.getParam(this, SharedPreferenceConstant.USER_PASSWORD, ""));
-        chk_savePswd.setChecked((Boolean) SharedPreferencesUtils.getParam(this, SharedPreferenceConstant.IS_KEEP_PASSWORD, false));
-    }
+    //下拉框选项数据源
+    ArrayList<LoginUser> lstUser = new ArrayList<LoginUser>();
 
     public <T> void Jump(Class<T> MyClass) {
         SharedPreferencesUtils.setParam(this, SharedPreferenceConstant.IS_KEEP_PASSWORD, chk_savePswd.isChecked());
@@ -204,8 +176,38 @@ public class Main extends BaseActivity {
     private PopupWindow selectPopupWindow= null;
     //自定义Adapter
     private PopupListAdapter popupAdapter = null;
-    //下拉框选项数据源
-    ArrayList<LoginUser> lstUser = new ArrayList<LoginUser>();;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        //CrashReport.initCrashReport(getApplicationContext(), "5b41b0d57e", true);
+
+        AppContants.ServicePath = SharedPreferencesUtils.getParam(this, SharedPreferenceConstant.SERVICE_PATH, AppContants.ServicePath).toString();
+        AppContants.ImagePath = SharedPreferencesUtils.getParam(this, SharedPreferenceConstant.IMAGE_PATH, AppContants.ImagePath).toString();
+        ApiTool.currentApiUrl = SharedPreferencesUtils.getParam(this, SharedPreferenceConstant.ODATA_PATH, ApiTool.currentApiUrl).toString();
+        ApiTool.currentAuthName = SharedPreferencesUtils.getParam(this, SharedPreferenceConstant.ODATA_USERNAME, ApiTool.currentAuthName).toString();
+        ApiTool.currentAuthPsw = SharedPreferencesUtils.getParam(this, SharedPreferenceConstant.ODATA_PASSWORD, ApiTool.currentAuthPsw).toString();
+        //获取最新版本情况
+        new UpgradeManager(Main.this);
+
+        userDB = new UserDB(Main.this);
+        setContentView(R.layout.main);
+        btnLogin = (Button) findViewById(R.id.btn_login_commit);
+        btnCancel = (Button) findViewById(R.id.btn_Cancel);
+        btnSetup = (Button) findViewById(R.id.btn_setup);
+        txtUsername = (EditText) findViewById(R.id.et_username);
+        txtPassword = (EditText) findViewById(R.id.et_password);
+        chk_savePswd = (CheckBox) findViewById(R.id.chk_savePswd);
+        ((TextView) findViewById(R.id.tv_version)).setText("V" + AppContants.Version);
+        btnCancel.setOnClickListener(new MyListener());
+        btnLogin.setOnClickListener(new MyListener());
+        btnSetup.setOnClickListener(new MyListener());
+
+        txtUsername.setText((String) SharedPreferencesUtils.getParam(this, SharedPreferenceConstant.USER_NAME, ""));
+        txtPassword.setText((String) SharedPreferencesUtils.getParam(this, SharedPreferenceConstant.USER_PASSWORD, ""));
+        chk_savePswd.setChecked((Boolean) SharedPreferencesUtils.getParam(this, SharedPreferenceConstant.IS_KEEP_PASSWORD, false));
+    }
     //下拉框依附组件
     private LinearLayout parent;
     //下拉框依附组件宽度，也将作为下拉框的宽度
@@ -288,6 +290,7 @@ public class Main extends BaseActivity {
         //初始化PopupWindow
         initPopuWindow();
     }
+
     /**
      * 初始化PopupWindow
      */
@@ -295,7 +298,7 @@ public class Main extends BaseActivity {
         lstUser = userDB.findAllLoginUser();
 
         //PopupWindow浮动下拉框布局
-        View loginwindow = (View)this.getLayoutInflater().inflate(R.layout.popup_list, null);
+        View loginwindow = this.getLayoutInflater().inflate(R.layout.popup_list, null);
         listView = (ListView) loginwindow.findViewById(R.id.list);
 
         //设置自定义Adapter

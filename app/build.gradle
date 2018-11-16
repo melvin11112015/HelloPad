@@ -7,6 +7,7 @@ android {
     defaultConfig {
         applicationId "com.gki.managerment"
         minSdkVersion 15
+        //noinspection ExpiredTargetSdkVersion
         targetSdkVersion 18
         versionName "v1.07"
         versionCode 1
@@ -55,5 +56,5 @@ dependencies {
     compile 'com.squareup.retrofit2:retrofit:2.4.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.5.0'
     implementation 'com.github.netcosports:Android_Ntlm:1.0'
-    compile 'com.tencent.bugly:crashreport:latest.release'
+    //compile 'com.tencent.bugly:crashreport:latest.release'
 }
