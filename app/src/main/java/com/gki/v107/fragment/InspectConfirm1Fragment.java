@@ -2,8 +2,6 @@ package com.gki.v107.fragment;
 
 
 import android.annotation.SuppressLint;
-import android.app.TimePickerDialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
 import com.gki.managerment.R;
 import com.gki.managerment.util.ToastUtil;
@@ -21,19 +18,13 @@ import com.gki.v107.adapter.MyInspection1aAdapter;
 import com.gki.v107.entity.ItemVsBomInfo;
 import com.gki.v107.entity.Polymorph;
 import com.gki.v107.entity.ProdConfirmBomItemsAddon;
-import com.gki.v107.entity.WebPordOrderCompInfo;
-import com.gki.v107.entity.WebProdOrderInfo;
 import com.gki.v107.myinterface.FragmentInteractionInterface;
 import com.gki.v107.net.ApiTool;
 import com.gki.v107.net.BaseOdataCallback;
 import com.gki.v107.net.GenericOdataCallback;
 
-import org.w3c.dom.Text;
-
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -90,7 +81,7 @@ public class InspectConfirm1Fragment extends Fragment implements FragmentInterac
     }
 
     @Override
-    public void acquireDatas(final String orderno, final int stepCode, final String sourceCode, final TextView tvDate, final TextView tvstarttime, final TextView tvendtime) {
+    public void acquireDatas(final String orderno, final int stepCode, final String sourceCode, final TextView tvstarttime, final TextView tvendtime) {
 
         if (orderno.isEmpty() || adapter1 == null) return;
 
@@ -102,7 +93,7 @@ public class InspectConfirm1Fragment extends Fragment implements FragmentInterac
             @Override
             public void onDataAvailable(List<ItemVsBomInfo> datas) {
                 polyList.clear();
-                polyList.addAll(adapter1.createPolyList(datas, stepCode, orderno, tvDate, tvstarttime,tvendtime));
+                polyList.addAll(adapter1.createPolyList(datas, stepCode, orderno, tvstarttime, tvendtime));
                 adapter1.notifyDataSetChanged();
 
                 progressBar.setVisibility(View.GONE);
@@ -136,8 +127,8 @@ public class InspectConfirm1Fragment extends Fragment implements FragmentInterac
         totalCount = 0;
         final StringBuilder stringBuilder = new StringBuilder();
 
-        String startDatetime = tvDate.getText().toString() + 'T' + tvstarttime.getText().toString();
-        String endDatetime = tvDate.getText().toString() + 'T' + tvendtime.getText().toString();
+        String startDatetime = tvDate.getText().toString() + 'T' + tvstarttime.getText().toString() + "+08:00";
+        String endDatetime = tvDate.getText().toString() + 'T' + tvendtime.getText().toString() + "+08:00";
 
         for (final Polymorph<ProdConfirmBomItemsAddon, ItemVsBomInfo> polymorph : polyList) {
             ProdConfirmBomItemsAddon addon = polymorph.getAddonEntity();

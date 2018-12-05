@@ -74,7 +74,7 @@ public class InspectConfirm3Fragment extends Fragment implements FragmentInterac
     private EditText etNo1,etNo2,etNo3,etNo4,etNo5;
 
     @Override
-    public void acquireDatas(final String orderno, final int stepCode,String sourceCode,final TextView tvDate,final TextView tvstarttime,final TextView tvendtime) {
+    public void acquireDatas(final String orderno, final int stepCode, String sourceCode, final TextView tvstarttime, final TextView tvendtime) {
 
         if (sourceCode.isEmpty() || adapter == null) return;
 

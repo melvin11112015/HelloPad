@@ -34,6 +34,32 @@ public class MyInspection3Adapter extends BaseQuickAdapter<Polymorph<ProdSpecDet
 
     @Override
     protected void convert(BaseViewHolder helper, Polymorph<ProdSpecDetailsAddon, ItemVsSpecItemInfo> item) {
+        //helper.setIsRecyclable(false);
+        EditText editText1 = helper.getView(R.id.et2_item_inspection3_value1);
+        EditText editText2 = helper.getView(R.id.et2_item_inspection3_value2);
+        EditText editText3 = helper.getView(R.id.et2_item_inspection3_value3);
+        EditText editText4 = helper.getView(R.id.et2_item_inspection3_value4);
+        //EditText editText5 = helper.getView(R.id.et2_item_inspection3_value5);
+
+        //remove Listener firstly! viewholder可能因为为移除监听器出现数据错乱！
+        editText1.setOnFocusChangeListener(null);
+        editText2.setOnFocusChangeListener(null);
+        editText3.setOnFocusChangeListener(null);
+        editText4.setOnFocusChangeListener(null);
+
+        Spinner s1 = helper.getView(R.id.spinner2_item_inspection3_confirm1);
+        Spinner s2 = helper.getView(R.id.spinner2_item_inspection3_confirm2);
+        Spinner s3 = helper.getView(R.id.spinner2_item_inspection3_confirm3);
+        Spinner s4 = helper.getView(R.id.spinner2_item_inspection3_confirm4);
+        //Spinner s5 = helper.getView(R.id.spinner2_item_inspection3_confirm5);
+
+        //remove Listener firstly! viewholder可能因为为移除监听器出现数据错乱！
+        s1.setOnItemSelectedListener(null);
+        s2.setOnItemSelectedListener(null);
+        s3.setOnItemSelectedListener(null);
+        s4.setOnItemSelectedListener(null);
+
+
         helper.setText(R.id.tv2_item_inspection3_no, item.getInfoEntity().getNo());
         helper.setText(R.id.tv2_item_inspection3_property, item.getInfoEntity().getSpec_Name());
         helper.getView(R.id.tv2_item_inspection3_property).setSelected(true);
@@ -46,17 +72,9 @@ public class MyInspection3Adapter extends BaseQuickAdapter<Polymorph<ProdSpecDet
 
         final ProdSpecDetailsAddon addon = item.getAddonEntity();
 
-        EditText editText1 = helper.getView(R.id.et2_item_inspection3_value1);
-        EditText editText2 = helper.getView(R.id.et2_item_inspection3_value2);
-        EditText editText3 = helper.getView(R.id.et2_item_inspection3_value3);
-        EditText editText4 = helper.getView(R.id.et2_item_inspection3_value4);
-        //EditText editText5 = helper.getView(R.id.et2_item_inspection3_value5);
 
-        Spinner s1 = helper.getView(R.id.spinner2_item_inspection3_confirm1);
-        Spinner s2 = helper.getView(R.id.spinner2_item_inspection3_confirm2);
-        Spinner s3 = helper.getView(R.id.spinner2_item_inspection3_confirm3);
-        Spinner s4 = helper.getView(R.id.spinner2_item_inspection3_confirm4);
-        //Spinner s5 = helper.getView(R.id.spinner2_item_inspection3_confirm5);
+
+
 
         helper.setText(R.id.et2_item_inspection3_value1, addon.getValue1());
         helper.setText(R.id.et2_item_inspection3_value2, addon.getValue2());
@@ -70,17 +88,17 @@ public class MyInspection3Adapter extends BaseQuickAdapter<Polymorph<ProdSpecDet
         s4.setSelection(addon.getValue4().equals(TRUE_STR) ? 1 : 0, true);
         //s5.setSelection(addon.getValue5().equals(TRUE_STR) ? 1 : 0, true);
 
-        editText1.setInputType(isDecimalType?
-                InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_SIGNED|InputType.TYPE_NUMBER_FLAG_DECIMAL:
+        editText1.setInputType(isDecimalType ?
+                InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_SIGNED | InputType.TYPE_NUMBER_FLAG_DECIMAL :
                 InputType.TYPE_CLASS_TEXT);
-        editText2.setInputType(isDecimalType?
-                InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_SIGNED|InputType.TYPE_NUMBER_FLAG_DECIMAL:
+        editText2.setInputType(isDecimalType ?
+                InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_SIGNED | InputType.TYPE_NUMBER_FLAG_DECIMAL :
                 InputType.TYPE_CLASS_TEXT);
-        editText3.setInputType(isDecimalType?
-                InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_SIGNED|InputType.TYPE_NUMBER_FLAG_DECIMAL:
+        editText3.setInputType(isDecimalType ?
+                InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_SIGNED | InputType.TYPE_NUMBER_FLAG_DECIMAL :
                 InputType.TYPE_CLASS_TEXT);
-        editText4.setInputType(isDecimalType?
-                InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_SIGNED|InputType.TYPE_NUMBER_FLAG_DECIMAL:
+        editText4.setInputType(isDecimalType ?
+                InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_SIGNED | InputType.TYPE_NUMBER_FLAG_DECIMAL :
                 InputType.TYPE_CLASS_TEXT);
         /*
         editText5.setInputType(isDecimalType?
@@ -88,31 +106,35 @@ public class MyInspection3Adapter extends BaseQuickAdapter<Polymorph<ProdSpecDet
                 InputType.TYPE_CLASS_TEXT);
                 */
 
+
         editText1.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if(!hasFocus)addon.setValue1(((EditText)v).getText().toString());
+                if (!hasFocus) addon.setValue1(((EditText) v).getText().toString());
             }
         });
+
 
         editText2.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if(!hasFocus)addon.setValue2(((EditText)v).getText().toString());
+                if (!hasFocus) addon.setValue2(((EditText) v).getText().toString());
             }
         });
+
 
         editText3.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if(!hasFocus)addon.setValue3(((EditText)v).getText().toString());
+                if (!hasFocus) addon.setValue3(((EditText) v).getText().toString());
             }
         });
+
 
         editText4.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if(!hasFocus)addon.setValue4(((EditText)v).getText().toString());
+                if (!hasFocus) addon.setValue4(((EditText) v).getText().toString());
             }
         });
 /*
@@ -123,33 +145,35 @@ public class MyInspection3Adapter extends BaseQuickAdapter<Polymorph<ProdSpecDet
             }
         });
 */
-s1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        switch (position){
-            default:
-            case 0:
-                addon.setValue1(FALSE_STR2);
-                break;
-            case 1:
-                addon.setValue1(TRUE_STR);
-                break;
-            case 2:
-                addon.setValue1(FALSE_STR);
-                break;
-        }
-    }
 
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-    }
-});
+        s1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    default:
+                    case 0:
+                        addon.setValue1(FALSE_STR2);
+                        break;
+                    case 1:
+                        addon.setValue1(TRUE_STR);
+                        break;
+                    case 2:
+                        addon.setValue1(FALSE_STR);
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
 
 
         s2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                switch (position){
+                switch (position) {
                     default:
                     case 0:
                         addon.setValue2(FALSE_STR2);
@@ -169,10 +193,11 @@ s1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             }
         });
 
+
         s3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                switch (position){
+                switch (position) {
                     default:
                     case 0:
                         addon.setValue3(FALSE_STR2);
@@ -192,10 +217,11 @@ s1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             }
         });
 
+
         s4.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                switch (position){
+                switch (position) {
                     default:
                     case 0:
                         addon.setValue4(FALSE_STR2);
@@ -309,7 +335,7 @@ s1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
     }
 
     public List<Polymorph<ProdSpecDetailsAddon, ItemVsSpecItemInfo>> createPolyList(List<ItemVsSpecItemInfo> infoList,
-                                                                                    String orderno, final EditText etNo1, final EditText etNo2, final EditText etNo3,final EditText etNo4,final EditText etNo5) {
+                                                                                    String orderno, final EditText etNo1, final EditText etNo2, final EditText etNo3, final EditText etNo4, final EditText etNo5) {
 
         final List<Polymorph<ProdSpecDetailsAddon, ItemVsSpecItemInfo>> polymorphList = new ArrayList<>();
         for (int index = 0; index < infoList.size(); index++) {

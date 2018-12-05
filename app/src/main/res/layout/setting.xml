@@ -49,6 +49,26 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="OData接口域："
+                android:textSize="24dp" />
+
+            <EditText
+                android:id="@+id/et2_odataDomain"
+                android:layout_width="500dp"
+                android:layout_height="wrap_content"
+                android:textSize="20dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="2"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="OData认证用户："
                 android:textSize="24dp" />
 
@@ -150,6 +170,16 @@
                 android:layout_centerVertical="true"
                 android:layout_weight="3"
                 android:text="        保存        "
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/btn_default"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_weight="1"
+                android:text="        默认        "
                 android:textSize="20sp" />
 
         </LinearLayout>

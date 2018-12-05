@@ -13,4 +13,5 @@ public class SharedPreferenceConstant {
     public static final String ODATA_PATH = "odataPath";
     public static final String ODATA_USERNAME = "odataUserName";
     public static final String ODATA_PASSWORD = "odataPassword";
+    public static final String ODATA_DOMAIN = "odataDomain";
 }

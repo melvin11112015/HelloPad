@@ -31,6 +31,7 @@ public class MyInspection1aAdapter extends BaseQuickAdapter<Polymorph<ProdConfir
 
     @Override
     protected void convert(BaseViewHolder helper, Polymorph<ProdConfirmBomItemsAddon, ItemVsBomInfo> item) {
+        // TODO: 2018/12/5 remove OnCheckedChangeListener firstly! viewholder可能因为为移除监听器出现数据错乱！
         helper.setText(R.id.tv2_item_inspection1_no,item.getAddonEntity().getIndex_No());
         helper.setText(R.id.tv2_item_inspection1_code, item.getAddonEntity().getCheck_Item_No());
         helper.setText(R.id.tv2_item_inspection1_name, item.getAddonEntity().getCheck_Item_Name());
@@ -38,6 +39,8 @@ public class MyInspection1aAdapter extends BaseQuickAdapter<Polymorph<ProdConfir
         helper.setText(R.id.tv2_item_inspection1_remark, item.getAddonEntity().getRemark());
 
         final ProdConfirmBomItemsAddon addon = item.getAddonEntity();
+
+        // TODO: 2018/12/5 remove OnCheckedChangeListener firstly! viewholder可能因为为移除监听器出现数据错乱！
 
         helper.setOnCheckedChangeListener(R.id.checkbox2_item_inspection1_confirm,new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -73,7 +76,6 @@ public class MyInspection1aAdapter extends BaseQuickAdapter<Polymorph<ProdConfir
     public List<Polymorph<ProdConfirmBomItemsAddon, ItemVsBomInfo>> createPolyList(List<ItemVsBomInfo> infoList,
                                                                                    int stepCode,
                                                                                    String orderno,
-                                                                                   final TextView tvDate,
                                                                                    final TextView tvstarttime,
                                                                                    final TextView tvendtime
                                                                                          ) {
@@ -118,9 +120,9 @@ public class MyInspection1aAdapter extends BaseQuickAdapter<Polymorph<ProdConfir
                         notifyDataSetChanged();
 
 
-                            tvDate.setText(DatetimeTool.convertOdataTimezone(info2.getStrat_Time(),DatetimeTool.TYPE_DATE,DatetimeTool.DEFAULT_ADJUST_TIMEZONE));
-                            tvstarttime.setText(DatetimeTool.convertOdataTimezone(info2.getStrat_Time(),DatetimeTool.TYPE_TIME,DatetimeTool.DEFAULT_ADJUST_TIMEZONE));
-                            tvendtime.setText(DatetimeTool.convertOdataTimezone(info2.getEnd_Time(),DatetimeTool.TYPE_TIME,DatetimeTool.DEFAULT_ADJUST_TIMEZONE));
+                        //tvDate.setText(DatetimeTool.convertOdataTimezone(info2.getStrat_Time(),DatetimeTool.TYPE_DATE,DatetimeTool.DEFAULT_ADJUST_TIMEZONE));
+                        tvstarttime.setText(DatetimeTool.convertOdataTimezone(info2.getStrat_Time(), DatetimeTool.TYPE_TIME, info2.getStrat_Time().contains("Z")));
+                        tvendtime.setText(DatetimeTool.convertOdataTimezone(info2.getEnd_Time(), DatetimeTool.TYPE_TIME, info2.getStrat_Time().contains("Z")));
 
                     }
                 }

@@ -16,6 +16,7 @@ import com.gki.v107.entity.WebProdOrderInfo;
 import com.netcosports.ntlm.NTLMAuthenticator;
 
 import java.io.IOException;
+import java.net.URI;
 import java.util.Map;
 
 import okhttp3.Call;
@@ -31,11 +32,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiTool {
 
-    public static final String DEFAULT_API_URL = "http://10.1.1.65:7048/DynamicsNAV71/OData/Company('GKI-Live')/";
-    public static String currentApiUrl = DEFAULT_API_URL;
+    public static final String DEFAULT_API_URL = "http://10.1.1.65:9048/NAS/OData/Company('GKI-Live')/";
+    public static final String DEFAULT_AUTH_NAME = "Navision";
+    public static final String DEFAULT_AUTH_PSW = "gkigki890";
+    public static final String DEFAULT_AUTH_DOMAIN = "GKICO";
 
-    public static String currentAuthName = "nav";
-    public static String currentAuthPsw = "Nav-123";
+    public static String currentApiUrl = DEFAULT_API_URL;
+    public static String currentAuthName = DEFAULT_AUTH_NAME;
+    public static String currentAuthPsw = DEFAULT_AUTH_PSW;
+    public static String currentAuthDomain = DEFAULT_AUTH_DOMAIN;
 
     private ApiTool() {
     }
@@ -68,13 +73,15 @@ public class ApiTool {
         call.enqueue(callback);
     }
 
+    private static String responseDate;
+
     private static Retrofit getRetrofit() {
         HttpUrl url = HttpUrl.parse(currentApiUrl);
         return new Retrofit.Builder()
                 .baseUrl(url)
                 .client(new OkHttpClient.Builder()
                         //NTLM认证方式
-                        .authenticator(new NTLMAuthenticator(currentAuthName,currentAuthPsw,null))
+                        .authenticator(new NTLMAuthenticator(currentAuthName, currentAuthPsw, currentAuthDomain))
                         .addInterceptor(new HttpLoggingInterceptor()
                                 .setLevel(HttpLoggingInterceptor.Level.BODY))
                         .addInterceptor(new Interceptor() {
@@ -83,10 +90,12 @@ public class ApiTool {
                                 Request original = chain.request();
 
                                 Request request = original.newBuilder()
-                                        //.addHeader("Authorization", DEFAULT_AUTHORIZATION)
                                         .method(original.method(), original.body())
                                         .build();
-                                return chain.proceed(request);
+
+                                Response response = chain.proceed(request);
+                                responseDate = response.header("Date");
+                                return response;
                             }
                         })
                         .build())
@@ -94,6 +103,19 @@ public class ApiTool {
                 .build();
     }
 
+    private static URI getIP(URI uri) {
+        URI effectiveURI = null;
+
+        try {
+            // URI(String scheme, String userInfo, String host, int port, String
+            // path, String query,String fragment)
+            effectiveURI = new URI(null, null, uri.getHost(), uri.getPort(), null, null, null);
+        } catch (Throwable var4) {
+            effectiveURI = null;
+        }
+
+        return effectiveURI;
+    }
 
     public static void callWebPordOrderComp(String filter, Callback<GenericResult<WebPordOrderCompInfo>> callback) {
         getRetrofit()

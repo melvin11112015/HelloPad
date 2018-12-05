@@ -188,6 +188,7 @@ public class Main extends BaseActivity {
         ApiTool.currentApiUrl = SharedPreferencesUtils.getParam(this, SharedPreferenceConstant.ODATA_PATH, ApiTool.currentApiUrl).toString();
         ApiTool.currentAuthName = SharedPreferencesUtils.getParam(this, SharedPreferenceConstant.ODATA_USERNAME, ApiTool.currentAuthName).toString();
         ApiTool.currentAuthPsw = SharedPreferencesUtils.getParam(this, SharedPreferenceConstant.ODATA_PASSWORD, ApiTool.currentAuthPsw).toString();
+        ApiTool.currentAuthDomain = SharedPreferencesUtils.getParam(this, SharedPreferenceConstant.ODATA_DOMAIN, ApiTool.currentAuthDomain).toString();
         //获取最新版本情况
         new UpgradeManager(Main.this);
 
@@ -199,7 +200,7 @@ public class Main extends BaseActivity {
         txtUsername = (EditText) findViewById(R.id.et_username);
         txtPassword = (EditText) findViewById(R.id.et_password);
         chk_savePswd = (CheckBox) findViewById(R.id.chk_savePswd);
-        ((TextView) findViewById(R.id.tv_version)).setText("V" + AppContants.Version);
+        ((TextView) findViewById(R.id.tv_version)).setText("V" + AppContants.packageVersionName(Main.this));
         btnCancel.setOnClickListener(new MyListener());
         btnLogin.setOnClickListener(new MyListener());
         btnSetup.setOnClickListener(new MyListener());

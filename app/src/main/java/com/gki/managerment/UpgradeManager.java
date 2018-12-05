@@ -1,7 +1,6 @@
 package com.gki.managerment;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -11,7 +10,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.Process;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +18,6 @@ import android.widget.ProgressBar;
 import com.gki.managerment.http.AppContants;
 import com.gki.managerment.http.Service.getService;
 import com.gki.managerment.util.StringUtils;
-import com.gki.managerment.util.UnZipUtil;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -96,7 +93,7 @@ public class UpgradeManager {
     private class GetNewVersion extends AsyncTask<String, Integer, String> {
         @Override
         protected String doInBackground(String... params) {
-            return getService.GetNewVersion(AppContants.Version);
+            return getService.GetNewVersion(AppContants.packageVersionName(mContext));
         }
 
         @SuppressLint("NewApi")
