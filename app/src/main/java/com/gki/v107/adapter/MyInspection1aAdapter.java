@@ -31,7 +31,9 @@ public class MyInspection1aAdapter extends BaseQuickAdapter<Polymorph<ProdConfir
 
     @Override
     protected void convert(BaseViewHolder helper, Polymorph<ProdConfirmBomItemsAddon, ItemVsBomInfo> item) {
-        // TODO: 2018/12/5 remove OnCheckedChangeListener firstly! viewholder可能因为为移除监听器出现数据错乱！
+        // remove OnCheckedChangeListener firstly! viewholder可能因为未移除监听器出现数据错乱！
+        helper.setOnCheckedChangeListener(R.id.checkbox2_item_inspection1_confirm, null);
+
         helper.setText(R.id.tv2_item_inspection1_no,item.getAddonEntity().getIndex_No());
         helper.setText(R.id.tv2_item_inspection1_code, item.getAddonEntity().getCheck_Item_No());
         helper.setText(R.id.tv2_item_inspection1_name, item.getAddonEntity().getCheck_Item_Name());
@@ -40,7 +42,7 @@ public class MyInspection1aAdapter extends BaseQuickAdapter<Polymorph<ProdConfir
 
         final ProdConfirmBomItemsAddon addon = item.getAddonEntity();
 
-        // TODO: 2018/12/5 remove OnCheckedChangeListener firstly! viewholder可能因为为移除监听器出现数据错乱！
+        // remove OnCheckedChangeListener firstly! viewholder可能因为未移除监听器出现数据错乱！
 
         helper.setOnCheckedChangeListener(R.id.checkbox2_item_inspection1_confirm,new CompoundButton.OnCheckedChangeListener() {
             @Override
