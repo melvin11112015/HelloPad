@@ -116,10 +116,12 @@ public class InspectConfirm1Fragment extends Fragment implements FragmentInterac
             ToastUtil.show(getContext(),"没有提交数据");
             return;
         }
+        /*
         if(tvstarttime.getText().toString().compareTo(tvendtime.getText().toString())>0){
             ToastUtil.show(getContext(),"始业时不能大于终业时");
             return;
         }
+        */
 
         progressBar.setVisibility(View.VISIBLE);
 
