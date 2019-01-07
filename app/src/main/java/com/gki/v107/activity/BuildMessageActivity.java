@@ -131,7 +131,7 @@ public class BuildMessageActivity extends AppCompatActivity {
                 String msg4 = editText4.getText().toString().trim();
                 String msg5 = editText5.getText().toString().trim();
                 String msg6 = editText6.getText().toString().trim();
-                String prodDatetime = tvProdDate.getText().toString().trim() + "T00:00:00";
+                String prodDatetime = tvProdDate.getText().toString().trim() + "T00:00:00+08:00";
 
                 if (msg.isEmpty() && msg2.isEmpty() && msg3.isEmpty() && msg4.isEmpty() && msg5.isEmpty() && msg6.isEmpty()) {
                     ToastUtil.show(BuildMessageActivity.this, "请输入留言消息");

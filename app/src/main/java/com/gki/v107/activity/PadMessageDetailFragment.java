@@ -65,7 +65,7 @@ public class PadMessageDetailFragment extends Fragment {
             ((TextView) rootView.findViewById(R.id.padmessage_detail5)).setText(mItem.getMsg5());
             ((TextView) rootView.findViewById(R.id.padmessage_detail6)).setText(mItem.getMsg6());
             ((TextView) rootView.findViewById(R.id.tv2_message_frag_name)).setText(mItem.getCreate_User());
-            ((TextView) rootView.findViewById(R.id.tv2_message_frag_time)).setText(DatetimeTool.convertOdataTimezone(mItem.getCreate_DateTime(), DatetimeTool.TYPE_DATETIME, false));
+            ((TextView) rootView.findViewById(R.id.tv2_message_frag_time)).setText(DatetimeTool.convertOdataTimezone(mItem.getCreate_DateTime(), DatetimeTool.TYPE_DATETIME, mItem.getCreate_DateTime().contains("Z")));
 
             Button buttonEdit = (Button) rootView.findViewById(R.id.button2_message_frag_edit);
 
