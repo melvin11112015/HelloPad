@@ -14,7 +14,15 @@ public class DatetimeTool {
 
     public static final boolean DEFAULT_ADJUST_TIMEZONE = false;
 
-    public static String convertOdataTimezone(String odataDatetimeStr, int requestType,boolean canAdjustTimeZone){
+    /**
+     * 时区调整和时间格式化
+     *
+     * @param odataDatetimeStr  从接口接收的时间
+     * @param requestType       转换类型
+     * @param canAdjustTimeZone 是否调整时区
+     * @return 根据转换类型返回的格式化时间
+     */
+    public static String convertOdataTimezone(String odataDatetimeStr, int requestType, boolean canAdjustTimeZone){
 
         odataDatetimeStr = odataDatetimeStr.replace("T", " ");
         odataDatetimeStr = odataDatetimeStr.replace("Z", "");

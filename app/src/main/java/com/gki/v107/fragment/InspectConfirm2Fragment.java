@@ -33,9 +33,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link InspectConfirm2Fragment#newInstance} factory method to
- * create an instance of this fragment.
+ * 初中回确认2
  */
 public class InspectConfirm2Fragment extends Fragment implements FragmentInteractionInterface {
 

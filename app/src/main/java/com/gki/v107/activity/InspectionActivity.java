@@ -38,6 +38,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+/**
+ * 检查确认
+ */
+
 public class InspectionActivity extends AppCompatActivity implements View.OnClickListener {
 
 
@@ -87,6 +91,9 @@ public class InspectionActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
+    /**
+     * 检查生产单号
+     */
     private void doCheck() {
 
         if (etOrderno.getText().toString().trim().isEmpty()) {
@@ -130,6 +137,9 @@ public class InspectionActivity extends AppCompatActivity implements View.OnClic
         //new GetByDocumentNoTask().execute(etOrderno.getText().toString());
     }
 
+    /**
+     * 同时提交
+     */
     private void doSubmit() {
 
         for (Fragment f : fragmentList)

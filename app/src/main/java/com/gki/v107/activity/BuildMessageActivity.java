@@ -30,6 +30,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * 创建交接班留言
+ */
+
 public class BuildMessageActivity extends AppCompatActivity {
 
     private EditText editText1, editText2, editText3, editText4, editText5, editText6;
@@ -95,7 +99,6 @@ public class BuildMessageActivity extends AppCompatActivity {
 
         currentProdline = getIntent().getStringExtra("prodline");
         if (currentProdline == null) currentProdline = LoginUser.getUser().Prod_Line;
-
 
 
         tvProdDate.setOnClickListener(new View.OnClickListener() {
