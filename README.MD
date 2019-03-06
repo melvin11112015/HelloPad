@@ -1,5 +1,9 @@
 ### GKI PAD 项目
 
+## Module
+app 项目主要代码
+slideDateTimePicker 日期选择类库
+
 ## 目录结构
 └─com
       └─gki
